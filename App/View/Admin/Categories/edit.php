@@ -1,4 +1,4 @@
-   <?php include('View/Admin/Layouts/master.php') ?>
+   <?php include('App/Admin/Layouts/master.php') ?>
    <div class="main-panel">
        <form action="" method="POST" role="form" enctype="multipart/form-data">
 
@@ -32,5 +32,5 @@
    </div>
    </div>
    <?php
-    include('View/Admin/Layouts/footer.php');
+    include('App/Admin/Layouts/footer.php');
     ?>

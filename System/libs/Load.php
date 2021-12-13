@@ -6,12 +6,13 @@ class Load
     }
     public function view($filename, $data = false)
     {
-        if ($data == false) {
-            extract($filename, $data);
+        if ($data == true) {
+            extract($data);
         }
         // include('App/View/Home/' . $filename . '.php');
-        // include('App/View/' . $filename . '.php');
-        include('App/View/Admin/List-admin/' . $filename . '.php');
+        include('App/View/' . $filename . '.php');
+        // include('App/View/Admin/List' . $filename . '.php');
+
     }
 
     public function model($filename)

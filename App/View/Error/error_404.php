@@ -12,7 +12,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Anton|Passion+One|PT+Sans+Caption' rel='stylesheet'
         type='text/css'>
-    <link rel="stylesheet" href="View/error/css/404.css">
+    <link rel="stylesheet" href="App/View/Error/css/404.css">
 </head>
 
 <body>
@@ -48,7 +48,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="View/error/js/404.js"></script>
+    <script type="text/javascript" src="App/View/Error/js/404.js"></script>
 </body>
 
 </html>

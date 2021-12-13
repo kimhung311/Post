@@ -1,2 +1,2 @@
 <?php
-define('BASE_URL', 'http://localhost/Post/?url=admin/');
+define('BASE_URL', 'http://localhost/Post/?url=');

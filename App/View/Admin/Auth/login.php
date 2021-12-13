@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login 10</title>
+    <title>Login Admin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,6 +18,7 @@
 </head>
 
 <body class="img js-fullheight" style="background-image: url(Public/Admin-ate/login/images/bg.jpg);">
+
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -25,7 +26,7 @@
                     <h2 class="heading-section">Login #10</h2>
                 </div>
             </div>
-            <form action="" method="post" role="form" enctype="multipart/form">
+            <form autocomplete="off" action="<?php echo BASE_URL ?>login/authentication" method="POST" role="form">
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4">
                         <div class="login-wrap p-0">
@@ -42,7 +43,7 @@
                                         class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="action" value="submit"
+                                    <button type="submit" name="authentication"
                                         class="form-control btn btn-primary submit px-3" id="submit-insert">Sign
                                         In</button>
                                 </div>
@@ -74,6 +75,7 @@
 
         </div>
     </section>
+
     <script type="text/javascript">
     $('#submit-insert').on('click', function() {
         var email = $('#email').val();
