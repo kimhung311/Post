@@ -21,7 +21,7 @@ class admin extends DController
         // die();
         $data['user'] = $homemodel->admin($user);
 
-        $this->load->view('index', $data);
+        $this->load->view('Admin/List-admin/index', $data);
     }
     public function notfound()
     {

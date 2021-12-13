@@ -1,4 +1,4 @@
-<?php include('View/Admin/Layouts/master.php');
+<?php include('App/View/Admin/Layouts/master.php');
 ?>
 <div class="main-panel">
     <h1 class="text-center">List of categories
@@ -9,7 +9,11 @@
             </a>
         </div>
     </h1>
-
+    <?php
+    if (isset($message)) {
+        echo '<span style="color=green">' . $message . '</span>';
+    }
+    ?>
     <table class="table table-light table-bordered table-hover">
         <thead class="thead-light">
             <tr>
@@ -40,5 +44,5 @@
 </div>
 </div>
 </div> <?php
-        include('View/Admin/Layouts/footer.php');
+        include('App/View/Admin/Layouts/footer.php');
         ?>
