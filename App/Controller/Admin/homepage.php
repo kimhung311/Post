@@ -1,5 +1,5 @@
 <?php
-class index extends DController
+class homepage extends DController
 {
     public function __construct()
     {
@@ -10,10 +10,8 @@ class index extends DController
     {
         // var_dump(11);
         $homemodel = $this->load->model('homemodel');
-        $posts = 'posts';
-        $data['post'] = $homemodel->post($posts);
-        $this->load->view('Home',$data);
+        $categories = 'categories';
+        $data['categories'] = $homemodel->category($categories);
+        $this->load->view('Home/Home', $data);
     }
-
-    
 }

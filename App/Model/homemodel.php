@@ -5,13 +5,24 @@ class homemodel extends DModel
     {
         parent::__construct();
     }
+
+    public function category($categories)
+    {
+        $sql = "SELECT * FROM $categories";
+        return $this->db->select($sql); // truyền tham số table vào select()
+    }
+
+
     public function post($posts)
     {
-        return $this->db->select($posts); // truyền tham số table vào select()
+        $sql = "SELECT * FROM $posts";
+        return $this->db->select($sql); 
     }
-    public function admin($user)
+
+
+    public function user($user)
     {
         $sql = "SELECT * FROM $user";
-        return $this->db->select($sql); // truyền tham số table vào select()
+        return $this->db->select($sql); 
     }
 }

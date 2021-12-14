@@ -55,4 +55,17 @@ class Database extends PDO
         $sql = "DELETE FROM $table WHERE $cond LIMIT $limit";
         return $this->exec($sql);
     }
+
+    public function affectedRows($sql, $email, $password){
+        $statement = $this->prepare($sql);
+        $statement->execute(array($email, $password));
+        return $statement->rowCount(); 
+    }
+
+    public function selectadmin($sql, $email, $password){
+        $statement = $this->prepare($sql);
+        $statement->execute(array($email, $password));
+        return  $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 }
