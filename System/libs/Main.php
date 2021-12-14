@@ -2,8 +2,8 @@
 class Main
 {
     public $url;
-    public $controllerName = 'admin';
-    public $methobName = 'admin';
+    public $controllerName = 'login';
+    public $methobName = 'index';
     public $controllerPath = 'App/Controller/Admin/';
     public $controller;
 
@@ -29,10 +29,10 @@ class Main
     }
     public function loadController()
     { // check thư mục là class bên trong
-        if (!isset($this->url[0])) {
+        if (!isset($this->url[0])) { // nếu người dùng ko truyền url vào thì mặc định nó sẽ chạy   và ngược lại
             include $this->controllerPath . $this->controllerName . '.php';
             $this->controller = new $this->controllerName();
-            $admin = new admin();
+            $login = new login();   //khởi tạo  đên login
         } else {
             $this->controllerName = $this->url[0];
             $fileName = $this->controllerPath . $this->controllerName . '.php';
@@ -53,7 +53,7 @@ class Main
             if (method_exists($this->controller, $this->methobName)) { // kiểm tra sự tổn tại của 1 hàm 
                 $this->controller->{$this->methobName}($this->url[2]);
             } else { //nếu ko tồn tại hàm
-                header("Location:" . BASE_URL . "notfound");
+                header("Location:" . BASE_URL . "admin/notfound");
             }
         } else {
             if (isset($this->url[1])) { // kiểm tra sự tổn tại của 1 hàm 
@@ -61,13 +61,13 @@ class Main
                 if (method_exists($this->controller, $this->methobName)) {
                     $this->controller->{$this->methobName}();
                 } else {
-                    header("Location:" . BASE_URL . "notfound");
+                    header("Location:" . BASE_URL . "admin/notfound");
                 }
             } else { //nếu ko tồn tại hàm
                 if (method_exists($this->controller, $this->methobName)) {
                     $this->controller->{$this->methobName}();
                 } else {
-                    header("Location:" . BASE_URL . "notfound");
+                    header("Location:" . BASE_URL . "admin/notfound");
                 }
             }
         }

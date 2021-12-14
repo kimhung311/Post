@@ -3,7 +3,8 @@
 <div class="main-panel">
     <h1 class="text-center">List of categories
         <div class="row">
-            <a href="?controller=category&action=add" class="btn btn-info"><i class=" fa fa-calendar-plus fa-5x"></i>
+            <a href="<?php echo BASE_URL ?>category/addcategory" class="btn btn-info"><i
+                    class=" fa fa-calendar-plus fa-5x"></i>
                 ADD
                 NEW
             </a>
@@ -32,9 +33,9 @@
                 <td><?php echo $category['paren_id']; ?></td>
                 <td><?php echo $category['user_id']; ?></td>
                 <td>
-                    <a href="?controller=category&action=edit&id=<?php echo $category['id'] ?>"
+                    <a href="<?php echo BASE_URL ?>category/editcate/<?php echo $category['id'] ?>"
                         class="btn btn-primary">Edit</a>
-                    <a href="?controller=category&action=delete&id=<?php echo $category['id'] ?>"
+                    <a href="<?php echo BASE_URL ?>category/deletecate/<?php echo $category['id'] ?>"
                         class="btn btn-danger">Del</a>
                 </td>
             </tr>

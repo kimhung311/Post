@@ -1,6 +1,10 @@
-   <?php include('App/Admin/Layouts/master.php') ?>
+   <?php include('App/View/Admin/Layouts/master.php') ?>
    <div class="main-panel">
-       <form action="" method="POST" role="form" enctype="multipart/form-data">
+       <?php
+        foreach ($categorybyid as $category) :
+        ?>
+       <form action="<?php echo BASE_URL ?>category/updatecategory/<?php echo $category['id'] ?>" method="POST"
+           role="form" enctype="multipart/form-data">
 
            <h1>
                <legend class="text-center">Edit category</legend>
@@ -20,17 +24,31 @@
                    <label class="input-group-text" for="inputGroupSelect01">Slected</label>
                </div>
                <select class="custom-select" id="inputGroupSelect01" name="paren_id">
-                   <?php foreach ($categories as $key => $value) : ?>
+                   <?php foreach ($categorybyid as $key => $value) : ?>
                    <option value="<?php echo $value['id'] ?>">
                        <?php echo $value['id'] ?></option>
                    <?php endforeach; ?>
                </select>
            </div>
-           <button type="submit" name="action" value="save" class="btn btn-primary">SAVE</button>
+
+           <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                   <label class="input-group-text" for="inputGroupSelect01">Slected</label>
+               </div>
+               <select class="custom-select" id="inputGroupSelect01" name="user_id">
+                   <?php foreach ($user as $key => $value) : ?>
+                   <option value="<?php echo $value['id'] ?>">
+                       <?php echo $value['name'] ?></option>
+                   <?php endforeach; ?>
+               </select>
+           </div>
+
+           <button type="submit" name="updatecategory" class="btn btn-primary">SAVE</button>
        </form>
+       <?php endforeach; ?>
    </div>
    </div>
    </div>
    <?php
-    include('App/Admin/Layouts/footer.php');
+    include('App/View/Admin/Layouts/footer.php');
     ?>

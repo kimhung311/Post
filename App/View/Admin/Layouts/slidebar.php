@@ -148,7 +148,7 @@
                          <p class="text-black">Notification</p>
                      </div>
                      <ul class="mt-4 pl-0">
-                         <li><a href="?controller=admin&action=logout">Sign Out</a></li>
+                         <li><a href="<?php echo BASE_URL ?>login/logout">Sign Out</a></li>
 
                      </ul>
                  </div>

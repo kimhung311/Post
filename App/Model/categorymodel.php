@@ -12,16 +12,15 @@ class categorymodel extends DModel
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
-    public function categorybyid($categories, $id)
-    {
-        $sql = "SELECT * FROM $categories WHERE id = :id ";
-        $data = array(':id' => $id);
-        return $this->db->select($sql, $data);
-    }
-
     public function insertcategory($categories, $data)
     {
         return $this->db->insert($categories, $data);
+    }
+
+    public function categorybyid($category, $cond)
+    {
+        $sql = "SELECT * FROM $category WHERE $cond ";
+        return $this->db->select($sql);
     }
 
     public function updatecategory($table, $data, $cond)

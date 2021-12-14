@@ -26,6 +26,11 @@
                     <h2 class="heading-section">Login #10</h2>
                 </div>
             </div>
+            <?php 
+                if(isset($msg)){
+                    echo '<span style="color:red;">'.$msg.'</span>';
+                }
+            ?>
             <form autocomplete="off" action="<?php echo BASE_URL ?>login/authentication" method="POST" role="form">
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4">
