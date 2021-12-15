@@ -10,20 +10,19 @@ class admin extends DController
 
     public function index()
     {
-        // Session::checkSession();
+        // Session::checkSessionAuth();
 
         $this->homeadmin();
     }
     public function homeadmin()
     {
-        // Session::checkSession();
+        // Session::checkSessionAuth();
         // $homemodel = $this->load->model('homemodel');
         // $user = 'user';
         // $data['user'] = $homemodel->admin($user);
 
         // $this->load->view('Admin/List-admin/index', $data);
         $this->load->view('Admin/List-admin/index');
-
     }
     public function notfound()
     {

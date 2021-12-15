@@ -58,7 +58,7 @@ class category extends DController
                 'user_id' => $user_id
             );
             $result = $categorymodel->insertcategory($categories, $data);
-            echo "insertcategory successfully";
+            var_dump($result);
             if ($result == 1) {
                 $message['msg'] = 'Thêm dữ liệu thành công';
             } else {
@@ -114,7 +114,7 @@ class category extends DController
             echo "Lỗi";
         }
     }
-    
+
     public function deletecate($id)
     {
         $categorymodel = $this->load->model('categorymodel');

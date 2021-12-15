@@ -2,7 +2,6 @@
 class Session
 {
 
-
     public static function init()
     {  // khởi tạo session
         session_start();
@@ -23,14 +22,15 @@ class Session
         }
     }
 
-    public static function checkSession()
+    public static function checkSessionAuth()
     {
         self::init();
         if (self::get('login/login') == false) {
             self::destroy();
-            header("Location:" . BASE_URL . "login/login");
-        } else {
+            return true;
         }
+
+        header("Location:" . BASE_URL . "admin/index");
     }
 
     public static function destroy()
@@ -39,7 +39,7 @@ class Session
     }
 
     public static function unset($key)
-    { //
+    {
         session_unset($key);
     }
 }

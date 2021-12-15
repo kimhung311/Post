@@ -10,11 +10,7 @@
             </a>
         </div>
     </h1>
-    <?php
-    if (isset($message)) {
-        echo '<span style="color=green">' . $message . '</span>';
-    }
-    ?>
+
     <table class="table table-light table-bordered table-hover">
         <thead class="thead-light">
             <tr>
@@ -34,9 +30,10 @@
                 <td><?php echo $category['user_id']; ?></td>
                 <td>
                     <a href="<?php echo BASE_URL ?>category/editcate/<?php echo $category['id'] ?>"
-                        class="btn btn-primary">Edit</a>
+                        class="btn btn-primary"
+                        onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $category['id'] ?>')">Edit</a>
                     <a href="<?php echo BASE_URL ?>category/deletecate/<?php echo $category['id'] ?>"
-                        class="btn btn-danger">Del</a>
+                        class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Del</a>
                 </td>
             </tr>
             <?php endforeach; ?>

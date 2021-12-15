@@ -10,17 +10,27 @@ class login extends DController
 
     public function index()
     {
-        Session::checkSession();
+        // var_dump(Session::checkSessionAuth());
+        // die();
+        Session::checkSessionAuth();
         $this->login();
     }
-    
+
     public function login()
     {
-        Session::checkSession();
-        if(Session::get('login/login') == true){
-            header("Location:" . BASE_URL . "login/dashboard");
+        // var_dump(Session::checkSessionAuth());
+        // die();
+        try {
+            Session::checkSessionAuth();
+            if (Session::get('login/login') == true) {
+                header("Location:" . BASE_URL . "login/dashboard");
+            }
+
+            $this->load->view('Admin/Auth/login');
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
         }
-        $this->load->view('Admin/Auth/login');
     }
 
     public function authentication()
@@ -53,7 +63,7 @@ class login extends DController
 
     public function dashboard()
     {
-        Session::checkSession();
+        Session::checkSessionAuth();
         $this->load->view("Admin/List-admin/index");
     }
 
