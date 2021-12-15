@@ -6,7 +6,7 @@
           class="text-center">
           <div class="form-group">
               <label for="">Name</label>
-              <input type="text" name="name" class="form-control" placeholder="Enter category name">
+              <input type="text" name="category_name" class="form-control" placeholder="Enter category name">
           </div>
           <div class="input-group mb-3">
               <div class="input-group-prepend">

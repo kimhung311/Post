@@ -12,7 +12,7 @@
             }
         }
         ?>
-      <form action="<?php echo BASE_URL ?>post/insert_post" method="POST" role="form" enctype="multipart/form"
+      <form action="<?php echo BASE_URL ?>post/insert_post" method="POST" role="form" enctype="multipart/form-data"
           style="width:700px;margin:auto;">
           <div class="form-group">
               <label for="">Name</label>

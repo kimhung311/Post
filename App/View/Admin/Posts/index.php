@@ -19,6 +19,9 @@
                 <th>Category_id</th>
                 <th>User_id</th>
                 <th>Title</th>
+                <th>Picture</th>
+                <th>Image_detail</th>
+
                 <th>Action</th>
                 <?php
                 if (!empty($_GET['msg'])) {
@@ -38,11 +41,18 @@
             <tr>
                 <td><?php echo $value['id'] ?></td>
                 <td><?php echo $value['name'] ?></td>
-                <td><?php echo $value['category_id'] ?></td>
+                <td><?php echo $value['category_name'] ?></td>
                 <td><?php echo $value['user_id'] ?></td>
-                <td><?php echo $value['title'] ?></td>
                 <td>
-                    <a href="<?php echo BASE_URL ?>post/editpost/<?php echo $value['id'] ?>"
+                    <img src="<?php echo BASE_URL ?>Public/Image-post/<?php echo $value['picture'] ?>"
+                        alt="<?php echo $value['picture'] ?>">
+                </td>
+                <td>
+                    <img src="Public/image-post-detail/<?php echo $value['image_detail'] ?>"
+                        alt="<?php echo $value['image_detail'] ?>">
+                </td>
+                <td>
+                    <a href=" <?php echo BASE_URL ?>post/editpost/<?php echo $value['id'] ?>"
                         class="btn btn-primary">Edit</a>
                     <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['id'] ?>" class="btn btn-danger"
                         onclick="return confirm('Are you sure you want to delete this')">Del</a>

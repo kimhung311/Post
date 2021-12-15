@@ -14,8 +14,8 @@
                <input name="id" type="hidden" value="<?php echo $category['id'] ?>" placeholder="" class="form-control"
                    id="" placeholder="Input field" readonly>
                <label for="">Category Name </label>
-               <input name="name" type="text" value="<?php echo $category['name'] ?> " class="form-control" id=""
-                   placeholder="Input field">
+               <input name="name" type="text" value="<?php echo $category['category_name'] ?> " class="form-control"
+                   id="" placeholder="Input field">
            </div>
 
            <label for="">Paren_id</label>

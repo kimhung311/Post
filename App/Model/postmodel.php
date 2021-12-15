@@ -6,7 +6,13 @@ class postmodel extends DModel
         parent::__construct();
     }
 
-    public function post($posts)
+    public function post($posts, $categories)
+    {
+        $sql = "SELECT * FROM $posts, $categories WHERE  $posts.category_id=$categories.id ORDER BY $posts.category_id DESC";
+        return $this->db->select($sql); // truyền tham số table vào select()
+    }
+
+    public function list_post($posts)
     {
         $sql = "SELECT * FROM $posts";
         return $this->db->select($sql); // truyền tham số table vào select()

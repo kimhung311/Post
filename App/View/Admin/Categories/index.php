@@ -15,7 +15,7 @@
         <thead class="thead-light">
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>category_name</th>
                 <th>Parent_Id</th>
                 <th>User_Id</th>
                 <th>Action</th>
@@ -25,7 +25,7 @@
             <?php foreach ($categories as $key => $category) : ?>
             <tr>
                 <td><?php echo $category['id']; ?></td>
-                <td><?php echo $category['name']; ?></td>
+                <td><?php echo $category['category_name']; ?></td>
                 <td><?php echo $category['paren_id']; ?></td>
                 <td><?php echo $category['user_id']; ?></td>
                 <td>

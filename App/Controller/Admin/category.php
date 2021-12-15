@@ -48,12 +48,12 @@ class category extends DController
 
             $categorymodel = $this->load->model('categorymodel');
             $categories = 'categories';
-            $name = $_POST['name'];
+            $category_name = $_POST['category_name'];
             $paren_id = $_POST['paren_id'];
             $user_id = $_POST['user_id'];
 
             $data = array(
-                'name' => $name,
+                'category_name' => $category_name,
                 'paren_id' => $paren_id,
                 'user_id' => $user_id
             );
@@ -94,12 +94,12 @@ class category extends DController
         $table = 'categories';
         $cond = "id='$id'";
 
-        $name = $_POST['name'];
+        $category_name = $_POST['category_name'];
         $paren_id = $_POST['paren_id'];
         $user_id = $_POST['user_id'];
 
         $data = array(
-            'name' => $name,
+            'category_name' => $category_name,
             'paren_id' => $paren_id,
             'user_id' =>  $user_id
         );
