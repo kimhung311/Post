@@ -18,8 +18,7 @@ class login extends DController
 
     public function login()
     {
-        // var_dump(Session::checkSessionAuth());
-        // die();
+   
         try {
             Session::checkSessionAuth();
             if (Session::get('login/login') == true) {
@@ -70,7 +69,8 @@ class login extends DController
     public function logout()
     {
         Session::init();
-        Session::destroy();
+        // Session::destroy();
+        unset($_SESSION['login/login']);
         header("Location:" . BASE_URL . "login/index");
     }
 }

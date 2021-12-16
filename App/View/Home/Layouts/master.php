@@ -26,11 +26,10 @@
 
     </header>
     <!-- Start footer -->
-    <footer class="footer">
-        <?php
+
+    <?php
         // include('View/Home/Layouts/footer.php');
         ?>
-    </footer>
     <!-- End Footer -->
 </body>
 <?php include('App/View/Home/Layouts/js.php') ?>

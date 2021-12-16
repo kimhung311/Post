@@ -1,4 +1,3 @@
-<?php include('App/View/Home/Layouts/master.php'); ?>
 <section class="home">
     <div class="container">
         <div class="row">
@@ -978,3 +977,6 @@
         </div>
     </div>
 </section>
+<?php
+include('App/View/Home/Layouts/footer.php');
+?>

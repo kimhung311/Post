@@ -1,6 +1,8 @@
 <?php
-class postmodel extends DModel
+class PostModel extends DModel
 {
+    const POST_TABLE = 'posts';
+
     public function __construct()
     {
         parent::__construct();
@@ -8,7 +10,7 @@ class postmodel extends DModel
 
     public function post($posts, $categories)
     {
-        $sql = "SELECT * FROM $posts, $categories WHERE  $posts.category_id=$categories.id ORDER BY $posts.category_id DESC";
+        $sql = "SELECT *, $posts.id as 'posts_id' FROM $posts, $categories WHERE  $posts.category_id=$categories.id ";
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
@@ -25,7 +27,7 @@ class postmodel extends DModel
 
     public function postbyid($posts, $cond)
     {
-        $sql = "SELECT * FROM $posts WHERE id = :id ";
+        $sql = "SELECT * FROM $posts WHERE $cond ";
         return $this->db->select($sql);
     }
 
