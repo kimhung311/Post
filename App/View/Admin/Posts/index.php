@@ -39,23 +39,26 @@
         <tbody>
             <?php foreach ($posts as $key => $value) : ?>
             <tr>
-                <td><?php echo $value['id'] ?></td>
+                <td><?php echo $value['posts_id'] ?></td>
                 <td><?php echo $value['name'] ?></td>
                 <td><?php echo $value['category_name'] ?></td>
                 <td><?php echo $value['user_id'] ?></td>
+                <td><?php echo $value['title'] ?></td>
+
                 <td>
-                    <img src="<?php echo BASE_URL ?>Public/Image-post/<?php echo $value['picture'] ?>"
-                        alt="<?php echo $value['picture'] ?>">
+                    <img src="<?php echo URL_IMAGE_POST . $value['picture'] ?>" alt="<?php echo $value['picture'] ?>">
                 </td>
                 <td>
-                    <img src="Public/image-post-detail/<?php echo $value['image_detail'] ?>"
+                    <img src="<?php echo URL_IMAGE_POST_DETAIL . $value['image_detail'] ?>"
                         alt="<?php echo $value['image_detail'] ?>">
                 </td>
+
                 <td>
-                    <a href=" <?php echo BASE_URL ?>post/editpost/<?php echo $value['id'] ?>"
-                        class="btn btn-primary">Edit</a>
-                    <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['id'] ?>" class="btn btn-danger"
-                        onclick="return confirm('Are you sure you want to delete this')">Del</a>
+                    <a href="<?php echo BASE_URL ?>post/editpost/<?php echo $value['posts_id'] ?>"
+                        class="btn btn-primary"
+                        onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $value['posts_id'] ?>')">Edit</a>
+                    <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['posts_id'] ?>"
+                        class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this:')">Del</a>
                 </td>
             </tr>
             <?php endforeach; ?>

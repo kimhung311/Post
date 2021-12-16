@@ -1,5 +1,5 @@
 <?php
-class categorymodel extends DModel
+class CategoryModel extends DModel
 {
     public function __construct()
     {
@@ -23,13 +23,13 @@ class categorymodel extends DModel
         return $this->db->select($sql);
     }
 
-    public function updatecategory($table, $data, $cond)
+    public function updatecategory($categories, $data, $cond)
     {
-        return $this->db->update($table, $data, $cond);
+        return $this->db->update($categories, $data, $cond);
     }
 
-    public function deletecategory($table, $cond)
+    public function deletecategory($posts, $cond)
     {
-        return $this->db->delete($table, $cond);
+        return $this->db->delete($posts, $cond);
     }
 }
