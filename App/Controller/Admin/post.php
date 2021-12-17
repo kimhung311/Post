@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 class post extends DController
 {
     private $categoryModel;
@@ -83,15 +85,14 @@ class post extends DController
             );
             $result = $this->postModel->insertpost($this->postTable, $data);
 
+         
             if ($result == 1) {
-                // $pathpic = $_SERVER['DOCUMENT_ROOT'] . '/Shop_go/images/' . $picture;
                 move_uploaded_file($tmp_image, $path_upload);
                 move_uploaded_file($tmp_detail, $path_uploads);
-                $message['msg'] = 'Thêm dữ liệu thành công';
+                $_SESSION['msg'] = 'Successful Data Generation';
             } else {
-                $message['msg'] = 'Thêm dữ liệu thất bại';
+                $_SESSION['error'] = ' Data Generation failed';
             }
-
             header("Location:" . BASE_URL . "post/index");
         } catch (PDOException $e) {
             die();
@@ -119,8 +120,6 @@ class post extends DController
     {
         try {
             $cond = "id='$id'";
-
-
             $name = $_POST['name'];
             $category_id = $_POST['category_id'];
             $user_id = $_POST['user_id'];
@@ -177,11 +176,10 @@ class post extends DController
             $result = $this->postModel->updatepost($this->postTable, $data, $cond);
 
             if ($result == 1) {
-                $message['msg'] = 'Thêm dữ liệu thành công';
+                $_SESSION['msg'] = 'Edit Successful data ';
             } else {
-                $message['msg'] = 'Thêm dữ liệu thất bại';
+                $_SESSION['error'] = 'Edit Whether Fail';
             }
-
             header("Location:" . BASE_URL . "post/index");
         } catch (PDOException $e) {
             header("Location:" . BASE_URL . "post/edit");
@@ -200,13 +198,12 @@ class post extends DController
 
             $result = $this->postModel->deletepost($this->postTable, $cond);
             if ($result == 1) {
-                // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-                echo "xoá thành công";
-                header("Location:" . BASE_URL . "post/index");
+                $_SESSION['msg'] = 'Delete data successfully';
             } else {
-                $message['msg'] = 'Chỉnh sửa liệu thất bại';
-                header("Location:" . BASE_URL . "post/index");
+                $_SESSION['error'] = 'Delete data failed';
             }
+            header("Location:" . BASE_URL . "post/index");
+
         } catch (PDOException $e) {
             $error = $e->getMessage();
             echo 'Error creating' . $error;

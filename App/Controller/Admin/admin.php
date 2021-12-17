@@ -1,7 +1,10 @@
 <?php
+session_start();
+
 class admin extends DController
 {
-    public $adminTable = 'user';
+    private $userModel;
+    private $adminTable = 'user';
     public function __construct()
     {
         $data = array();
@@ -42,55 +45,154 @@ class admin extends DController
 
     public function add_register()
     {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = md5($_POST['password']);
-        $role_id = $_POST['role_id'];
-        $type = $_POST['type'];
-        $address = $_POST['address'];
-        $avatar = $_FILES['avatar']['name'];
-        $tmp_image = $_FILES['avatar']['tmp_name'];
-        $phone = $_POST['phone'];
-        $path_upload = [];
-        $div = explode('.', $avatar);
-        $file_ext = strtolower(end($div));
-        if(strtolower(end($div))){
-            foreach($file_ext as $file_ext){
-                $unique_image = $div[0] . time() . '.' . $file_ext;
-                $path_upload = "Public/User-image/" . $unique_image;
+        try {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
+
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
+
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
+
+
+
+            $data = array(
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+                'role_id' => $role_id,
+                'type' => $type,
+                'address' => $address,
+                'avatar' => $unique_image,
+                'phone' => $phone
+            );
+
+
+            $result = $this->userModel->insertuser($this->adminTable, $data);
+
+            if ($result == 1) {
+                move_uploaded_file($tmp_image, $path_upload);
+                header("Location:" . BASE_URL . "admin/list_admin");
+                $_SESSION['msg'] = 'Successful Data Generation';
+            } else {
+                $_SESSION['error'] = ' Data Generation failed';
+                header("Location:" . BASE_URL . "admin/register");
             }
-        }
-     
-
-        $data = array(
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'role_id' => $role_id,
-            'type' => $type,
-            'address' => $address,
-            'avatar' => $unique_image,
-            'phone' => $phone
-        );
-
-
-        $result = $this->userModel->insertuser($this->adminTable, $data);
-
-        if ($result == 1) {
-            move_uploaded_file($tmp_image, $path_upload);
-            header("Location:" . BASE_URL . "admin/register");
-            var_dump($result);
-            $message['msg'] = 'Thêm dữ liệu thành công';
-        } else {
-            $message['msg'] = 'Thêm dữ liệu thất bại';
-            header("Location:" . BASE_URL . "admin/register");
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
         }
     }
 
     public  function edit_user($id)
     {
-        $cond = "id='$id'";
-        $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
-        $this->load->view('Admin/Users/edit', $data);
+        try {
+
+            $cond = "id='$id'";
+            // var_dump($cond);
+            // die();
+            $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+            // var_dump($data['userbyid']);
+            //         die();
+            $this->load->view('Admin/Users/edit', $data);
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function update_user($id)
+    {
+        try {
+            // var_dump(11);
+            // die();
+            $cond = "id='$id'";
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
+
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
+
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
+
+
+            if ($avatar) {
+                $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+                foreach ($data['userbyid'] as $user) {
+                    if ($user['avatar']) {
+                        $path_unlink = "Public/User-image/";
+                        unlink($path_unlink . $user['avatar']);
+                    }
+                }
+                move_uploaded_file($tmp_image, $path_upload);
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'avatar' => $unique_image,
+                    'phone' => $phone
+                );
+            } else {
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'phone' => $phone
+                );
+            }
+
+            $result = $this->userModel->update_user($this->adminTable, $data, $cond);
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Edit Successful data ';
+                header("Location:" . BASE_URL . "admin/list_admin");
+            } else {
+                $_SESSION['error'] = 'Edit Whether Fail';
+                header("Location:" . BASE_URL . "admin/register");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function delete_user($id)
+    {
+        try {
+            $cond = "id='$id'";
+
+            $result = $this->userModel->deleteuser($this->adminTable, $cond);
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Delete data successfully';
+                header("Location:" . BASE_URL . "admin/list_admin");
+            } else {
+                $_SESSION['error'] = 'Delete data failed';
+                header("Location:" . BASE_URL . "admin/list_admin");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
     }
 }

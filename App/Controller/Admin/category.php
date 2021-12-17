@@ -1,9 +1,10 @@
 <?php
+session_start();
 class category extends DController
 {
     private $categoryModel;
     private $userModel;
-    
+
     public $categories = 'categories';
     public $user = 'user';
     public function __construct()
@@ -17,8 +18,9 @@ class category extends DController
 
     public function list_category()
     {
+        // unset($_SESSION['msg']);
         try {
-        
+
             $data['categories'] = $this->categoryModel->category($this->categories);
             $this->load->view('Admin/Categories/index', $data);
         } catch (PDOException $e) {
@@ -55,9 +57,9 @@ class category extends DController
             );
             $result = $this->categoryModel->insertcategory($this->categories, $data);
             if ($result == 1) {
-                $message['msg'] = 'Thêm dữ liệu thành công';
+                $_SESSION['msg'] = 'Successful Data Generation';
             } else {
-                $message['msg'] = 'Thêm dữ liệu thất bại';
+                $_SESSION['error'] = ' Data Generation failed';
             }
             header("Location:" . BASE_URL . "category/list_category");
         } catch (PDOException $e) {
@@ -70,7 +72,7 @@ class category extends DController
     public function editcate($id)
     {
 
-        try{
+        try {
             $data['user'] = $this->userModel->user($this->user);
             $cond = "id='$id'";
             $data['categorybyid'] = $this->categoryModel->categorybyid($this->categories, $cond);
@@ -84,46 +86,49 @@ class category extends DController
 
     public function updatecategory($id)
     {
-        $cond = "id='$id'";
-        
-        $category_name = $_POST['category_name'];
-        $paren_id = $_POST['paren_id'];
-        $user_id = $_POST['user_id'];
+        try {
+            $cond = "id='$id'";
 
-        $data = array(
-            'category_name' => $category_name,
-            'paren_id' => $paren_id,
-            'user_id' =>  $user_id
-        );
+            $category_name = $_POST['category_name'];
+            $paren_id = $_POST['paren_id'];
+            $user_id = $_POST['user_id'];
 
-        $result = $this->categoryModel->updatecategory($this->categories, $data, $cond);
+            $data = array(
+                'category_name' => $category_name,
+                'paren_id' => $paren_id,
+                'user_id' =>  $user_id
+            );
 
-        if ($result == 1) {
-            // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-            
-            echo "thành công";
-        } else {
-            // $message['msg'] = 'Chỉnh sửa liệu thất bại';
-            echo "Lỗi";
+            $result = $this->categoryModel->updatecategory($this->categories, $data, $cond);
+
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Edit Successful data ';
+            } else {
+                $_SESSION['error'] = 'Edit Whether Fail';
+            }
+            header("Location:" . BASE_URL . "category/list_category");
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
         }
-        header("Location:" . BASE_URL . "category/list_category");
-
     }
 
     public function deletecate($id)
     {
-      
+        try {
+            $cond = "id='$id'";
 
-        $cond = "id='$id'";
+            $result = $this->categoryModel->deletecategory($this->categories, $cond);
 
-        $result = $this->categoryModel->deletecategory($this->categories, $cond);
-        if ($result == 1) {
-            // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-            echo "xoá thành công";
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Delete data successfully';
+            } else {
+                $_SESSION['error'] = 'Delete data failed';
+            }
             header("Location:" . BASE_URL . "category/list_category");
-        } else {
-            $message['msg'] = 'Chỉnh sửa liệu thất bại';
-            header("Location:" . BASE_URL . "category/list_category");
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
         }
     }
 }

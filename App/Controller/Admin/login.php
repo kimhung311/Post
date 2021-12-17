@@ -1,4 +1,5 @@
 <?php
+
 class login extends DController
 {
     public function __construct()
@@ -10,21 +11,17 @@ class login extends DController
 
     public function index()
     {
-        // var_dump(Session::checkSessionAuth());
-        // die();
         Session::checkSessionAuth();
         $this->login();
     }
 
     public function login()
     {
-   
         try {
             Session::checkSessionAuth();
             if (Session::get('login/login') == true) {
                 header("Location:" . BASE_URL . "login/dashboard");
             }
-
             $this->load->view('Admin/Auth/login');
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -43,14 +40,18 @@ class login extends DController
             $count = $loginmodel->login($tabl_user, $email, $password);
 
             if ($count == 0) {
-                $message['msg'] = "Error email or password please check your email password";
+                // var_dump($count);
+               
+                $_SESSION['error'] = 'Error email or password please check your email password';
+
                 header("Location:" . BASE_URL . "login/index");
             } else {
                 $result =  $loginmodel->getlogin($tabl_user, $email, $password);
                 Session::init();
-                Session::set('login/login', true);  // kiểm tra người dùng đã đưng nhập chưa
+                Session::set('login/login', true);  // kiểm tra người dùng đã đăng nhập 
                 Session::set('email', $result[0]['email']);
                 Session::set('id', $result[0]['id']);
+                $_SESSION['msg'] = 'Login Successfully';
 
                 header("Location:" . BASE_URL . "login/dashboard");
             }
