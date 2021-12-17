@@ -5,12 +5,9 @@ include_once('System/libs/DModel.php');
 include_once('System/libs/Database.php');
 include_once('System/libs/Load.php');
 
-
-// $main = new Main();
-
-
 spl_autoload_register(function ($class) {
     include_once('System/libs/' . $class . '.php');
 });
+
 include_once('App/Config/config.php');
 $main = new Main();

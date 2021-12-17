@@ -22,31 +22,11 @@
                       <a href="category.html">Pages <i class="ion-ios-arrow-right"></i></a>
                       <ul class="dropdown-menu">
                           <?php foreach ($categories as $category) : ?>
-                          <li><a href="index.html"><?php echo $category['name'] ?></a></li>
-                          <?php endforeach; ?>
-                          <!-- <li class="dropdown magz-dropdown">
-                              <a href="#">Authentication <i class="ion-ios-arrow-right"></i></a>
-                              <ul class="dropdown-menu">
-                                  <li><a href="login.html">Login</a></li>
-                                  <li><a href="register.html">Register</a></li>
-                                  <li><a href="forgot.html">Forgot Password</a></li>
-                                  <li><a href="reset.html">Reset Password</a></li>
-                              </ul>
+                          <li><a
+                                  href="<?php echo BASE_URL ?>homepage/bycate/<?php echo $category['category_name'] ?>"><?php echo $category['category_name'] ?></a>
                           </li>
-                          <li><a href="category.html">Category</a></li>
-                          <li><a href="single.html">Single</a></li>
-                          <li><a href="page.html">Page</a></li>
-                          <li><a href="search.html">Search</a></li>
-                          <li><a href="contact.html">Contact</a></li>
-                          <li class="dropdown magz-dropdown">
-                              <a href="#">Error <i class="ion-ios-arrow-right"></i></a>
-                              <ul class="dropdown-menu">
-                                  <li><a href="403.html">403</a></li>
-                                  <li><a href="404.html">404</a></li>
-                                  <li><a href="500.html">500</a></li>
-                                  <li><a href="503.html">503</a></li>
-                              </ul>
-                          </li> -->
+                          <?php endforeach; ?>
+
                       </ul>
                   </li>
                   <li class="dropdown magz-dropdown"><a href="#">Dropdown <i class="ion-ios-arrow-right"></i></a>

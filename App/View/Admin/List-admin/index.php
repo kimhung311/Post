@@ -849,7 +849,7 @@
             </div>
         </div>
     </div>
-    <?php include('View/Admin/Layouts/footer.php'); ?>
+    <?php include('App/View/Admin/Layouts/footer.php'); ?>
 
 </div>
 <!-- main-panel ends -->

@@ -1,99 +1,134 @@
-<?php 
-    class category extends DController{
-        
-        public function __construct()
-        {
-            $data = array();
-            $message = array();
-            parent::__construct(); // parent từ cha nó DController
-        }
-        
-        public function list_category()
-        {
-            $categorymodel = $this->load->model('categorymodel');
-            $categories = 'categories';
-            $data['categories'] = $categorymodel->category($categories);
-            $this->load->view('category', $data);
-        }
+<?php
+session_start();
+class category extends DController
+{
+    private $categoryModel;
+    private $userModel;
 
-        public function editcate()
-        {
-            $categorymodel = $this->load->model('categorymodel');
-            $categories = 'categories';
-            $id = 11;
-            $data['categorybyid'] = $categorymodel->categorybyid($categories, $id);
-            $this->load->view('categorybyid', $data);
-        }
-        public function addcategory()
-        {
-            $categorymodel = $this->load->model('categorymodel');
-            $categories = 'categories';
-            $data['categories'] = $categorymodel->category($categories);
-            $usermodel = $this->load->model('usermodel');
-            $user = 'user';
-            $data['user'] = $usermodel->user($user);
+    public $categories = 'categories';
+    public $user = 'user';
+    public function __construct()
+    {
+        $data = array();
+        $message = array();
+        parent::__construct(); // parent từ cha nó DController
+        $this->categoryModel =  $this->load->model('CategoryModel');
+        $this->userModel = $this->load->model('UserModel');
+    }
 
-            $this->load->view('create', $data);
-        }
-        public function insertcategory()
-        {
+    public function list_category()
+    {
+        // unset($_SESSION['msg']);
+        try {
 
-            $categorymodel = $this->load->model('categorymodel');
-            $categories = 'categories';
-            $name = $_POST['name'];
+            $data['categories'] = $this->categoryModel->category($this->categories);
+            $this->load->view('Admin/Categories/index', $data);
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+
+    public function addcategory()
+    {
+        try {
+            $data['categories'] = $this->categoryModel->category($this->categories);
+            $data['user'] = $this->userModel->user($this->user);
+            $this->load->view('Admin/Categories/create', $data);
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+    public function insertcategory()
+    {
+
+        try {
+            $category_name = $_POST['category_name'];
             $paren_id = $_POST['paren_id'];
             $user_id = $_POST['user_id'];
 
             $data = array(
-                'name' => $name,
+                'category_name' => $category_name,
                 'paren_id' => $paren_id,
                 'user_id' => $user_id
             );
-            $result = $categorymodel->insertcategory($categories, $data);
-            echo "insertcategory successfully";
+            $result = $this->categoryModel->insertcategory($this->categories, $data);
             if ($result == 1) {
-                $message['msg'] = 'Thêm dữ liệu thành công';
+                $_SESSION['msg'] = 'Successful Data Generation';
             } else {
-                $message['msg'] = 'Thêm dữ liệu thất bại';
+                $_SESSION['error'] = ' Data Generation failed';
             }
-            $this->load->view('create', $data, $message);
-        }
-
-        public function updatecategory()
-        {
-
-            $categorymodel = $this->load->model('categorymodel');
-            $categories = 'categories';
-            $id = 10;
-            $cond = "categories.id='$id'";
-            $data = array(
-                'name' => 'mới sửa',
-                'paren_id' => 2,
-                'user_id' => 4
-            );
-            $result = $categorymodel->updatecategory($categories, $data, $cond);
-            if ($result == 1) {
-                // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-                echo "thành công";
-            } else {
-                // $message['msg'] = 'Chỉnh sửa liệu thất bại';
-                echo "Lỗi";
-            }
-        }
-        public function deletecategory()
-        {
-            $categorymodel = $this->load->model('categorymodel');
-            $categories = 'categories';
-            $cond = "id=48";
-
-            $result = $categorymodel->deletecategory($categories, $cond);
-            if ($result == 1) {
-                // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-                echo "xoá thành công";
-            } else {
-                // $message['msg'] = 'Chỉnh sửa liệu thất bại';
-                echo "xoá Lỗi";
-            }
+            header("Location:" . BASE_URL . "category/list_category");
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
         }
     }
-?>
+
+    public function editcate($id)
+    {
+
+        try {
+            $data['user'] = $this->userModel->user($this->user);
+            $cond = "id='$id'";
+            $data['categorybyid'] = $this->categoryModel->categorybyid($this->categories, $cond);
+            $this->load->view('Admin/Categories/edit', $data);
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+
+    public function updatecategory($id)
+    {
+        try {
+            $cond = "id='$id'";
+
+            $category_name = $_POST['category_name'];
+            $paren_id = $_POST['paren_id'];
+            $user_id = $_POST['user_id'];
+
+            $data = array(
+                'category_name' => $category_name,
+                'paren_id' => $paren_id,
+                'user_id' =>  $user_id
+            );
+
+            $result = $this->categoryModel->updatecategory($this->categories, $data, $cond);
+
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Edit Successful data ';
+            } else {
+                $_SESSION['error'] = 'Edit Whether Fail';
+            }
+            header("Location:" . BASE_URL . "category/list_category");
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function deletecate($id)
+    {
+        try {
+            $cond = "id='$id'";
+
+            $result = $this->categoryModel->deletecategory($this->categories, $cond);
+
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Delete data successfully';
+            } else {
+                $_SESSION['error'] = 'Delete data failed';
+            }
+            header("Location:" . BASE_URL . "category/list_category");
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+}

@@ -1,11 +1,16 @@
 <?php
+session_start();
+
 class admin extends DController
 {
+    private $userModel;
+    private $adminTable = 'user';
     public function __construct()
     {
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
+        $this->userModel =  $this->load->model('UserModel');
     }
 
     public function index()
@@ -14,106 +19,180 @@ class admin extends DController
     }
     public function homeadmin()
     {
-
-        $homemodel = $this->load->model('homemodel');
-        $user = 'user';
-        // var_dump($user);
-        // die();
-        $data['user'] = $homemodel->admin($user);
-
-        $this->load->view('index', $data);
+        $this->load->view('Admin/List-admin/index');
     }
     public function notfound()
     {
         $this->load->view('Error/error_404');
     }
+    public function list_admin()
+    {
+        try {
 
-    // public function list_category()
-    // {
-    //     $categorymodel = $this->load->model('categorymodel');
-    //     $categories = 'categories';
-    //     $data['categories'] = $categorymodel->category($categories);
-    //     $this->load->view('category', $data);
-    // }
+            $data['user'] = $this->userModel->user($this->adminTable);
+            $this->load->view('Admin/Users/index', $data);
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
 
-    // public function editcate()
-    // {
-    //     $categorymodel = $this->load->model('categorymodel');
-    //     $categories = 'categories';
-    //     $id = 11;
-    //     $data['categorybyid'] = $categorymodel->categorybyid($categories, $id);
-    //     $this->load->view('categorybyid', $data);
-    // }
-    // public function addcategory()
-    // {
-    //     $categorymodel = $this->load->model('categorymodel');
-    //     $categories = 'categories';
-    //     $data['categories'] = $categorymodel->category($categories);
-    //     $usermodel = $this->load->model('usermodel');
-    //     $user = 'user';
-    //     $data['user'] = $usermodel->user($user);
+    public function register()
+    {
+        $this->load->view('Admin/Users/create');
+    }
 
-    //     $this->load->view('create', $data);
-    // }
-    // public function insertcategory()
-    // {
+    public function add_register()
+    {
+        try {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
 
-    //     $categorymodel = $this->load->model('categorymodel');
-    //     $categories = 'categories';
-    //     $name = $_POST['name'];
-    //     $paren_id = $_POST['paren_id'];
-    //     $user_id = $_POST['user_id'];
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
 
-    //     $data = array(
-    //         'name' => $name,
-    //         'paren_id' => $paren_id,
-    //         'user_id' => $user_id
-    //     );
-    //     $result = $categorymodel->insertcategory($categories, $data);
-    //     echo "insertcategory successfully";
-    //     if ($result == 1) {
-    //         $message['msg'] = 'Thêm dữ liệu thành công';
-    //     } else {
-    //         $message['msg'] = 'Thêm dữ liệu thất bại';
-    //     }
-    //     $this->load->view('create', $data, $message);
-    // }
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
 
-    // public function updatecategory()
-    // {
 
-    //     $categorymodel = $this->load->model('categorymodel');
-    //     $categories = 'categories';
-    //     $id = 10;
-    //     $cond = "categories.id='$id'";
-    //     $data = array(
-    //         'name' => 'mới sửa',
-    //         'paren_id' =>  2,
-    //         'user_id' => 4
-    //     );
-    //     $result = $categorymodel->updatecategory($categories, $data, $cond);
-    //     if ($result == 1) {
-    //         // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-    //         echo "thành công";
-    //     } else {
-    //         // $message['msg'] = 'Chỉnh sửa liệu thất bại';
-    //         echo "Lỗi";
-    //     }
-    // }
-    // public function deletecategory()
-    // {
-    //     $categorymodel = $this->load->model('categorymodel');
-    //     $categories = 'categories';
-    //     $cond = "id=48";
 
-    //     $result = $categorymodel->deletecategory($categories, $cond);
-    //     if ($result == 1) {
-    //         // $message['msg'] = 'Chỉnh sửa dữ liệu thành công';
-    //         echo "xoá thành công";
-    //     } else {
-    //         // $message['msg'] = 'Chỉnh sửa liệu thất bại';
-    //         echo "xoá Lỗi";
-    //     }
-    // }
+            $data = array(
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+                'role_id' => $role_id,
+                'type' => $type,
+                'address' => $address,
+                'avatar' => $unique_image,
+                'phone' => $phone
+            );
 
+
+            $result = $this->userModel->insertuser($this->adminTable, $data);
+
+            if ($result == 1) {
+                move_uploaded_file($tmp_image, $path_upload);
+                header("Location:" . BASE_URL . "admin/list_admin");
+                $_SESSION['msg'] = 'Successful Data Generation';
+            } else {
+                $_SESSION['error'] = ' Data Generation failed';
+                header("Location:" . BASE_URL . "admin/register");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public  function edit_user($id)
+    {
+        try {
+
+            $cond = "id='$id'";
+            // var_dump($cond);
+            // die();
+            $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+            // var_dump($data['userbyid']);
+            //         die();
+            $this->load->view('Admin/Users/edit', $data);
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function update_user($id)
+    {
+        try {
+            // var_dump(11);
+            // die();
+            $cond = "id='$id'";
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
+
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
+
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
+
+
+            if ($avatar) {
+                $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+                foreach ($data['userbyid'] as $user) {
+                    if ($user['avatar']) {
+                        $path_unlink = "Public/User-image/";
+                        unlink($path_unlink . $user['avatar']);
+                    }
+                }
+                move_uploaded_file($tmp_image, $path_upload);
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'avatar' => $unique_image,
+                    'phone' => $phone
+                );
+            } else {
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'phone' => $phone
+                );
+            }
+
+            $result = $this->userModel->update_user($this->adminTable, $data, $cond);
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Edit Successful data ';
+                header("Location:" . BASE_URL . "admin/list_admin");
+            } else {
+                $_SESSION['error'] = 'Edit Whether Fail';
+                header("Location:" . BASE_URL . "admin/register");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function delete_user($id)
+    {
+        try {
+            $cond = "id='$id'";
+
+            $result = $this->userModel->deleteuser($this->adminTable, $cond);
+            if ($result == 1) {
+                $_SESSION['msg'] = 'Delete data successfully';
+                header("Location:" . BASE_URL . "admin/list_admin");
+            } else {
+                $_SESSION['error'] = 'Delete data failed';
+                header("Location:" . BASE_URL . "admin/list_admin");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
 }

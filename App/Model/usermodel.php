@@ -1,5 +1,5 @@
 <?php
-class usermodel extends DModel
+class UserModel extends DModel
 {
     public function __construct()
     {
@@ -12,15 +12,25 @@ class usermodel extends DModel
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
-    public function userbyid($user, $id)
-    {
-        $sql = "SELECT * FROM $user WHERE id = :id ";
-        $data = array(':id' => $id);
-        return $this->db->select($sql, $data);
-    }
 
     public function insertuser($user, $data)
     {
         return $this->db->insert($user, $data);
+    }
+
+    public function userbyid($user, $cond)
+    {
+        $sql = "SELECT * FROM $user WHERE $cond ";
+        return $this->db->select($sql);
+    }
+
+    public function update_user($table, $data, $cond)
+    {
+        return $this->db->update($table, $data, $cond);
+    }
+
+    public function deleteuser($table, $cond)
+    {
+        return $this->db->delete($table, $cond);
     }
 }

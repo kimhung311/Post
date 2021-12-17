@@ -9,7 +9,6 @@ class Database extends PDO
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
         ));
-        // $db = new PDO($connect, $user, $pass);
     }
     public function select($sql, $data = array(), $fetchStyle = PDO::FETCH_ASSOC)
     {
@@ -54,5 +53,18 @@ class Database extends PDO
     public function delete($table, $cond, $limit = 1 ){
         $sql = "DELETE FROM $table WHERE $cond LIMIT $limit";
         return $this->exec($sql);
+    }
+
+    public function affectedRows($sql, $email, $password){
+        $statement = $this->prepare($sql);
+        $statement->execute(array($email, $password));
+        return $statement->rowCount(); 
+    }
+
+    public function selectadmin($sql, $email, $password){
+        $statement = $this->prepare($sql);
+        $statement->execute(array($email, $password));
+        return  $statement->fetchAll(PDO::FETCH_ASSOC);
+
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class categorymodel extends DModel
+class CategoryModel extends DModel
 {
     public function __construct()
     {
@@ -12,25 +12,24 @@ class categorymodel extends DModel
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
-    public function categorybyid($categories, $id)
-    {
-        $sql = "SELECT * FROM $categories WHERE id = :id ";
-        $data = array(':id' => $id);
-        return $this->db->select($sql, $data);
-    }
-
     public function insertcategory($categories, $data)
     {
         return $this->db->insert($categories, $data);
     }
 
-    public function updatecategory($table, $data, $cond)
+    public function categorybyid($category, $cond)
     {
-        return $this->db->update($table, $data, $cond);
+        $sql = "SELECT * FROM $category WHERE $cond ";
+        return $this->db->select($sql);
     }
 
-    public function deletecategory($table, $cond)
+    public function updatecategory($categories, $data, $cond)
     {
-        return $this->db->delete($table, $cond);
+        return $this->db->update($categories, $data, $cond);
+    }
+
+    public function deletecategory($posts, $cond)
+    {
+        return $this->db->delete($posts, $cond);
     }
 }
