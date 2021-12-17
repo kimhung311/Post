@@ -1,6 +1,6 @@
 <!-- plugins:js -->
-<script src="View/Admin/Layouts/tinymce/jquery.tinymce.min.js"></script>
-<script src="View/Admin/Layouts/tinymce/tinymce.min.js"></script>
+<script src="App/View/Admin/Layouts/tinymce/jquery.tinymce.min.js"></script>
+<script src="App/View/Admin/Layouts/tinymce/tinymce.min.js"></script>
 <script src="Public/Admin-ate/assets/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page -->
@@ -20,6 +20,5 @@
 <!-- endinject -->
 <!-- Custom js for this page -->
 <script src="Public/Admin-ate/assets/js/dashboard.js"></script>
-<script src="View/Admin/Layouts/tinymce/jquery.tinymce.min.js"></script>
-<script src="View/Admin/Layouts/tinymce/tinymce.min.js"></script>
+
 <!-- End custom js for this page -->

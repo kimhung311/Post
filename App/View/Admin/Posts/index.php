@@ -10,6 +10,7 @@
             </a>
         </div>
         <?php include('App/View/Message/message.php') ?>
+        <?php include('App/View/Message/message.php')?>
     </h1>
 
     <table class="table table-light table-hover">

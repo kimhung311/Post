@@ -2,6 +2,9 @@
     if (isset($_SESSION['msg'])) {
 
     ?>
+if (isset($_SESSION['msg'])) {
+
+?>
 <div class="toast " data-autohide="false">
     <div class="toast-header alert alert-success" role="alert">
         <strong class="mr-auto text-primary">Message</strong>
@@ -26,6 +29,7 @@
 </div>
 <?php }
     ?>
+
 
 
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->

@@ -24,12 +24,12 @@ class UserModel extends DModel
         return $this->db->select($sql);
     }
 
-    public function updatepost($table, $data, $cond)
+    public function update_user($table, $data, $cond)
     {
         return $this->db->update($table, $data, $cond);
     }
 
-    public function deletepost($table, $cond)
+    public function deleteuser($table, $cond)
     {
         return $this->db->delete($table, $cond);
     }

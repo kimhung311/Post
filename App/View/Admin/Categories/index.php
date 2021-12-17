@@ -1,5 +1,5 @@
-<?php include('App/View/Admin/Layouts/master.php');
-?>
+<?php include('App/View/Admin/Layouts/master.php') ?>
+
 <div class="main-panel">
     <h1 class="text-center">List of categories
         <div class="row">
@@ -9,6 +9,7 @@
                 NEW
             </a>
         </div>
+        <?php include('App/View/Message/message.php') ?>
     </h1>
 
     <table class="table table-light table-bordered table-hover">
@@ -41,6 +42,9 @@
     </table>
 </div>
 </div>
-</div> <?php
-        include('App/View/Admin/Layouts/footer.php');
-        ?>
+</div>
+<script>
+$(document).ready(function() {
+    $('.toast').toast('show');
+});
+</script>

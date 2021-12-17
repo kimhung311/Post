@@ -1,18 +1,26 @@
 <?php
 class homepage extends DController
 {
+    private $categoryModel;
+    private $postModel;
+    private $userModel;
+
+    public $postTable = 'posts';
+    public $categories = 'categories';
+
     public function __construct()
     {
         $data = array();
         parent::__construct(); // parent từ cha nó DController
+        $this->categoryModel =  $this->load->model('CategoryModel');
+        $this->userModel = $this->load->model('UserModel');
     }
     public function home()
     {
-        $this->load->view('Home/Layouts/master');
         $homemodel = $this->load->model('homemodel');
-        $categories = 'categories';
-        $data['categories'] = $homemodel->category($categories);
-
+        $data['categories'] = $this->categoryModel->category($this->categories);
+        // $data['posts'] = $this->postModel->post($this->postTable);
+        $this->load->view('Home/Layouts/master',$data);
         $this->load->view('Home/Home', $data);
     }
 
