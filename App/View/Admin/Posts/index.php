@@ -9,6 +9,7 @@
                 NEW
             </a>
         </div>
+        <?php include('App/View/Message/message.php') ?>
     </h1>
 
     <table class="table table-light table-hover">
@@ -21,19 +22,7 @@
                 <th>Title</th>
                 <th>Picture</th>
                 <th>Image_detail</th>
-
                 <th>Action</th>
-                <?php
-                if (!empty($_GET['msg'])) {
-                    $msg = unserialize(urldecode($_GET['msg']));
-                    foreach ($msg as $key => $value) {
-                        echo '<span class="btn btn-warning">' . $value . '</span>';
-                    }
-                }
-                if (isset($_GET['Message'])) {
-                    echo $_GET['Message'];
-                }
-                ?>
             </tr>
         </thead>
         <tbody>
@@ -66,6 +55,9 @@
     </table>
 </div>
 </div>
-</div> <?php
-        include('App/View/Admin/Layouts/footer.php');
-        ?>
+</div>
+<script>
+$(document).ready(function() {
+    $('.toast').toast('show');
+});
+</script>
