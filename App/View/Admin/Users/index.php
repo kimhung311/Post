@@ -9,6 +9,7 @@
                 NEW
             </a>
         </div>
+        <?php include('App/View/Message/message.php') ?>
     </h1>
 
     <table class="table table-light table-hover">
@@ -23,23 +24,12 @@
                 <th>Phone</th>
                 <th>Avatar</th>
                 <th>Action</th>
-                <?php
-                if (!empty($_GET['msg'])) {
-                    $msg = unserialize(urldecode($_GET['msg']));
-                    foreach ($msg as $key => $value) {
-                        echo '<span class="btn btn-warning">' . $value . '</span>';
-                    }
-                }
-                if (isset($_GET['Message'])) {
-                    echo $_GET['Message'];
-                }
-                ?>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($user as $key => $value) : ?>
             <tr>
-                <td><?php echo $key; ?></td>
+                <td><?php echo $value['id'] ?></td>
                 <td><?php echo $value['name'] ?></td>
                 <td><?php echo $value['email'] ?></td>
                 <td><?php echo $value['role_id'] ?></td>
@@ -51,10 +41,10 @@
                         alt="<?php echo $value['avatar'] ?>">
                 </td>
                 <td>
-                    <a href="<?php echo BASE_URL ?>admin/edit_user/<?php echo $key ?>" class="btn btn-primary"
-                        onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $key ?>')">Edit</a>
-                    <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['posts_id'] ?>"
-                        class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this:')">Del</a>
+                    <a href="<?php echo BASE_URL ?>admin/edit_user/<?php echo $value['id'] ?>" class="btn btn-primary"
+                        onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $value['id'] ?>')">Edit</a>
+                    <a href="<?php echo BASE_URL ?>admin/delete_user/<?php echo $value['id'] ?>" class="btn btn-danger"
+                        onclick="return confirm('<?php echo 'Are you sure you want to delete this: ' . ' ' . $key ?>')">Del</a>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -62,6 +52,9 @@
     </table>
 </div>
 </div>
-</div> <?php
-        include('App/View/Admin/Layouts/footer.php');
-        ?>
+</div>
+<script>
+$(document).ready(function() {
+    $('.toast').toast('show');
+});
+</script>
