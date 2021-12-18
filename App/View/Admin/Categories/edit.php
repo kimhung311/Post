@@ -26,7 +26,7 @@
                <select class="custom-select" id="inputGroupSelect01" name="paren_id">
                    <?php foreach ($categorybyid as $key => $value) : ?>
                    <option value="<?php echo $value['id'] ?>">
-                       <?php echo $value['id'] ?></option>
+                       <?php echo $value['category_name'] ?></option>
                    <?php endforeach; ?>
                </select>
            </div>

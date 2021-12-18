@@ -8,6 +8,8 @@
 
     <!-- Bootstrap CSS -->
     <?php include 'App/View/Admin/Layouts/css.php' ?>
+    <?php include 'App/View/Admin/Layouts/js.php' ?>
+
 </head>
 
 <body>
@@ -19,4 +21,5 @@
         include('App/View/Admin/Layouts/header.php');
         ?>
 </body>
-<?php include 'App/View/Admin/Layouts/js.php' ?>
+
+</html>

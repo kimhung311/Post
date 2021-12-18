@@ -47,7 +47,7 @@
              </div>
          </li>
          <li class="nav-item">
-             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
                  <i class="mdi mdi-table-large menu-icon"></i>
                  <span class="menu-title">POSTS</span>
                  <i class="menu-arrow"></i>
@@ -67,7 +67,7 @@
              </div>
          </li>
 
-         <!-- <li class="nav-item">
+         <li class="nav-item">
              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                  <span class="menu-title">USER</span>
@@ -87,7 +87,7 @@
                  </ul>
              </div>
 
-         </li> -->
+         </li>
          <li class="nav-item">
              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>

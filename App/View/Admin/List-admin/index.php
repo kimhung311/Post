@@ -1,5 +1,7 @@
 <?php include('App/View/Admin/Layouts/master.php'); ?>
 <div class="main-panel">
+    <?php include('App/View/Message/message.php') ?>
+
 
     <div class="content-wrapper pb-0">
         <div class="page-header flex-wrap">
@@ -855,3 +857,8 @@
 <!-- main-panel ends -->
 </div>
 <!-- page-body-wrapper ends -->
+<script>
+$(document).ready(function() {
+    $('.toast').toast('show');
+});
+</script>

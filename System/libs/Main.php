@@ -16,12 +16,10 @@ class Main
 
     public function geturl()
     {
-        $this->url =
-            isset($_GET['url']) ? $_GET['url'] : NULL; // nếu có $_GET['url'] thì lấy nó và ngược lại
+        $this->url = isset($_GET['url']) ? $_GET['url'] : NULL; // nếu có $_GET['url'] thì lấy nó và ngược lại
 
         if ($this->url != NULL) {
             $this->url = rtrim($this->url, '/'); //  rtrim tự đông cắt cát ký tự dư ở phần cuối dấu / trên thanh url
-
             $this->url = explode('/', filter_var($this->url, FILTER_SANITIZE_URL)); //explode là phá huỷ:  phá huỷ dấu '/' trong chuỗi url
         } else {
             unset($this->url); //xoá bỏ url
@@ -40,9 +38,7 @@ class Main
                 include $fileName;
                 if (class_exists($this->controllerName)) { // kiểm tra file và class trong file có tồn tịa hay ko
                     $this->controller = new $this->controllerName();
-                } else {
                 }
-            } else {
             }
         }
     }

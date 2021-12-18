@@ -15,6 +15,13 @@ class admin extends DController
 
     public function index()
     {
+        // var_dump($_SESSION['email']);
+        // die();
+        // if (Session::get('id')) {
+
+        //     $data['user'] = $this->userModel->user($this->adminTable);
+            
+        // }
         $this->homeadmin();
     }
     public function homeadmin()
@@ -97,8 +104,7 @@ class admin extends DController
         try {
 
             $cond = "id='$id'";
-            // var_dump($cond);
-            // die();
+         
             $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
             // var_dump($data['userbyid']);
             //         die();
@@ -112,8 +118,7 @@ class admin extends DController
     public function update_user($id)
     {
         try {
-            // var_dump(11);
-            // die();
+         
             $cond = "id='$id'";
             $name = $_POST['name'];
             $email = $_POST['email'];

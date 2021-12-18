@@ -18,9 +18,7 @@ class category extends DController
 
     public function list_category()
     {
-        // unset($_SESSION['msg']);
         try {
-
             $data['categories'] = $this->categoryModel->category($this->categories);
             $this->load->view('Admin/Categories/index', $data);
         } catch (PDOException $e) {

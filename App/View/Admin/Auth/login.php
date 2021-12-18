@@ -20,18 +20,6 @@
 </head>
 
 <body class="img js-fullheight" style="background-image: url(Public/Admin-ate/login/images/bg.jpg);">
-    <?php if (isset($_SESSION['msg'])) { ?>
-    <div class="toast" data-autohide="false">
-        <div class="toast-header alert alert-success" role="alert">
-            <strong class="mr-auto text-primary">Message</strong>
-            <small class="text-muted"></small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-        </div>
-        <div class="toast-body alert alert-success" role="alert">
-            <?php echo $_SESSION['error']; ?>
-        </div>
-    </div>
-    <?php  } ?>
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">

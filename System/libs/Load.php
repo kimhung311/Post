@@ -9,8 +9,8 @@ class Load
         if ($data == true) {
             extract($data);
         }
-        // include('App/View/Home/' . $filename . '.php');
         include('App/View/' . $filename . '.php');
+        // include('App/View/Home/' . $filename . '.php');
         // include('App/View/Admin/List' . $filename . '.php');
 
     }
