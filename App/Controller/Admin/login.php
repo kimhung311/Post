@@ -1,33 +1,32 @@
 <?php
 class login extends DController
 {
-    private $userModel;
-    private $adminTable = 'user';
+    public $userModel;
+
+    public $user = 'user';
+
     public function __construct()
     {
+        Session::checkSessionAuth();
+
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
-        $this->userModel =  $this->load->model('UserModel');
 
-    }
-
-    public function index()
-    {
-        // var_dump(111);
-        // die();
-        Session::checkSessionAuth();
-        $this->login();
     }
 
     public function login()
     {
         try {
-            Session::checkSessionAuth();
             if (Session::get('login/login') == true) {
                 header("Location:" . BASE_URL . "login/dashboard");
+            }else{
+                echo '<script language="javascript">';
+                echo 'alert("ERROR EMAIL OR PASSWORD")';
+                echo '</script>';
+                $this->load->view('Admin/Auth/login');
             }
-            $this->load->view('Admin/Auth/login');
+          
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
@@ -40,21 +39,29 @@ class login extends DController
             $email = $_POST['email'];
             $password = md5($_POST['password']);
             $loginmodel = $this->load->model('loginmodel');
-            $count = $loginmodel->login($this->adminTable, $email, $password);
+            $count = $loginmodel->login($this->user, $email, $password);
 
             if ($count == 1) {
-                $result =  $loginmodel->getlogin($this->adminTable, $email, $password);
+
+                $result =  $loginmodel->getlogin($this->user, $email, $password);
                 Session::init();
                 Session::set('login/login', true);  // kiểm tra người dùng đã đăng nhập 
                 Session::set('email', $result[0]['email']);
                 Session::set('id', $result[0]['id']);
-                $_SESSION['msg'] = 'Login Successfully';
+                Session::set('name', $result[0]['name']);
+                Session::set('avatar', $result[0]['avatar']);
+            
+                $_SESSION['alert']['msg'] = 'Login Successfully';
+                $_SESSION['alert']['count'] = 0;
+                echo '<script language="javascript">';
+                echo 'alert("Login  Successfully")';
+                echo '</script>';
                 header("Location:" . BASE_URL . "login/dashboard");
             } else {
                 echo '<script language="javascript">';
                 echo 'alert("ERROR EMAIL OR PASSWORD")';
                 echo '</script>';
-                $this-> load->view("Admin/Auth/login");
+                // $this->load->view("Admin/Auth/login");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -64,27 +71,31 @@ class login extends DController
 
     public function dashboard()
     {
-        Session::checkSessionAuth();
+        $this->userModel =  $this->load->model('UserModel');
+
+        $data['user'] = $this->userModel->user($this->user);
+        $this->load->view('Admin/Layouts/master', $data);
         $this->load->view("Admin/List-admin/index");
     }
 
-    public function change_password($id){
+    public function change_password($id)
+    {
         try {
-            // var_dump(11);
-            // die();
             $cond = "id='$id'";
-            $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
-            $this->load->view('Admin/Auth/change_password',$data);
+            $this->userModel =  $this->load->model('UserModel');
+            $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+            $this->load->view('Admin/Layouts/master-2', $data);
+            $this->load->view('Admin/Auth/change_password', $data);
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
         }
     }
-    
+
     public function update_change_password($id)
     {
         try {
-           
+
             $cond = "id='$id'";
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -105,7 +116,7 @@ class login extends DController
 
 
             if ($avatar) {
-                $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+                $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
                 foreach ($data['userbyid'] as $user) {
                     if ($user['avatar']) {
                         $path_unlink = "Public/User-image/";
@@ -134,17 +145,21 @@ class login extends DController
                     'phone' => $phone
                 );
             }
-
-            $result = $this->userModel->update_user($this->adminTable, $data, $cond);
+            $this->userModel = $this->load->model('UserModel');
+            $result = $this->userModel->update_user($this->user, $data, $cond);
             if ($result == 1) {
-                $_SESSION['msg'] = 'Edit Successful data ';
+                // $_SESSION['alert']['msg'] = 'Edit Successful data ';
                 echo '<script language="javascript">';
                 echo 'alert("Edit Successful data ")';
                 echo '</script>';
-                $this->load->view("Admin/Auth/login");
+                header("Location:" . BASE_URL . "login/login");
+                unset($_SESSION['login/login']);
             } else {
-                $_SESSION['error'] = 'Edit Whether Fail';
-                header("Location:" . BASE_URL . "admin/register");
+                echo '<script language="javascript">';
+                echo 'alert("Edit Fail data ")';
+                echo '</script>';
+                $_SESSION['alert']['error'] = 'Edit Whether Fail';
+                header("Location:" . BASE_URL . "login/change_password");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -155,6 +170,7 @@ class login extends DController
     {
         Session::init();
         unset($_SESSION['login/login']);
-        header("Location:" . BASE_URL . "login/index");
+        $_SESSION['alert']['msg'] = 'Logout Successfully ';
+        header("Location:" . BASE_URL . "login/login");
     }
 }

@@ -1,6 +1,3 @@
-  <?php
-    include('App/View/Admin/Layouts/master.php');
-    ?>
   <div class="main-panel">
       <h1 class="text-center">ADD Post
       </h1>
@@ -15,7 +12,8 @@
 
       <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>post/insert_post" method="POST"
           role="form" enctype="multipart/form-data" style="width:1200px;margin:auto;">
-          <div class="form-outline col-md-4 mb-5">
+
+          <div class="form-outline col-md-6 mb-6">
               <label for="validationCustom01">Name</label>
               <input type="text" name="name" id="validationCustom01" class="form-control" placeholder=" Enter Name post"
                   required>
@@ -23,19 +21,19 @@
 
           </div>
 
-          <div class="form-outline col-md-4 mb-5 ">
+          <div class="form-outline col-md-6 mb-6 ">
               <label for="inputGroupSelect02">Categories</label>
               <select class="custom-select" id="inputGroupSelect02" name="category_id" required>
                   <?php foreach ($categories as $key => $value) : ?>
                   <option value="<?php echo $value['id'] ?>">
-                      <?php echo $value['id'] ?></option>
+                      <?php echo $value['category_name'] ?></option>
                   <?php endforeach; ?>
                   <div class="invalid-feedback">Please provide a valid Categories.</div>
 
               </select>
           </div>
 
-          <div class="form-outline col-md-4 mb-5 ">
+          <!-- <div class="form-outline col-md-4 mb-5 ">
               <label for="inputGroupSelect01">Admin</label>
               <select class="custom-select" id="inputGroupSelect01" name="user_id" required>
                   <?php foreach ($user as $key => $value) : ?>
@@ -45,7 +43,9 @@
               </select>
               <div class="invalid-feedback">Please provide a valid Admin.</div>
 
-          </div>
+          </div> -->
+          <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
+
 
           <div class="form-outline col-md-12 mb-5">
               <label for="inputGroupSelect02">Title</label>
@@ -84,6 +84,7 @@
               <div class="invalid-feedback">Please provide a valid Image_detail.</div>
 
           </div>
+
 
           <button type="submit" class="btn btn-primary btn-lg btn-block" name="insert_post">ADD</button>
       </form>

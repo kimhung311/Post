@@ -1,5 +1,5 @@
 <?php
-class LoginModel extends DModel
+class LoginModel  extends DModel
 {
 
     public function __construct()
@@ -14,12 +14,14 @@ class LoginModel extends DModel
     }
 
     public function getlogin($tabl_user, $email, $password) {
-        $sql = " SELECT * FROM $tabl_user WHERE email =? AND password =?";
+        $sql = " SELECT * FROM $tabl_user WHERE email =? AND password =? ";
         return $this->db->selectadmin($sql, $email, $password); // truyền tham số table vào select()
         
-    } 
+    }
 
-  
-   
+
+ 
 
 }
+
+?>

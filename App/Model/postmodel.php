@@ -1,5 +1,5 @@
 <?php
-class PostModel extends DModel
+class PostModel  extends DModel
 {
     const POST_TABLE = 'posts';
 
@@ -41,3 +41,4 @@ class PostModel extends DModel
         return $this->db->delete($table, $cond);
     }
 }
+?>

@@ -19,7 +19,6 @@ class Database extends PDO
         }
         $statement->execute();
         return  $statement->fetchAll($fetchStyle);
-        // return $result;
     }
 
     public function insert($table, $data)
@@ -55,6 +54,14 @@ class Database extends PDO
         return $this->exec($sql);
     }
 
+    public function search($table, $name, $value){
+        $sql = "SELECT * FROM $table WHERE $name LIKE $value";
+        $statement = $this->prepare($sql);
+        $statement->execute(array($name, $value));
+        return  $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+    }
+
     public function affectedRows($sql, $email, $password){
         $statement = $this->prepare($sql);
         $statement->execute(array($email, $password));
@@ -68,3 +75,4 @@ class Database extends PDO
 
     }
 }
+?>

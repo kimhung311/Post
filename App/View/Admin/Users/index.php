@@ -1,5 +1,3 @@
-<?php include('App/View/Admin/Layouts/master.php');
-?>
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
@@ -18,8 +16,8 @@
                 <th>STT</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role_id</th>
-                <th>Type</th>
+                <th>Permission</th>
+                <th>Account</th>
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Avatar</th>
@@ -32,7 +30,14 @@
                 <td><?php echo $value['id'] ?></td>
                 <td><?php echo $value['name'] ?></td>
                 <td><?php echo $value['email'] ?></td>
-                <td><?php echo $value['role_id'] ?></td>
+                <td><?php if ($value['role_id'] == 1) {
+                            echo 'Admin';
+                        } else if ($value['role_id'] ==  2) {
+                            echo 'Editer';
+                        } else {
+                            echo 'User';
+                        } ?>
+                </td>
                 <td><?php echo $value['type'] ?></td>
                 <td><?php echo $value['address'] ?></td>
                 <td><?php echo $value['phone'] ?></td>

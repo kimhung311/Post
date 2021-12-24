@@ -6,7 +6,8 @@
                       <h1 class="block-title">Company Info</h1>
                       <div class="block-body">
                           <figure class="foot-logo">
-                              <img src="Public/asset/images/logo-light.png" class="img-responsive" alt="Logo">
+                              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXjNGSRq1MDhl4QrulTLJUINqI8R85ZNazg&usqp=CAU"
+                                  alt="Logo">
                           </figure>
                           <p class="brand-description">
                               Magz is a HTML5 &amp; CSS3 magazine template based on Bootstrap 3.
@@ -58,7 +59,7 @@
                               <div class="inner">
                                   <figure>
                                       <a href="single.html">
-                                          <img src="Public/asset/images/news/img12.jpg" alt="Sample Article">
+                                          <img src="../Public/asset/images/news/img12.jpg" alt="Sample Article">
                                       </a>
                                   </figure>
                                   <div class="padding">
@@ -70,7 +71,7 @@
                               <div class="inner">
                                   <figure>
                                       <a href="single.html">
-                                          <img src="Public/asset/images/news/img14.jpg" alt="Sample Article">
+                                          <img src="../Public/asset/images/news/img14.jpg" alt="Sample Article">
                                       </a>
                                   </figure>
                                   <div class="padding">
@@ -82,7 +83,7 @@
                               <div class="inner">
                                   <figure>
                                       <a href="single.html">
-                                          <img src="Public/asset/images/news/img15.jpg" alt="Sample Article">
+                                          <img src="../Public/asset/images/news/img15.jpg" alt="Sample Article">
                                       </a>
                                   </figure>
                                   <div class="padding">
@@ -94,7 +95,7 @@
                               <div class="inner">
                                   <figure>
                                       <a href="single.html">
-                                          <img src="Public/asset/images/news/img16.jpg" alt="Sample Article">
+                                          <img src="../Public/asset/images/news/img16.jpg" alt="Sample Article">
                                       </a>
                                   </figure>
                                   <div class="padding">

@@ -11,3 +11,4 @@ spl_autoload_register(function($class) {
 
 include_once('App/Config/config.php');
 $main = new Main();
+?>

@@ -25,117 +25,66 @@
                     </div>
                 </div>
                 <div class="owl-carousel owl-theme slide" id="featured">
+                    <?php foreach ($posts as $key => $value) : ?>
                     <div class="item">
                         <article class="featured">
                             <div class="overlay"></div>
                             <figure>
-                                <img src="Public/asset/images/news/img04.jpg" alt="Sample Article">
+                                <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                    alt="Sample Article">
                             </figure>
                             <div class="details">
-                                <div class="category"><a href="category.html">Computer</a></div>
-                                <h1><a href="single.html">Phasellus iaculis quam sed est elementum vel ornare ligula
-                                        venenatis</a></h1>
-                                <div class="time">December 26, 2016</div>
+                                <div class="category"><a
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
+                                </div>
+                                <h1><a
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                                </h1>
+                                <div class="time"><?php echo $value['created_at'] ?></div>
                             </div>
                         </article>
                     </div>
-                    <div class="item">
-                        <article class="featured">
-                            <div class="overlay"></div>
-                            <figure>
-                                <img src="Public/asset/images/news/img14.jpg" alt="Sample Article">
-                            </figure>
-                            <div class="details">
-                                <div class="category"><a href="category.html">Travel</a></div>
-                                <h1><a href="single.html">Class aptent taciti sociosqu ad litora torquent per conubia
-                                        nostra</a></h1>
-                                <div class="time">December 10, 2016</div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="item">
-                        <article class="featured">
-                            <div class="overlay"></div>
-                            <figure>
-                                <img src="Public/asset/images/news/img13.jpg" alt="Sample Article">
-                            </figure>
-                            <div class="details">
-                                <div class="category"><a href="category.html">International</a></div>
-                                <h1><a href="single.html">Maecenas accumsan tortor ut velit pharetra mollis</a></h1>
-                                <div class="time">October 12, 2016</div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="item">
-                        <article class="featured">
-                            <div class="overlay"></div>
-                            <figure>
-                                <img src="Public/asset/images/news/img05.jpg" alt="Sample Article">
-                            </figure>
-                            <div class="details">
-                                <div class="category"><a href="category.html">Lifestyle</a></div>
-                                <h1><a href="single.html">Mauris elementum libero at pharetra auctor Fusce ullamcorper
-                                        elit</a></h1>
-                                <div class="time">November 27, 2016</div>
-                            </div>
-                        </article>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 <div class="line">
                     <div>Latest News</div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="row">
+
+                    <?php
+                    $counter = 0;
+                    foreach ($posts as $key => $value) :
+                        $counter++;
+                        if ($counter >= 5) {
+                            break;
+                        }
+                    ?>
+                    <div class="col-md-6 col-sm-6 col-xs-12" style="height:450px;">
+                        <div class=" row">
                             <article class="article col-md-12">
-                                <div class="inner">
+                                <div class="">
                                     <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img10.jpg" alt="Sample Article">
+                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>" alt=""
+                                                alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
                                         <div class="detail">
-                                            <div class="time">December 10, 2016</div>
+                                            <div class="time"><?php echo $value['created_at']; ?></div>
                                             <div class="category"><a href="category.html">Healthy</a></div>
                                         </div>
-                                        <h2><a href="single.html">Duis aute irure dolor in reprehenderit in
-                                                voluptate</a></h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                        <h2><a
+                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name']; ?></a>
+                                        </h2>
+                                        <p><?php echo $value['title']; ?>
                                         </p>
                                         <footer>
                                             <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                                 <div>1263</div>
                                             </a>
-                                            <a class="btn btn-primary more" href="single.html">
-                                                <div>More</div>
-                                                <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                            </a>
-                                        </footer>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article col-md-12">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img06.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <div class="detail">
-                                            <div class="time">December 22, 2016</div>
-                                            <div class="category"><a href="category.html">Healthy</a></div>
-                                        </div>
-                                        <h2><a href="single.html">Exercitation ullamco laboris nisi ut aliquip</a></h2>
-                                        <p>Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu
-                                            iaculis placerat sollicitudin ut est. In fringilla dui dui.</p>
-                                        <footer>
-                                            <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                                <div>327</div>
-                                            </a>
-                                            <a class="btn btn-primary more" href="single.html">
+                                            <a class="btn btn-primary more"
+                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                                                 <div>More</div>
                                                 <div><i class="ion-ios-arrow-thin-right"></i></div>
                                             </a>
@@ -145,64 +94,7 @@
                             </article>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="row">
-                            <article class="article col-md-12">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img05.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <div class="detail">
-                                            <div class="time">December 09, 2016</div>
-                                            <div class="category"><a href="category.html">Lifestyle</a></div>
-                                        </div>
-                                        <h2><a href="single.html">Mauris elementum libero at pharetra auctor</a></h2>
-                                        <p>Vivamus in efficitur mi. Nullam semper justo ut elit lacinia lacinia. Class
-                                            aptent taciti sociosqu ad litora torquent per conubia nostra.</p>
-                                        <footer>
-                                            <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                                <div>1083</div>
-                                            </a>
-                                            <a class="btn btn-primary more" href="single.html">
-                                                <div>More</div>
-                                                <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                            </a>
-                                        </footer>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article col-md-12">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img07.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <div class="detail">
-                                            <div class="time">December 21, 2016</div>
-                                            <div class="category"><a href="category.html">Sport</a></div>
-                                        </div>
-                                        <h2><a href="single.html">Sed do eiusmod tempor incididunt ut labore</a></h2>
-                                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                                            turpis egestas. Mauris elementum libero at pharetra auctor.</p>
-                                        <footer>
-                                            <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                                <div>980</div>
-                                            </a>
-                                            <a class="btn btn-primary more" href="single.html">
-                                                <div>More</div>
-                                                <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                            </a>
-                                        </footer>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 <div class="banner">
                     <a href="#">
@@ -241,120 +133,57 @@
                             </div>
                         </h1>
                         <div class="body-col vertical-slider" data-max="4" data-nav="#hot-news-nav" data-item="article">
+                            <?php
+                            foreach ($posts as $key => $value) :
+
+                            ?>
                             <article class="article-mini">
                                 <div class="inner">
                                     <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img09.jpg" alt="Sample Article">
+                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                                alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                                velit</a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Lifestyle</a></div>
-                                            <div class="time">December 22, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img01.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                                velit</a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Lifestyle</a></div>
-                                            <div class="time">December 22, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img05.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                                velit</a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Lifestyle</a></div>
-                                            <div class="time">December 22, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img02.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Fusce ullamcorper elit at felis cursus suscipit</a>
+                                        <h1><a
+                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['content'] ?></a>
                                         </h1>
                                         <div class="detail">
-                                            <div class="category"><a href="category.html">Travel</a></div>
-                                            <div class="time">December 21, 2016</div>
+                                            <div class="category"><a
+                                                    href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                                            </div>
+                                            <div class="time"><?php echo $value['created_at'] ?></div>
                                         </div>
                                     </div>
                                 </div>
                             </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img13.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                                velit</a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">International</a></div>
-                                            <div class="time">December 20, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img08.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Aliquam et metus convallis tincidunt velit ut rhoncus
-                                                dolor</a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Computer</a></div>
-                                            <div class="time">December 19, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="line top">
                     <div>Just Another News</div>
                 </div>
                 <div class="row">
+
+                    <?php
+                    $counter = 0;
+                    foreach ($posts as $key => $value) :
+                        $counter++;
+                        if ($counter >= 5) {
+                            break;
+                        }
+                    ?>
                     <article class="col-md-12 article-list">
                         <div class="inner">
                             <figure>
-                                <a href="single.html">
-                                    <img src="Public/asset/images/news/img11.jpg" alt="Sample Article">
+                                <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                    <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                        alt="Sample Article">
                                 </a>
                             </figure>
                             <div class="details">
@@ -362,19 +191,20 @@
                                     <div class="category">
                                         <a href="#">Film</a>
                                     </div>
-                                    <div class="time">December 19, 2016</div>
+                                    <div class="time"><?php echo $value['created_at'] ?></div>
                                 </div>
-                                <h1><a href="single.html">Donec consequat arcu at ultrices sodales quam erat aliquet
-                                        diam</a></h1>
+                                <h1><a
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
+                                </h1>
                                 <p>
-                                    Donec consequat, arcu at ultrices sodales, quam erat aliquet diam, sit amet interdum
-                                    libero nunc accumsan nisi.
+                                    <?php echo $value['title'] ?>
                                 </p>
                                 <footer>
                                     <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                         <div>273</div>
                                     </a>
-                                    <a class="btn btn-primary more" href="single.html">
+                                    <a class="btn btn-primary more"
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                                         <div>More</div>
                                         <div><i class="ion-ios-arrow-thin-right"></i></div>
                                     </a>
@@ -382,104 +212,8 @@
                             </div>
                         </div>
                     </article>
-                    <article class="col-md-12 article-list">
-                        <div class="inner">
-                            <div class="badge">
-                                Sponsored
-                            </div>
-                            <figure>
-                                <a href="single.html">
-                                    <img src="Public/asset/images/news/img02.jpg" alt="Sample Article">
-                                </a>
-                            </figure>
-                            <div class="details">
-                                <div class="detail">
-                                    <div class="category">
-                                        <a href="#">Travel</a>
-                                    </div>
-                                    <div class="time">December 18, 2016</div>
-                                </div>
-                                <h1><a href="single.html">Maecenas accumsan tortor ut velit pharetra mollis</a></h1>
-                                <p>
-                                    Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis
-                                    placerat sollicitudin ut est. In fringilla dui.
-                                </p>
-                                <footer>
-                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                        <div>4209</div>
-                                    </a>
-                                    <a class="btn btn-primary more" href="single.html">
-                                        <div>More</div>
-                                        <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                    </a>
-                                </footer>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-md-12 article-list">
-                        <div class="inner">
-                            <figure>
-                                <a href="single.html">
-                                    <img src="Public/asset/images/news/img03.jpg" alt="Sample Article">
-                                </a>
-                            </figure>
-                            <div class="details">
-                                <div class="detail">
-                                    <div class="category">
-                                        <a href="#">Travel</a>
-                                    </div>
-                                    <div class="time">December 16, 2016</div>
-                                </div>
-                                <h1><a href="single.html">Nulla facilisis odio quis gravida vestibulum Proin venenatis
-                                        pellentesque arcu</a></h1>
-                                <p>
-                                    Nulla facilisis odio quis gravida vestibulum. Proin venenatis pellentesque arcu, ut
-                                    mattis nulla placerat et.
-                                </p>
-                                <footer>
-                                    <a href="#" class="love active"><i class="ion-android-favorite"></i>
-                                        <div>302</div>
-                                    </a>
-                                    <a class="btn btn-primary more" href="single.html">
-                                        <div>More</div>
-                                        <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                    </a>
-                                </footer>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-md-12 article-list">
-                        <div class="inner">
-                            <figure>
-                                <a href="single.html">
-                                    <img src="Public/asset/images/news/img09.jpg" alt="Sample Article">
-                                </a>
-                            </figure>
-                            <div class="details">
-                                <div class="detail">
-                                    <div class="category">
-                                        <a href="#">Healthy</a>
-                                    </div>
-                                    <div class="time">December 16, 2016</div>
-                                </div>
-                                <h1><a href="single.html">Maecenas blandit ultricies lorem id tempor enim pulvinar
-                                        at</a></h1>
-                                <p>
-                                    Maecenas blandit ultricies lorem, id tempor enim pulvinar at. Curabitur sit amet
-                                    tortor eu ipsum lacinia malesuada.
-                                </p>
-                                <footer>
-                                    <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
-                                        <div>783</div>
-                                    </a>
-                                    <a class="btn btn-primary more" href="single.html">
-                                        <div>More</div>
-                                        <div><i class="ion-ios-arrow-thin-right"></i></div>
-                                    </a>
-                                </footer>
-                            </div>
-                        </div>
-                    </article>
+                    <?php endforeach;  ?>
+                    e
                 </div>
             </div>
             <div class="col-xs-6 col-md-4 sidebar" id="sidebar">
@@ -489,7 +223,7 @@
                         <div class="featured-author">
                             <div class="featured-author-inner">
                                 <div class="featured-author-cover"
-                                    style="background-image: url('Public/asset/images/news/img15.jpg');">
+                                    style="background-image: url('<?php echo URL_Layouts_home ?>img15.jpg');">
                                     <div class="badges">
                                         <div class="badge-item"><i class="ion-star"></i> Featured</div>
                                     </div>
@@ -498,8 +232,8 @@
                                             <img src="Public/asset/images/img01.jpg" alt="Sample Article">
                                         </figure>
                                         <div class="featured-author-info">
-                                            <h2 class="name">John Doe</h2>
-                                            <div class="desc">@JohnDoe</div>
+                                            <h2 class="name">Kim Hùng</h2>
+                                            <div class="desc">@HùngERIC</div>
                                         </div>
                                     </div>
                                 </div>
@@ -534,42 +268,42 @@
                                         <div class="block-body">
                                             <ul class="item-list-round" data-magnific="gallery">
                                                 <li>
-                                                    <a href="Public/asset/images/news/img06.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img06.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img06.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img06.jpg');"></a>
                                                 </li>
                                                 <li>
-                                                    <a href="Public/asset/images/news/img07.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img07.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img07.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img07.jpg');"></a>
                                                 </li>
                                                 <li>
-                                                    <a href="Public/asset/images/news/img08.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img08.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img08.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img08.jpg');"></a>
                                                 </li>
                                                 <li>
-                                                    <a href="Public/asset/images/news/img09.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img09.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img09.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img09.jpg');"></a>
                                                 </li>
                                                 <li>
-                                                    <a href="Public/asset/images/news/img10.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img10.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img10.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img10.jpg');"></a>
                                                 </li>
                                                 <li>
-                                                    <a href="Public/asset/images/news/img11.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img11.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img11.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img11.jpg');"></a>
                                                 </li>
                                                 <li>
-                                                    <a href="Public/asset/images/news/img12.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img12.jpg');">
+                                                    <a href="<?php echo URL_Layouts_home ?>img12.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img12.jpg');">
                                                         <div class="more">+2</div>
                                                     </a>
                                                 </li>
                                                 <li class="hidden">
-                                                    <a href="Public/asset/images/news/img13.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img13.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img13.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img13.jpg');"></a>
                                                 </li>
                                                 <li class="hidden">
-                                                    <a href="Public/asset/images/news/img14.jpg"
-                                                        style="background-image: url('Public/asset/images/news/img14.jpg');"></a>
+                                                    <a href="<?php echo URL_Layouts_home ?>img14.jpg"
+                                                        style="background-image: url('<?php echo URL_Layouts_home ?>img14.jpg');"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -584,85 +318,31 @@
                 </aside>
                 <aside>
                     <h1 class="aside-title">Popular <a href="#" class="all">See All <i
-                                class="ion-ios-arrow-right"></i></a></h1>
+                                class="ion-ios-arrow-right"></i></a>
+                    </h1>
                     <div class="aside-body">
+                        <?php
+                        $counter = 0;
+                        foreach ($posts as $key => $value) :
+                            $counter++;
+                            if ($counter >= 7) {
+                                break;
+                            }
+                        ?>
                         <article class="article-mini">
                             <div class="inner">
                                 <figure>
                                     <a href="single.html">
-                                        <img src="Public/asset/images/news/img07.jpg" alt="Sample Article">
+                                        <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                            alt="Sample Article">
                                     </a>
                                 </figure>
                                 <div class="padding">
-                                    <h1><a href="single.html">Fusce ullamcorper elit at felis cursus suscipit</a></h1>
+                                    <h1><a href="single.html"><?php echo $value['content'] ?></a></h1>
                                 </div>
                             </div>
                         </article>
-                        <article class="article-mini">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single.html">
-                                        <img src="Public/asset/images/news/img14.jpg" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="padding">
-                                    <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                            velit</a></h1>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="article-mini">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single.html">
-                                        <img src="Public/asset/images/news/img09.jpg" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="padding">
-                                    <h1><a href="single.html">Aliquam et metus convallis tincidunt velit ut rhoncus
-                                            dolor</a></h1>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="article-mini">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single.html">
-                                        <img src="Public/asset/images/news/img11.jpg" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="padding">
-                                    <h1><a href="single.html">dui augue facilisis lacus fringilla pulvinar massa felis
-                                            quis velit</a></h1>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="article-mini">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single.html">
-                                        <img src="Public/asset/images/news/img06.jpg" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="padding">
-                                    <h1><a href="single.html">neque est semper nulla, ac elementum risus quam a enim</a>
-                                    </h1>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="article-mini">
-                            <div class="inner">
-                                <figure>
-                                    <a href="single.html">
-                                        <img src="Public/asset/images/news/img03.jpg" alt="Sample Article">
-                                    </a>
-                                </figure>
-                                <div class="padding">
-                                    <h1><a href="single.html">Morbi vitae nisl ac mi luctus aliquet a vitae libero</a>
-                                    </h1>
-                                </div>
-                            </div>
-                        </article>
+                        <?php endforeach; ?>
                     </div>
                 </aside>
                 <aside>
@@ -697,82 +377,79 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="recomended">
+
+                            <?php
+                            $counter = 0;
+                            foreach ($post_relate as $key => $value) :
+                                $counter++;
+                                if ($counter >= 2) {
+                                    break;
+                                } ?>
+
                             <article class="article-fw">
                                 <div class="inner">
                                     <figure>
                                         <a href="single.html">
-                                            <img src="Public/asset/images/news/img16.jpg" alt="Sample Article">
+                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                                alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="details">
                                         <div class="detail">
-                                            <div class="time">December 31, 2016</div>
+                                            <div class="time"><?php echo $value['created_at'] ?></div>
                                             <div class="category"><a href="category.html">Sport</a></div>
                                         </div>
-                                        <h1><a href="single.html">Donec congue turpis vitae mauris</a></h1>
+                                        <h1><a href="single.html"><?php echo $value['title'] ?></a></h1>
                                         <p>
-                                            Donec congue turpis vitae mauris condimentum luctus. Ut dictum neque at
-                                            egestas convallis.
+                                            <?php echo $value['content'] ?>
                                         </p>
                                     </div>
                                 </div>
                             </article>
+                            <?php endforeach; ?>
+
                             <div class="line"></div>
+                            <?php foreach ($post_relate as $key => $value) : ?>
                             <article class="article-mini">
                                 <div class="inner">
                                     <figure>
                                         <a href="single.html">
-                                            <img src="Public/asset/images/news/img05.jpg" alt="Sample Article">
+                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                                alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                                velit</a></h1>
+                                        <h1><a href="single.html">
+                                                <?php echo $value['title'] ?>
+                                            </a></h1>
                                         <div class="detail">
                                             <div class="category"><a href="category.html">Lifestyle</a></div>
-                                            <div class="time">December 22, 2016</div>
+                                            <div class="time"><?php echo $value['created_at'] ?></div>
                                         </div>
                                     </div>
                                 </div>
                             </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img02.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Fusce ullamcorper elit at felis cursus suscipit</a>
-                                        </h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Travel</a></div>
-                                            <div class="time">December 21, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="single.html">
-                                            <img src="Public/asset/images/news/img10.jpg" alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="single.html">Duis aute irure dolor in reprehenderit in voluptate
-                                                velit</a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Healthy</a></div>
-                                            <div class="time">December 20, 2016</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
+                            <?php endforeach; ?>
                         </div>
                         <div class="tab-pane comments" id="comments">
                             <div class="comment-list sm">
+                                <?php foreach($commenttop as  $value): ?>
                                 <div class="item">
+                                    <div class="user">
+                                        <figure>
+                                            <img src="Public/asset/images/img01.jpg" alt="User Picture">
+                                        </figure>
+                                        <div class="details">
+                                            <h5 class="name"><?php echo $value['name'] ?></h5>
+                                            <div class="time"><?php echo $value['created_at'] ?></div>
+                                            <div class="description">
+                                                <?php echo $value['comment'] ?>.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                                <!-- <div class="item">
                                     <div class="user">
                                         <figure>
                                             <img src="Public/asset/images/img01.jpg" alt="User Picture">
@@ -799,21 +476,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="item">
-                                    <div class="user">
-                                        <figure>
-                                            <img src="Public/asset/images/img01.jpg" alt="User Picture">
-                                        </figure>
-                                        <div class="details">
-                                            <h5 class="name">Mark Otto</h5>
-                                            <div class="time">24 Hours</div>
-                                            <div class="description">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -872,111 +535,31 @@
             </div>
         </h1>
         <div class="owl-carousel owl-theme carousel-1">
+            <?php foreach ($best_of_the_week as $key => $value) : ?>
             <article class="article">
                 <div class="inner">
                     <figure>
                         <a href="single.html">
-                            <img src="Public/asset/images/news/img03.jpg" alt="Sample Article">
+                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>" alt="Sample Article">
                         </a>
                     </figure>
                     <div class="padding">
                         <div class="detail">
-                            <div class="time">December 11, 2016</div>
+                            <div class="time">
+                                <?php echo $value['created_at'] ?>
+                            </div>
                             <div class="category"><a href="category.html">Travel</a></div>
                         </div>
-                        <h2><a href="single.html">tempor interdum Praesent tincidunt</a></h2>
-                        <p>Praesent tincidunt, leo vitae congue molestie.</p>
+                        <h2><a href="single.html"> <?php echo $value['title'] ?></a></h2>
+                        <p> <?php echo $value['content'] ?>.</p>
                     </div>
                 </div>
             </article>
-            <article class="article">
-                <div class="inner">
-                    <figure>
-                        <a href="single.html">
-                            <img src="Public/asset/images/news/img16.jpg" alt="Sample Article">
-                        </a>
-                    </figure>
-                    <div class="padding">
-                        <div class="detail">
-                            <div class="time">December 09, 2016</div>
-                            <div class="category"><a href="category.html">Sport</a></div>
-                        </div>
-                        <h2><a href="single.html">Maecenas porttitor sit amet turpis a semper</a></h2>
-                        <p> Proin vulputate, urna id porttitor luctus, dui augue facilisis lacus.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="article">
-                <div class="inner">
-                    <figure>
-                        <a href="single.html">
-                            <img src="Public/asset/images/news/img15.jpg" alt="Sample Article">
-                        </a>
-                    </figure>
-                    <div class="padding">
-                        <div class="detail">
-                            <div class="time">December 26, 2016</div>
-                            <div class="category"><a href="category.html">Lifestyle</a></div>
-                        </div>
-                        <h2><a href="single.html">Fusce ac odio eu ex volutpat pellentesque</a></h2>
-                        <p>Vestibulum ante ipsum primis in faucibus orci luctus</p>
-                    </div>
-                </div>
-            </article>
-            <article class="article">
-                <div class="inner">
-                    <figure>
-                        <a href="single.html">
-                            <img src="Public/asset/images/news/img14.jpg" alt="Sample Article">
-                        </a>
-                    </figure>
-                    <div class="padding">
-                        <div class="detail">
-                            <div class="time">December 26, 2016</div>
-                            <div class="category"><a href="category.html">Travel</a></div>
-                        </div>
-                        <h2><a href="single.html">Nulla facilisis odio quis gravida vestibulum</a></h2>
-                        <p>Proin venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="article">
-                <div class="inner">
-                    <figure>
-                        <a href="single.html">
-                            <img src="Public/asset/images/news/img01.jpg" alt="Sample Article">
-                        </a>
-                    </figure>
-                    <div class="padding">
-                        <div class="detail">
-                            <div class="time">December 26, 2016</div>
-                            <div class="category"><a href="category.html">Travel</a></div>
-                        </div>
-                        <h2><a href="single.html">Fusce Ullamcorper Elit At Felis Cursus Suscipit</a></h2>
-                        <p>Proin venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="article">
-                <div class="inner">
-                    <figure>
-                        <a href="single.html">
-                            <img src="Public/asset/images/news/img11.jpg" alt="Sample Article">
-                        </a>
-                    </figure>
-                    <div class="padding">
-                        <div class="detail">
-                            <div class="time">December 26, 2016</div>
-                            <div class="category"><a href="category.html">Travel</a></div>
-                        </div>
-                        <h2><a href="single.html">Donec consequat arcu at ultrices sodales</a></h2>
-                        <p>Proin venenatis pellentesque arcu, ut mattis nulla placerat et.</p>
-                    </div>
-                </div>
-            </article>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
+
 <?php
 include('App/View/Home/Layouts/footer.php');
 ?>

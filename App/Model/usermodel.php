@@ -1,5 +1,5 @@
 <?php
-class UserModel extends DModel
+class UserModel  extends DModel
 {
     public function __construct()
     {
@@ -11,7 +11,6 @@ class UserModel extends DModel
         $sql = "SELECT * FROM $user";
         return $this->db->select($sql); // truyền tham số table vào select()
     }
-
 
     public function insertuser($user, $data)
     {
@@ -33,4 +32,6 @@ class UserModel extends DModel
     {
         return $this->db->delete($table, $cond);
     }
+
 }
+?>

@@ -1,15 +1,15 @@
  <nav class="sidebar sidebar-offcanvas" id="sidebar">
      <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-         <a class="sidebar-brand brand-logo" href="index.html"><img src="Public/Admin-ate/assets/images/logo.svg"
+         <a class="sidebar-brand brand-logo" href="index.html"><img src="<?php echo URL_admin_index ?>logo.svg"
                  alt="logo" /></a>
          <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img
-                 src="Public/Admin-ate/assets/images/logo-mini.svg" alt="logo" /></a>
+                 src="<?php echo URL_admin_index ?>ogo-mini.svg" alt="logo" /></a>
      </div>
      <ul class="nav">
          <li class="nav-item nav-profile">
              <a href="#" class="nav-link">
                  <div class="nav-profile-image">
-                     <img src="Public/Admin-ate/assets/images/faces/face1.jpg" alt="profile" />
+                     <img src="<?php echo URL_USER . $_SESSION['avatar'] ?>" alt="profile" />
                      <span class="login-status online"></span>
                      <!--change to offline or busy as needed-->
                  </div>
@@ -27,12 +27,12 @@
              </a>
          </li>
          <li class="nav-item">
-             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+             <a class="nav-link" href="<?php echo BASE_URL ?>category/list_category" aria-controls="ui-basic">
                  <i class="mdi mdi-table-large menu-icon"></i>
                  <span class="menu-title">CATEGORIES</span>
                  <i class="menu-arrow"></i>
              </a>
-             <div class="collapse" id="ui-basic">
+             <!-- <div class="collapse" id="ui-basic">
                  <ul class="nav flex-column sub-menu">
                      <li class="nav-item">
                          <a class="nav-link" href="pages/ui-features/buttons.html">LIST</a>
@@ -44,7 +44,7 @@
                          <a class="nav-link" href="pages/ui-features/typography.html">EDIT</a>
                      </li>
                  </ul>
-             </div>
+             </div> -->
          </li>
          <li class="nav-item">
              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">

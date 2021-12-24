@@ -125,8 +125,9 @@
                     </li>
                     <li class="nav-item nav-profile dropdown border-0">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
-                            <img class="nav-profile-img mr-2" alt="" src="Public/asset/images/faces/face1.jpg" />
-                            <span class="profile-name"><?php echo $_SESSION['email']; ?></span>
+                            <img class="nav-profile-img mr-2" alt=""
+                                src="<?php echo URL_USER . $_SESSION['avatar'] ?>" />
+                            <span class="profile-name"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
                             <a class="dropdown-item"
@@ -143,5 +144,4 @@
                 </button>
             </div>
         </nav>
-
         <!-- main-panel ends -->

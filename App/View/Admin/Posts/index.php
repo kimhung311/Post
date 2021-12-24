@@ -1,5 +1,3 @@
-<?php include('App/View/Admin/Layouts/master.php');
-?>
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
@@ -43,7 +41,7 @@
                 </td>
 
                 <td>
-                    <a href="<?php echo BASE_URL ?>post/editpost/<?php echo $value['posts_id'] ?>"
+                    <a href="<?php echo BASE_URL ?>/post/editpost/<?php echo $value['posts_id'] ?>"
                         class="btn btn-primary"
                         onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $value['posts_id'] ?>')">Edit</a>
                     <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['posts_id'] ?>"

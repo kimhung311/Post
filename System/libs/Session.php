@@ -25,12 +25,21 @@ class Session
     public static function checkSessionAuth()
     {
         self::init();
-        if (self::get('login/login') == false) {
-            self::destroy();
+        if (!self::get('login/login') && $_SERVER['REQUEST_URI'] != '/Post/login/login') {
+            session_destroy();              
+            header("Location:" . BASE_URL . "login/login");
+            return false;
+        }
+        return true;
+    }
+
+    public static function check_login_user(){
+        self::init();
+        if(isset($_SESSION['auth_user']) == true){
+            header("Location:" . BASE_URL . "homepage/");
             return true;
         }
-
-        header("Location:" . BASE_URL . "admin/index");
+        // return false;
     }
 
     public static function destroy()

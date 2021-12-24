@@ -1,5 +1,3 @@
-<?php include('App/View/Admin/Layouts/master.php') ?>
-
 <div class="main-panel">
     <h1 class="text-center">List of categories
         <div class="row">
@@ -40,6 +38,22 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item <?= ($currentPage = 1) ? "disabled" : "" ?>"><a class="page-link" href="#">Previous</a>
+            </li>
+            <?php for ($page = 1; $page <= $page; $page++) :  ?>
+            <li class="page-item <?= ($currentPage = $page) ? "active" : "" ?>">
+                <a href="" class="page-link">
+                    <?= $page ?>
+                </a>
+            </li>
+            <?php endfor ?>
+            <li class="page-item"><a class="page-link <?= ($currentPage = $pages) ? "disabled" : "" ?>"
+                    href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 </div>
 </div>

@@ -1,5 +1,5 @@
 <?php
-class CategoryModel extends DModel
+class CategoryModel  extends DModel
 {
     public function __construct()
     {
@@ -8,7 +8,32 @@ class CategoryModel extends DModel
 
     public function category($categories)
     {
-        $sql = "SELECT * FROM $categories";
+        if (isset($_GET['page']) && !empty($GET['page'])) {
+            $currentPage = (int) strip_tags($_GET['page']);
+        } else {
+            $currentPage = 1;
+        }
+        $sql = "SELECT COUNT(*) AS id FROM $categories ";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        $result = $query->fetch();
+        $nbArticles = (int) $result['id'];
+        // var_dump($sql);   
+        // die();    
+        $parPage = 3;
+        $pages = ceil($nbArticles / $parPage);
+        $premier = ($currentPage  * $parPage) - $parPage;
+
+        $sql = "SELECT * FROM $categories LIMIT  :premier,  :parpage ";
+
+        $query = $this->db->prepare($sql);
+        $query->bindValue(':premier', $premier, PDO::PARAM_INT);
+        $query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+        // var_dump($parPage);   
+
+        $query->execute();
+        $categories = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $categories;
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
@@ -32,4 +57,4 @@ class CategoryModel extends DModel
     {
         return $this->db->delete($posts, $cond);
     }
-}
+}   

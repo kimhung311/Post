@@ -21,3 +21,4 @@ class Load
         return new $filename();
     }
 }
+?>
