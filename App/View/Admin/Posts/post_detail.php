@@ -1,9 +1,7 @@
-<?php include('View/Admin/Layouts/master.php');
-?>
 <div class="main-panel">
     <h1 class="text-center">List of Posts_Detail</h1>
     <div class="row">
-        <a href="?controller=post&action=index" class="btn btn-info"><i class=" fa fa-calendar-plus fa-5x"></i>
+        <a href="<?php echo BASE_URL ?>post/index"" class=" btn btn-info"><i class=" fa fa-calendar-plus fa-5x"></i>
             Back List Post
         </a>
     </div>
@@ -19,25 +17,26 @@
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($postbyid as $key => $value) : ?>
             <tr>
                 <td>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" readonly>
-                        <?php echo $post['content'] ?>
+                        <?php echo $value['content'] ?>
                     </textarea>
                 </td>
                 <td>
                     <textarea name="" id="" cols="30" rows="10" class="form-control" readonly>
-                        <?php echo $post['description'] ?>
+                        <?php echo $value['description'] ?>
                     </textarea>
                 </td>
                 <td>
-                    <img src="<?php echo $post['picture'] ?>" alt="">
+                    <img src="<?php echo URL_Post_Detail . $value['picture'] ?> " alt="">
                 </td>
-                <td>
-                    <img src="<?php echo $post['image_detail'] ?>" alt="">
-                </td>
-                <td><?php echo $post['created_at'] ?></td>
+                <td><img src="<?php echo URL_Detail . $value['image_detail'] ?>" alt=""></td>
+                <td><?php echo $value['created_at'] ?></td>
             </tr>
+            <?php endforeach; ?>
+
         </tbody>
     </table>
 </div>

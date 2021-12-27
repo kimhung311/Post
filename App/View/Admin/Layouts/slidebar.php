@@ -15,7 +15,9 @@
                  </div>
                  <div class="nav-profile-text d-flex flex-column pr-3">
                      <span class="font-weight-medium mb-2"></span>
-                     <span class="font-weight-normal">$8,753.00</span>
+                     <span class="font-weight-normal">
+                         <?php echo $_SESSION['name']?>
+                     </span>
                  </div>
                  <span class="badge badge-danger text-white ml-3 rounded">3</span>
              </a>
@@ -27,71 +29,40 @@
              </a>
          </li>
          <li class="nav-item">
-             <a class="nav-link" href="<?php echo BASE_URL ?>category/list_category" aria-controls="ui-basic">
+             <a class="nav-link" href="<?php echo BASE_URL ?>category/list_category">
                  <i class="mdi mdi-table-large menu-icon"></i>
                  <span class="menu-title">CATEGORIES</span>
                  <i class="menu-arrow"></i>
              </a>
-             <!-- <div class="collapse" id="ui-basic">
-                 <ul class="nav flex-column sub-menu">
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/buttons.html">LIST</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/dropdowns.html">CREATE</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/typography.html">EDIT</a>
-                     </li>
-                 </ul>
-             </div> -->
          </li>
          <li class="nav-item">
-             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="true" aria-controls="ui-basic">
+             <a class="nav-link" href="<?php echo BASE_URL ?>post/index">
                  <i class="mdi mdi-table-large menu-icon"></i>
                  <span class="menu-title">POSTS</span>
                  <i class="menu-arrow"></i>
              </a>
-             <div class="collapse" id="ui-basic">
-                 <ul class="nav flex-column sub-menu">
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/buttons.html">LIST</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/dropdowns.html">CREATE</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/typography.html">EDIT</a>
-                     </li>
-                 </ul>
-             </div>
          </li>
 
          <li class="nav-item">
-             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+             <a class="nav-link" href="<?php echo BASE_URL ?>admin/list_admin">
                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-                 <span class="menu-title">USER</span>
+                 <span class="menu-title">USER-ADMIN</span>
                  <i class="menu-arrow"></i>
              </a>
-             <div class="collapse" id="ui-basic">
-                 <ul class="nav flex-column sub-menu">
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/buttons.html">LIST</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/dropdowns.html">CREATE</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="pages/ui-features/typography.html">EDIT</a>
-                     </li>
-                 </ul>
-             </div>
-
          </li>
+
          <li class="nav-item">
-             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+             <a class="nav-link" href="<?php echo BASE_URL ?>admin/list_customer">
                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-                 <span class="menu-title">ROLES</span>
+                 <span class="menu-title">USER-CUSTOMER</span>
+                 <i class="menu-arrow"></i>
+             </a>
+         </li>
+
+         <li class="nav-item">
+             <a class="nav-link" href="<?php echo BASE_URL ?>Comment/index">
+                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                 <span class="menu-title">Comment</span>
                  <i class="menu-arrow"></i>
              </a>
              <div class="collapse" id="ui-basic">

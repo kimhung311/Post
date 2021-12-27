@@ -14,14 +14,13 @@
                         </a>
                     </div>
                     <div class="owl-carousel owl-theme" id="headline">
+                        <?php foreach ($posts as $post) : ?>
                         <div class="item">
-                            <a href="#">
-                                <div class="badge">Tip!</div> Vestibulum ante ipsum primis in faucibus orci
+                            <a href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>">
+                                <div class="badge">Tip!</div><?php echo $post['title'] ?>
                             </a>
                         </div>
-                        <div class="item">
-                            <a href="#">Ut rutrum sodales mauris ut suscipit</a>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
                 <div class="owl-carousel owl-theme slide" id="featured">
@@ -37,9 +36,9 @@
                                 <div class="category"><a
                                         href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
                                 </div>
-                                <h1><a
+                                <!-- <h1><a
                                         href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
-                                </h1>
+                                </h1> -->
                                 <div class="time"><?php echo $value['created_at'] ?></div>
                             </div>
                         </article>
@@ -59,14 +58,15 @@
                             break;
                         }
                     ?>
-                    <div class="col-md-6 col-sm-6 col-xs-12" style="height:450px;">
+                    <div class="col-md-6 col-sm-6 col-xs-12" style="height:470px; margin-bottom:70px;">
+
                         <div class=" row">
                             <article class="article col-md-12">
                                 <div class="">
                                     <figure>
                                         <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
-                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>" alt=""
-                                                alt="Sample Article">
+                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
+                                                height="250px" alt="" alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
@@ -74,11 +74,16 @@
                                             <div class="time"><?php echo $value['created_at']; ?></div>
                                             <div class="category"><a href="category.html">Healthy</a></div>
                                         </div>
-                                        <h2><a
-                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name']; ?></a>
-                                        </h2>
-                                        <p><?php echo $value['title']; ?>
-                                        </p>
+                                        <h6>
+                                            <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"
+                                                style="font-size:14px; height:70px">
+                                                <?php echo $value['name']; ?>
+                                            </a>
+                                        </h6>
+                                        <h4 style=" overflow: hidden; display: -webkit-box; -webkit-box-orient:
+                                                vertical; -webkit-line-clamp: 3; height:70px;">
+                                            <?php echo $value['content'] ?>
+                                        </h4>
                                         <footer>
                                             <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                                 <div>1263</div>
@@ -147,14 +152,14 @@
                                     </figure>
                                     <div class="padding">
                                         <h1><a
-                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['content'] ?></a>
+                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
                                         </h1>
-                                        <div class="detail">
+                                        <!-- <div class="detail">
                                             <div class="category"><a
-                                                    href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                                                    href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['content'] ?></a>
                                             </div>
                                             <div class="time"><?php echo $value['created_at'] ?></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </article>
@@ -332,13 +337,15 @@
                         <article class="article-mini">
                             <div class="inner">
                                 <figure>
-                                    <a href="single.html">
+                                    <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                                         <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                             alt="Sample Article">
                                     </a>
                                 </figure>
                                 <div class="padding">
-                                    <h1><a href="single.html"><?php echo $value['content'] ?></a></h1>
+                                    <h1><a
+                                            href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                                    </h1>
                                 </div>
                             </div>
                         </article>
@@ -389,7 +396,7 @@
                             <article class="article-fw">
                                 <div class="inner">
                                     <figure>
-                                        <a href="single.html">
+                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                                             <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                                 alt="Sample Article">
                                         </a>
@@ -399,10 +406,15 @@
                                             <div class="time"><?php echo $value['created_at'] ?></div>
                                             <div class="category"><a href="category.html">Sport</a></div>
                                         </div>
-                                        <h1><a href="single.html"><?php echo $value['title'] ?></a></h1>
-                                        <p>
+                                        <h1><a
+                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                                        </h1>
+                                        <h6 style="overflow: hidden;
+                                        display: -webkit-box;
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 3;">
                                             <?php echo $value['content'] ?>
-                                        </p>
+                                        </h6>
                                     </div>
                                 </div>
                             </article>
@@ -413,13 +425,13 @@
                             <article class="article-mini">
                                 <div class="inner">
                                     <figure>
-                                        <a href="single.html">
+                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                                             <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                                 alt="Sample Article">
                                         </a>
                                     </figure>
                                     <div class="padding">
-                                        <h1><a href="single.html">
+                                        <h1><a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                                                 <?php echo $value['title'] ?>
                                             </a></h1>
                                         <div class="detail">
@@ -433,11 +445,12 @@
                         </div>
                         <div class="tab-pane comments" id="comments">
                             <div class="comment-list sm">
-                                <?php foreach($commenttop as  $value): ?>
+                                <?php foreach ($commenttop as  $value) : ?>
                                 <div class="item">
                                     <div class="user">
                                         <figure>
-                                            <img src="Public/asset/images/img01.jpg" alt="User Picture">
+                                            <img src="<?php echo URL_USER_Home . $value['avatar'] ?>"
+                                                alt="User Picture">
                                         </figure>
                                         <div class="details">
                                             <h5 class="name"><?php echo $value['name'] ?></h5>
@@ -449,34 +462,6 @@
                                     </div>
                                 </div>
                                 <?php endforeach; ?>
-                                <!-- <div class="item">
-                                    <div class="user">
-                                        <figure>
-                                            <img src="Public/asset/images/img01.jpg" alt="User Picture">
-                                        </figure>
-                                        <div class="details">
-                                            <h5 class="name">Mark Otto</h5>
-                                            <div class="time">24 Hours</div>
-                                            <div class="description">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="user">
-                                        <figure>
-                                            <img src="Public/asset/images/img01.jpg" alt="User Picture">
-                                        </figure>
-                                        <div class="details">
-                                            <h5 class="name">Mark Otto</h5>
-                                            <div class="time">24 Hours</div>
-                                            <div class="description">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -539,7 +524,7 @@
             <article class="article">
                 <div class="inner">
                     <figure>
-                        <a href="single.html">
+                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
                             <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>" alt="Sample Article">
                         </a>
                     </figure>
@@ -550,8 +535,12 @@
                             </div>
                             <div class="category"><a href="category.html">Travel</a></div>
                         </div>
-                        <h2><a href="single.html"> <?php echo $value['title'] ?></a></h2>
-                        <p> <?php echo $value['content'] ?>.</p>
+                        <h2><a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                <?php echo $value['title'] ?></a></h2>
+                        <h6
+                            style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;">
+                            <?php echo $value['content'] ?>
+                        </h6>
                     </div>
                 </div>
             </article>

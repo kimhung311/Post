@@ -42,16 +42,19 @@
                         <article class="article-fw">
                             <div class="inner">
                                 <figure>
-                                    <a href="single.html">
+                                    <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
                                         <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
                                     </a>
                                 </figure>
                                 <div class="details">
-                                    <h1><a href="single.html"><?php echo $value['title'] ?>
+                                    <h1><a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?>
                                         </a></h1>
-                                    <p>
+                                    <h6 style="overflow: hidden;
+                                        display: -webkit-box;
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 3;">
                                         <?php echo $value['content'] ?>
-                                    </p>
+                                    </h6>
                                     <div class="detail">
                                         <div class="time"><?php echo $value['created_at'] ?></div>
                                         <div class="category"><a href="category.html">Lifestyle</a></div>
@@ -73,12 +76,15 @@
                         <article class="article-mini">
                             <div class="inner" style="height:75px; margin-top:20px;">
                                 <figure>
-                                    <a href="single.html">
+                                    <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
                                         <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
                                     </a>
                                 </figure>
                                 <div class="padding">
-                                    <h1><a href="single.html"><?php echo $value['content'] ?></a></h1>
+                                    <h1><a
+                                            href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?></a>
+                                    </h1>
+
                                     <div class="detail">
                                         <div class="category"><a href="category.html">Lifestyle</a></div>
                                         <div class="time"><?php echo $value['created_at'] ?>"</div>
@@ -111,11 +117,15 @@
                 <?php foreach ($postbyid as $post) : ?>
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <!-- <li class="active">Film</li> -->
+                    <li class="active">
+                        <?php echo $post['name']; ?>
+                    </li>
                 </ol>
+                <div class="title">
+                    <p style="font: size 40px;"><?php echo $post['title'] ?></p>
+                </div>
                 <article class="article main-article">
                     <header>
-                        <h1><?php echo $post['title'] ?></h1>
                         <ul class="details">
                             <li><?php echo $post['created_at'] ?></li>
                             <!-- <li><a>Film</a></li>
@@ -130,12 +140,13 @@
                                 <figcaption><?php echo $post['name'] ?></figcaption>
                             </figure>
                         </div>
+                        <div class="title">
 
-                        <p><?php echo $post['description'] ?></p>
+                            <span><?php echo $post['description'] ?></span>
+                        </div>
                     </div>
-                    <?php endforeach; ?>
                     <footer>
-                        <div class="col">
+                        <div class="col-6">
                             <ul class="tags">
                                 <li><a href="#">Free Themes</a></li>
                                 <li><a href="#">Bootstrap 3</a></li>
@@ -145,13 +156,15 @@
                                 <li><a href="#">Web Design</a></li>
                             </ul>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                 <div>1220</div>
                             </a>
                         </div>
                     </footer>
+
                 </article>
+                <?php endforeach; ?>
                 <div class="sharing">
                     <div class="title"><i class="ion-android-share-alt"></i> Sharing is caring</div>
                     <ul class="social">
@@ -242,22 +255,24 @@
                 <div class="row">
 
                     <?php
-                        $counter = 0;
-                        foreach ($posts as $key => $value) :
-                            $counter++;
-                            if ($counter >= 3) {
-                                break;
-                            }
-                        ?>
+                    $counter = 0;
+                    foreach ($post_relate as $key => $value) :
+                        $counter++;
+                        if ($counter >= 3) {
+                            break;
+                        }
+                    ?>
                     <article class="article related col-md-6 col-sm-6 col-xs-12">
                         <div class="inner">
                             <figure>
-                                <a href="#">
-                                    <img src="<?php echo URL_Post_Detail ?><?php echo $post['picture'] ?>">
+                                <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
+                                    <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
                                 </a>
                             </figure>
                             <div class="padding">
-                                <h2><a href="#"><?php echo $value['title'] ?></a></h2></a></h2>
+                                <h2><a
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?></a>
+                                </h2></a></h2>
                                 <div class="detail">
                                     <div class="category"><a href="category.html">Lifestyle</a></div>
                                     <div class="time"><?php echo $value['created_at'] ?></div>
@@ -269,17 +284,17 @@
                 </div>
                 <div class="line thin"></div>
                 <div class="comments">
-                    <h2 class="title">3 Responses <a href="#">Write a Response</a></h2>
-                    <?php foreach ($commentbyid as $comment):  ?>
+                    <h2 class="title"> Responses <a href="#">Write a Response</a></h2>
+                    <?php foreach ($commentbyid as $comment) :  ?>
                     <div class="comment-list">
                         <div class="item">
                             <div class="user">
                                 <figure>
-                                    <img src="images/img01.jpg">
+                                    <img src="<?php echo URL_USER_Home . $value['avatar'] ?>">
                                 </figure>
                                 <div class="details">
-                                    <h5 class="name"><?php echo $comment['comment']?></h5>
-                                    <div class="time">24 Hours</div>
+                                    <h5 class="name"><?php echo $comment['comment'] ?></h5>
+                                    <div class="time"><?php echo $comment['created_at'] ?></div>
                                     <div class="description">
 
                                     </div>
@@ -290,7 +305,7 @@
                             </div>
                         </div>
                     </div>
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
                     <form class="row" " action=" <?php echo Post_Detail ?>insertcomment" method="post" role="form"
                         enctype="multipart/form">
                         <div class="col-md-12">
@@ -341,8 +356,3 @@ var $target_end = $(".best-of-the-week");
 <script src="../../Public/asset/scripts/toast/jquery.toast.min.js"></script>
 <script src="../../Public/asset/js/demo.js"></script>
 <script src="../../Public/asset/js/e-magz.js"></script>
-<script>
-$(document).ready(function() {
-    $('.toast').toast('show');
-});
-</script>

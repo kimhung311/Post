@@ -54,15 +54,15 @@
         <div class="form-outline col-md-6 mb-5">
             <label for=""> picture </label>
             <input name="picture" type="file" class="form-control" id="" placeholder="Input title">
-            <img src="Public/image-post-detail/<?php echo $post['picture'] ?> " w="200" height="150" alt="
-                   <?php echo $post['image_detail'] ?>">
+            <img src="../../Public/Image-post/<?php echo $post['picture'] ?> " w="200" height="150" alt="
+                   <?php echo $post['picture'] ?>">
 
         </div>
 
         <div class="form-outline col-md-6 mb-5">
             <label for=""> Image_detail </label>
             <input name="image_detail" type="file" value="" class="form-control" id="" placeholder="Input title">
-            <img src="Public/image-post-detail/<?php echo $post['image_detail'] ?> " w="200" height="150"
+            <img src="../../Public/image-post-detail/<?php echo $post['image_detail'] ?> " w="200" height="150"
                 alt="<?php echo $post['image_detail'] ?>">
         </div>
 

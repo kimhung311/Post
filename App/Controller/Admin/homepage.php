@@ -1,5 +1,5 @@
 <?php
-class homepage extends DController
+class Homepage extends DController
 {
     private $login_user;
     public $postTable = 'posts';
@@ -13,7 +13,6 @@ class homepage extends DController
         $data = array();
         parent::__construct(); // parent từ cha nó DController
         $this->login_user = $this->load->model('Page');
-
     }
 
     public function login_user()
@@ -82,7 +81,6 @@ class homepage extends DController
             $data['posts'] = $this->login_user->user($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Login/register_home');
-            
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
@@ -100,7 +98,6 @@ class homepage extends DController
             $role_id = $_POST['role_id'];
             $type = $_POST['type'];
             $address = $_POST['address'];
-
             $avatar = $_FILES['avatar']['name'];
             $tmp_image = $_FILES['avatar']['tmp_name'];
             $phone = $_POST['phone'];
@@ -109,9 +106,6 @@ class homepage extends DController
             $file_ext = strtolower(end($div));
             $unique_image = $div[0] . time() . '.' . $file_ext;
             $path_upload = "Public/User-image/" . $unique_image;
-
-
-
             $data = array(
                 'name' => $name,
                 'email' => $email,
@@ -123,16 +117,13 @@ class homepage extends DController
                 'phone' => $phone
             );
 
-            $this->userModel =  $this->load->model('UserModel');
-
+            $this->userModel =  $this->load->model('User_M');
             $result = $this->userModel->insertuser($this->user, $data);
-
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_upload);
                 header("Location:" . BASE_URL . "homepage/login_user");
                 $_SESSION['alert']['msg'] = 'Successful Data Generation';
                 $_SESSION['alert']['count'] = 0;
-
             } else {
                 $_SESSION['alert']['error'] = ' Data Generation failed';
                 header("Location:" . BASE_URL . "admin/register");
@@ -160,7 +151,7 @@ class homepage extends DController
         $data['user'] = $this->login_user->user($this->user);
         $data['posts'] = $this->login_user->post($this->postTable);
         $data['post_relate'] = $this->login_user->cate_relate($this->categories, $this->postTable);
-        $data['best_of_the_week'] = $this->login_user->best_of_the_week($this->categories, $this->postTable);
+        $data['best_of_the_week'] = $this->login_user->best_of_the_week($this->comment, $this->postTable);
         $this->load->view('Home/Layouts/master', $data);
         $this->load->view('Home/Home', $data);
     }

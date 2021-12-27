@@ -22,8 +22,7 @@
 
               <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
 
-              <button type="submit" name="addcategory" value="store"
-                  class="btn btn-primary btn-lg btn-block">Submit</button>
+              <button type="submit" name="addcategory" class="btn btn-primary btn-lg btn-block">Submit</button>
           </form>
       </div>
   </div>

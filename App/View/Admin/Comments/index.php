@@ -23,7 +23,12 @@
                 <td><?php echo $comment['user_id']; ?></td>
                 <td><?php echo $comment['post_id']; ?></td>
                 <td><?php echo $comment['comment']; ?></td>
-                <td><?php echo $comment['image_comment']; ?></td>
+                <td><?php if (isset($comment['image_comment']) == true) {
+                            echo $comment['image_comment'];
+                        } else {
+                            echo ' <a class="btn btn-primary">IMAGE NULL</a>';
+                        }
+                        ?></td>
                 <td>
                     <!-- <a href="<?php echo BASE_URL ?>category/editcate/<?php echo $comment['id'] ?>"
                         class="btn btn-primary"
@@ -35,6 +40,48 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+    $offset = 3; // số link trưuóc và sau khi hiện hành
+    $row = 3;  // đọ lớn hiẻn thị limit 1 trang
+    $from = ($page - 1) * $row;
+
+    $colum = $page - 3;
+    $to = $page + 3;
+    $colum = $page - $offset;
+    if ($colum < 1) $colum = 1;
+    $to = $page + $offset;
+    $Previous = $page - 1;
+    $Next = $page + 1;
+    // if($to > $pagenum) $to
+    ?>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <?php if ($page > 1) { ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>Comment/index&page=<?php echo $Previous; ?>">Previous</a>
+            </li>
+            <?php } ?>
+            <?php
+
+            for ($i = $colum; $i < $to; $i++) {
+            ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>Comment/index&page=<?php echo $i ?>"><?php echo $i ?></a>
+            </li>
+            <?php } ?>
+            <?php if ($colum >= $page) { ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>Comment/index&page=<?php echo $Next; ?>">Next</a>
+            </li>
+            <?php } ?>
+        </ul>
+    </nav>
 </div>
 </div>
 </div>

@@ -22,12 +22,13 @@ class Post_Home extends DController
         try {
 
             $cond = "id='$id'";
+            $data['post_relate'] = $this->post_home->cate_relate($this->categories, $this->postTable);
             $data['user'] = $this->post_home->user($this->user);
             $data['categories'] = $this->post_home->category($this->categories);
-            $this->postModel =  $this->load->model('PostModel');
+            $this->postModel =  $this->load->model('Post_M');
             $data['posts'] = $this->post_home->user($this->postTable);
             $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
-            $data['commentbyid'] = $this->post_home->commentbyid($this->comment, $id);
+            $data['commentbyid'] = $this->post_home->commentbyid($this->comment, $this->user, $id);
             $this->load->view('Home/Layouts/master-3', $data);
             $this->load->view('Home/Posts/post_detail', $data);
         } catch (PDOException $e) {
@@ -43,8 +44,9 @@ class Post_Home extends DController
 
             $data['user'] = $this->post_home->user($this->user);
             $data['categories'] = $this->post_home->category($this->categories);
-            $this->postModel =  $this->load->model('PostModel');
-            $data['posts'] = $this->post_home->user($this->postTable);
+            // $this->postModel =  $this->load->model('Post_M');
+            // $data['posts'] = $this->post_home->user($this->postTable);
+            $data['list_posts'] = $this->post_home->list_posts($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Posts/list_post', $data);
         } catch (PDOException $e) {
@@ -60,7 +62,8 @@ class Post_Home extends DController
         try {
             $data['user'] = $this->post_home->user($this->user);
             $data['categories'] = $this->post_home->category($this->categories);
-            $this->postModel =  $this->load->model('PostModel');
+            $this->postModel =  $this->load->model('Post_M');
+            $data['posts'] = $this->post_home->user($this->postTable);
             $data['categoryby_id'] = $this->post_home->categorybyid_home($this->categories, $this->postTable, $id);
             $this->load->view('Home/Layouts/master-3', $data);
             $this->load->view('Home/Posts/list_category', $data);
@@ -110,6 +113,98 @@ class Post_Home extends DController
             $error = $e->getMessage();
             echo 'Error creating' . $error;
             exit();
+        }
+    }
+
+
+
+
+    public function change_password($id)
+    {
+        try {
+            $cond = "id='$id'";
+            $this->userModel =  $this->load->model('User_M');
+            $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+            $this->load->view('Admin/Layouts/master-2', $data);
+            $this->load->view('Admin/Auth/change_password', $data);
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function update_change_password($id)
+    {
+        try {
+
+            $cond = "id='$id'";
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            password_hash($password, PASSWORD_DEFAULT);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
+
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
+
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
+
+
+            if ($avatar) {
+                $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+                foreach ($data['userbyid'] as $user) {
+                    if ($user['avatar']) {
+                        $path_unlink = "Public/User-image/";
+                        unlink($path_unlink . $user['avatar']);
+                    }
+                }
+                move_uploaded_file($tmp_image, $path_upload);
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'avatar' => $unique_image,
+                    'phone' => $phone
+                );
+            } else {
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'phone' => $phone
+                );
+            }
+            $this->userModel = $this->load->model('User_M');
+            $result = $this->userModel->update_user($this->user, $data, $cond);
+            if ($result == 1) {
+                // $_SESSION['alert']['msg'] = 'Edit Successful data ';
+                echo '<script language="javascript">';
+                echo 'alert("Edit Successful data ")';
+                echo '</script>';
+                header("Location:" . BASE_URL . "login/login");
+                unset($_SESSION['login/login']);
+            } else {
+                echo '<script language="javascript">';
+                echo 'alert("Edit Fail data ")';
+                echo '</script>';
+                $_SESSION['alert']['error'] = 'Edit Whether Fail';
+                header("Location:" . BASE_URL . "login/change_password");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
         }
     }
 }

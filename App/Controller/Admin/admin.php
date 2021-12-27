@@ -1,7 +1,7 @@
 <?php
 // session_start();
 
-class admin extends DController
+class Admin extends DController
 {
     private $userModel;
     private $adminTable = 'user';
@@ -11,13 +11,11 @@ class admin extends DController
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
-        $this->userModel =  $this->load->model('UserModel');
+        $this->userModel =  $this->load->model('User_M');
     }
 
- 
     public function homeadmin()
     {
- 
         $this->load->view('Admin/List-admin/index');
     }
     public function notfound()
@@ -30,6 +28,19 @@ class admin extends DController
             $this->load->view('Admin/Layouts/master');
             $data['user'] = $this->userModel->user($this->adminTable);
             $this->load->view('Admin/Users/index', $data);
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+
+    public function list_customer()
+    {
+        try {
+            $this->load->view('Admin/Layouts/master');
+            $data['user'] = $this->userModel->customer($this->adminTable);
+            $this->load->view('Admin/Users/list_customer', $data);
         } catch (PDOException $e) {
             $error = $e->getMessage();
             echo 'Error creating' . $error;
@@ -63,8 +74,6 @@ class admin extends DController
             $unique_image = $div[0] . time() . '.' . $file_ext;
             $path_upload = "Public/User-image/" . $unique_image;
 
-
-
             $data = array(
                 'name' => $name,
                 'email' => $email,
@@ -75,7 +84,6 @@ class admin extends DController
                 'avatar' => $unique_image,
                 'phone' => $phone
             );
-
 
             $result = $this->userModel->insertuser($this->adminTable, $data);
 
@@ -96,13 +104,9 @@ class admin extends DController
     public  function edit_user($id)
     {
         try {
-            // header("Location:" . BASE_URL . "Admin/Layouts/master");
-
-            $this->load->view('Admin/Layouts/master');
+            $this->load->view('Admin/Layouts/master-2');
             $cond = "id='$id'";
-
             $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
-            
             $this->load->view('Admin/Users/edit', $data);
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -113,7 +117,6 @@ class admin extends DController
     public function update_user($id)
     {
         try {
-
             $cond = "id='$id'";
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -130,7 +133,6 @@ class admin extends DController
             $file_ext = strtolower(end($div));
             $unique_image = $div[0] . time() . '.' . $file_ext;
             $path_upload = "Public/User-image/" . $unique_image;
-
 
             if ($avatar) {
                 $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
@@ -181,7 +183,6 @@ class admin extends DController
     {
         try {
             $cond = "id='$id'";
-
             $result = $this->userModel->deleteuser($this->adminTable, $cond);
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';

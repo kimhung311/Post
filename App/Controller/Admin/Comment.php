@@ -13,7 +13,7 @@
             $data = array();
             $message = array();
             parent::__construct(); // parent từ cha nó DController
-            $this->commentModel =  $this->load->model('CommentModel');
+            $this->commentModel =  $this->load->model('Comment_M');
         }
 
         public function index() {

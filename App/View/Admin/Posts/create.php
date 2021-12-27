@@ -33,19 +33,7 @@
               </select>
           </div>
 
-          <!-- <div class="form-outline col-md-4 mb-5 ">
-              <label for="inputGroupSelect01">Admin</label>
-              <select class="custom-select" id="inputGroupSelect01" name="user_id" required>
-                  <?php foreach ($user as $key => $value) : ?>
-                  <option value="<?php echo $value['id'] ?>">
-                      <?php echo $value['name'] ?></option>
-                  <?php endforeach; ?>
-              </select>
-              <div class="invalid-feedback">Please provide a valid Admin.</div>
-
-          </div> -->
           <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
-
 
           <div class="form-outline col-md-12 mb-5">
               <label for="inputGroupSelect02">Title</label>
@@ -63,10 +51,11 @@
 
           <div class="form-outline col-md-12 mb-5">
               <label for="inputGroupSelect02">Description</label>
-              <textarea class="form-control mytextarea" type="text" name="description" id="description" cols="140"
-                  rows="10" placeholder="Enter your description" required></textarea>
-              <div class="invalid-feedback">Please provide a valid Description.</div>
-
+              <!-- <textarea class="form-control mytextarea" type="text" name="description" id="inputGroupSelect02"
+                  cols="140" rows="10" placeholder="Enter your description" required></textarea> -->
+              <input type="text" name="description" id="inputGroupSelect" class="form-control mytextarea" type="text"
+                  name="description">
+              <div class="invalid-feedback">Please provide a valid description.</div>
           </div>
 
           <div class="form-outline col-md-6 mb-5">
@@ -82,7 +71,6 @@
               <input type="file" name="image_detail" id="inputGroupSelect02" class="form-control"
                   placeholder="Enter Image_detail " required>
               <div class="invalid-feedback">Please provide a valid Image_detail.</div>
-
           </div>
 
 

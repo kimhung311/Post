@@ -31,7 +31,7 @@
                 </div>
                 <div class="line"></div>
                 <div class="row">
-                    <?php foreach ($posts as $post) : ?>
+                    <?php foreach ($list_posts as $post) : ?>
                     <article class="col-md-6 col-sm-6 col-xs-12 article-list">
                         <div class="inner">
                             <figure>
@@ -42,16 +42,25 @@
                             <div class="details">
                                 <div class="detail">
                                     <div class="category">
-                                        <a href="category.html">Film</a>
+                                        <a href="">Film</a>
                                     </div>
                                     <div class="time"><?php echo $post['created_at'] ?></div>
                                 </div>
-                                <h1><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
-                                </h1>
-                                <p>
+                                <h6><a
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>"><?php echo $post['name'] ?></a>
+                                </h6>
+                                <h5 style=" display: -webkit-box;
+                                        max-width: 100%;
+                                        height: 98px;
+                                        margin: 0 auto;
+                                        font-size: 14px;
+                                        line-height: 1;
+                                        -webkit-line-clamp: 3;
+                                        -webkit-box-orient: vertical;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;">
                                     <?php echo $post['content'] ?>
-                                </p>
+                                </h5>
                                 <footer>
                                     <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                         <div>237</div>
@@ -67,6 +76,47 @@
                     </article>
                     <?php endforeach; ?>
 
+                </div>
+                <?php
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
+                } else {
+                    $page = 1;
+                }
+                $offset = 3; // số link trưuóc và sau khi hiện hành
+                $row = 3;  // đọ lớn hiẻn thị limit 1 trang
+                $from = ($page - 1) * $row;
+
+                $colum = $page - 3;
+                $to = $page + 3;
+                $colum = $page - $offset;
+                if ($colum < 1) $colum = 1;
+                $to = $page + $offset;
+                $Previous = $page - 1;
+                $Next = $page + 1;
+                // if($to > $pagenum) $to
+                ?>
+                <div class="col-md-12 text-center">
+                    <ul class="pagination">
+                        <?php if ($page > 1) { ?>
+                        <li class="prev"><a class="page-link btn btn-outline-warning"
+                                href="<?php echo Post_Detail ?>list_posts&page=<?php echo $Previous; ?>">Prev</a>
+                        </li>
+                        <?php } ?>
+                        <?php
+
+                        for ($i = $colum; $i < $to; $i++) {
+                        ?>
+                        <li class="page-item "><a class="page-link btn btn-outline-warning"
+                                href="<?php echo Post_Detail ?>list_posts&page=<?php echo $i ?>"><?php echo $i ?></a>
+                        </li>
+                        <?php } ?>
+                        <?php if ($colum >= $page) { ?>
+                        <li class="next"><a class=" btn btn-outline-warning"
+                                href="<?php echo Post_Detail ?>list_posts&page=<?php echo $Next; ?>">Next</a>
+                        </li>
+                        <?php } ?>
+                    </ul>
                 </div>
             </div>
 

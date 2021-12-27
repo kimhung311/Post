@@ -1,6 +1,6 @@
 <?php
 
-class post extends DController
+class Post extends DController
 {
     private $categoryModel;
     private $postModel;
@@ -17,9 +17,9 @@ class post extends DController
         $data = array();
         $message = array();
         parent::__construct();
-        $this->categoryModel =  $this->load->model('CategoryModel');
-        $this->userModel = $this->load->model('UserModel');
-        $this->postModel =  $this->load->model('PostModel');
+        $this->categoryModel =  $this->load->model('Category_M');
+        $this->userModel = $this->load->model('User_M');
+        $this->postModel =  $this->load->model('Post_M');
     }
 
     public function index()
@@ -27,6 +27,15 @@ class post extends DController
         $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
         $this->load->view('Admin/Layouts/master', $data);
         $this->load->view('Admin/Posts/index', $data);
+    }
+
+    public function detail($id)
+    {
+        $cond = "id='$id'";
+        $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
+        // $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
+        $this->load->view('Admin/Layouts/master-2', $data);
+        $this->load->view('Admin/Posts/post_detail', $data);
     }
 
     public function add_post()
@@ -87,8 +96,8 @@ class post extends DController
 
          
             if ($result == 1) {
-                move_uploaded_file($tmp_image, $path_upload);
-                move_uploaded_file($tmp_detail, $path_uploads);
+                move_uploaded_file($tmp_image, $path_uploads);
+                move_uploaded_file($tmp_detail, $path_upload);
                 $_SESSION['alert']['msg'] = 'Successful Data Generation';
             } else {
                 $_SESSION['alert']['error'] = ' Data Generation failed';

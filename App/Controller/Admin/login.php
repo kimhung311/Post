@@ -1,14 +1,14 @@
 <?php
-class login extends DController
+class Login extends DController 
 {
     public $userModel;
 
     public $user = 'user';
-
+    
     public function __construct()
     {
         Session::checkSessionAuth();
-
+        // Session::check_role();
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
@@ -20,13 +20,12 @@ class login extends DController
         try {
             if (Session::get('login/login') == true) {
                 header("Location:" . BASE_URL . "login/dashboard");
-            }else{
+            } else {
                 echo '<script language="javascript">';
                 echo 'alert("ERROR EMAIL OR PASSWORD")';
                 echo '</script>';
                 $this->load->view('Admin/Auth/login');
             }
-          
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
@@ -38,9 +37,8 @@ class login extends DController
         try {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
-            $loginmodel = $this->load->model('loginmodel');
+            $loginmodel = $this->load->model('Login_M');
             $count = $loginmodel->login($this->user, $email, $password);
-
             if ($count == 1) {
 
                 $result =  $loginmodel->getlogin($this->user, $email, $password);
@@ -50,7 +48,8 @@ class login extends DController
                 Session::set('id', $result[0]['id']);
                 Session::set('name', $result[0]['name']);
                 Session::set('avatar', $result[0]['avatar']);
-            
+                Session::set('role_id', $result[0]['role_id']);
+
                 $_SESSION['alert']['msg'] = 'Login Successfully';
                 $_SESSION['alert']['count'] = 0;
                 echo '<script language="javascript">';
@@ -61,6 +60,7 @@ class login extends DController
                 echo '<script language="javascript">';
                 echo 'alert("ERROR EMAIL OR PASSWORD")';
                 echo '</script>';
+                exit();
                 // $this->load->view("Admin/Auth/login");
             }
         } catch (PDOException $e) {
@@ -71,18 +71,31 @@ class login extends DController
 
     public function dashboard()
     {
-        $this->userModel =  $this->load->model('UserModel');
-
-        $data['user'] = $this->userModel->user($this->user);
-        $this->load->view('Admin/Layouts/master', $data);
-        $this->load->view("Admin/List-admin/index");
+        // Session::check_role();
+            if ($_SESSION['role_id'] != 1 & 2) {
+                Session::init();
+                unset($_SESSION['auth_user']);
+                echo '<script language="javascript">';
+                echo 'alert("bạn không đủ quyền")';
+                echo '</script>';
+                $this->load->view('Admin/Auth/login');
+            }else{
+                  echo '<script language="javascript">';
+                echo 'alert("Login  Successfully")';
+                echo '</script>';
+                $this->userModel =  $this->load->model('User_M');
+                $data['user'] = $this->userModel->user($this->user);
+                $this->load->view('Admin/Layouts/master', $data);
+                $this->load->view("Admin/List-admin/index");
+            }
+          
     }
 
     public function change_password($id)
     {
         try {
             $cond = "id='$id'";
-            $this->userModel =  $this->load->model('UserModel');
+            $this->userModel =  $this->load->model('User_M');
             $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
             $this->load->view('Admin/Layouts/master-2', $data);
             $this->load->view('Admin/Auth/change_password', $data);
@@ -114,9 +127,10 @@ class login extends DController
             $unique_image = $div[0] . time() . '.' . $file_ext;
             $path_upload = "Public/User-image/" . $unique_image;
 
-
             if ($avatar) {
-                $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+                $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+                // var_dump($data);
+                // die();
                 foreach ($data['userbyid'] as $user) {
                     if ($user['avatar']) {
                         $path_unlink = "Public/User-image/";
@@ -145,7 +159,7 @@ class login extends DController
                     'phone' => $phone
                 );
             }
-            $this->userModel = $this->load->model('UserModel');
+            $this->userModel = $this->load->model('User_M');
             $result = $this->userModel->update_user($this->user, $data, $cond);
             if ($result == 1) {
                 // $_SESSION['alert']['msg'] = 'Edit Successful data ';
@@ -173,4 +187,6 @@ class login extends DController
         $_SESSION['alert']['msg'] = 'Logout Successfully ';
         header("Location:" . BASE_URL . "login/login");
     }
+
+
 }

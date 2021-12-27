@@ -26,11 +26,18 @@ class Session
     {
         self::init();
         if (!self::get('login/login') && $_SERVER['REQUEST_URI'] != '/Post/login/login') {
-            session_destroy();              
+           
             header("Location:" . BASE_URL . "login/login");
             return false;
         }
         return true;
+    }
+
+    public static function check_role() {
+        if(isset($_SESSION['role_id' == 3]) == true) {
+            session_destroy();
+            header("Location:" . BASE_URL . "login/login");
+        }
     }
 
     public static function check_login_user(){

@@ -49,9 +49,12 @@
                                 <h1><a
                                         href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                                 </h1>
-                                <p>
+                                <h6 style="overflow: hidden;
+                                        display: -webkit-box;
+                                        -webkit-box-orient: vertical;
+                                        -webkit-line-clamp: 1;">
                                     <?php echo $post['content'] ?>
-                                </p>
+                                </h6>
                                 <footer>
                                     <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                         <div>237</div>
@@ -66,26 +69,59 @@
                         </div>
                     </article>
                     <?php endforeach; ?>
-                    <dpiv class="col-md-12 text-center">
+
+                    <?php
+                    // var_dump($categoryby_id);
+                    // die();
+                    if (isset($_GET['page'])) {
+                        $page = $_GET['page'];
+                    } else {
+                        $page = 1;
+                    }
+                    $offset = 3; // số link trưuóc và sau khi hiện hành
+                    $row = 3;  // đọ lớn hiẻn thị limit 1 trang
+                    $from = ($page - 1) * $row;
+
+                    $colum = $page - 3;
+                    $to = $page + 3;
+                    $colum = $page - $offset;
+                    if ($colum < 1) $colum = 1;
+                    $to = $page + $offset;
+                    $Previous = $page - 1;
+                    $Next = $page + 1;
+                    // if($to > $pagenum) $to
+                    ?>
+                    <div class="col-md-12 text-center">
                         <ul class="pagination">
-                            <li class="prev"><a href="#"><i class="ion-ios-arrow-left"></i></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">97</a></li>
-                            <li class="next"><a href="#"><i class="ion-ios-arrow-right"></i></a></li>
+                            <?php if ($page > 1) { ?>
+                            <li class="prev"><a class="page-link btn btn-outline-warning"
+                                    href="<?php echo Post_Detail ?>/categoryby_id/&page=<?php echo $Previous; ?>">Prev</a>
+                            </li>
+                            <?php } ?>
+                            <?php
+
+                            for ($i = $colum; $i < $to; $i++) {
+                            ?>
+                            <li class="page-item "><a class="page-link btn btn-outline-warning"
+                                    href="<?php echo Post_Detail ?>categoryby_id/<?php echo $id ?>&page=<?php echo $i ?>"><?php echo $i ?></a>
+                            </li>
+                            <?php } ?>
+                            <?php if ($colum >= $page) { ?>
+                            <li class="next"><a class=" btn btn-outline-warning"
+                                    href="<?php echo Post_Detail ?>categoryby_id/<?php echo $id ?>&page=<?php echo $Next; ?>">Next</a>
+                            </li>
+
+                            <?php } ?>
                         </ul>
-                        <div class="pagination-help-text">
-                            Showing 8 results of 776 &mdash; Page 1
-                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 </section>
+
 <?php
 include('App/View/Home/Layouts/footer.php');
 ?>

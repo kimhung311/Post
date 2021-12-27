@@ -1,6 +1,5 @@
 <?php
-// session_start();
-class category extends DController
+class Category extends DController
 {
     private $categoryModel;
     private $userModel;
@@ -10,17 +9,17 @@ class category extends DController
     public function __construct()
     {
         Session::checkSessionAuth();
-
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
-        $this->categoryModel =  $this->load->model('CategoryModel');
-        $this->userModel = $this->load->model('UserModel');
+        $this->categoryModel =  $this->load->model('Category_M');
+        $this->userModel = $this->load->model('User_M');
     }
 
     public function list_category()
     {
         try {
+          
             $data['categories'] = $this->categoryModel->category($this->categories);
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Categories/index', $data);
@@ -70,6 +69,29 @@ class category extends DController
             exit();
         }
     }
+    
+    public function search($search){
+        try{
+           
+            $search = $_GET['search'];
+            $data =  [
+                'search' => $search
+            ];
+    
+            $result = $this->categoryModel->search($this->categories, $search, $data);
+            if ($result == 1) {
+                $_SESSION['alert']['msg'] = 'Successful Data Generation';
+            } else {
+                $_SESSION['alert']['error'] = ' Data Generation failed';
+            }
+            header("Location:" . BASE_URL . "category/list_category");
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+
 
     public function editcate($id)
     {
@@ -79,7 +101,7 @@ class category extends DController
             $cond = "id='$id'";
             $data['categorybyid'] = $this->categoryModel->categorybyid($this->categories, $cond);
             $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
-            $this->load->view('Admin/Layouts/master', $data);
+            $this->load->view('Admin/Layouts/master-2', $data);
             $this->load->view('Admin/Categories/edit', $data);
         } catch (PDOException $e) {
             $error = $e->getMessage();
