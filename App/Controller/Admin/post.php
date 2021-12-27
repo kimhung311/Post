@@ -24,7 +24,7 @@ class Post extends DController
 
     public function index()
     {
-        $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
+        $data['posts'] = $this->postModel->post($this->postTable, $this->categories,$this->user);
         $this->load->view('Admin/Layouts/master', $data);
         $this->load->view('Admin/Posts/index', $data);
     }
@@ -41,11 +41,9 @@ class Post extends DController
     public function add_post()
     {
         try {
-
             $data['posts'] = $this->postModel->list_post($this->postTable);
-            $data['categories'] = $this->categoryModel->category($this->categories);
-            $data['user'] = $this->userModel->user($this->user);
-            
+            $data['categories'] = $this->postModel->list_post($this->categories);
+            // $data['user'] = $this->userModel->user($this->user);
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Posts/create', $data);
         } catch (PDOException $e) {
@@ -59,7 +57,6 @@ class Post extends DController
     {
         try {
 
-            $name = $_POST['name'];
             $category_id = $_POST['category_id'];
             $user_id = $_POST['user_id'];
             $title = $_POST['title'];
@@ -83,7 +80,6 @@ class Post extends DController
             $path_upload = "Public/image-post-detail/" . $unique_image_detali;
 
             $data = array(
-                'name' => $name,
                 'category_id' => $category_id,
                 'user_id' => $user_id,
                 'title' => $title,
@@ -92,8 +88,9 @@ class Post extends DController
                 'picture' => $unique_image,
                 'image_detail' => $unique_image_detali
             );
+            // var_dump($data);
+            // die();
             $result = $this->postModel->insertpost($this->postTable, $data);
-
          
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_uploads);
@@ -126,7 +123,6 @@ class Post extends DController
     {
         try {
             $cond = "id='$id'";
-            $name = $_POST['name'];
             $category_id = $_POST['category_id'];
             $user_id = $_POST['user_id'];
             $title = $_POST['title'];
@@ -159,7 +155,6 @@ class Post extends DController
                 move_uploaded_file($tmp_image, $path_upload);
                 move_uploaded_file($tmp_detail, $path_uploads);
                 $data = array(
-                    'name' => $name,
                     'category_id' => $category_id,
                     'user_id' => $user_id,
                     'title' => $title,
@@ -170,7 +165,6 @@ class Post extends DController
                 );
             } else {
                 $data = array(
-                    'name' => $name,
                     'category_id' => $category_id,
                     'user_id' => $user_id,
                     'title' => $title,

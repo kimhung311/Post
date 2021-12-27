@@ -8,7 +8,7 @@
             parent::__construct();
         }
 
-        public function post($posts, $categories)
+        public function post($posts, $categories, $user)
         {
             if (isset($_GET['page'])) {
             $page = $_GET['page'];
@@ -18,7 +18,7 @@
             $row = 4;
             $from = ($page - 1) * $row;
 
-            $sql = "SELECT *, $posts.id as 'posts_id' FROM $posts, $categories WHERE  $posts.category_id=$categories.id  LIMIT $from, $row   ";
+            $sql = "SELECT *, $posts.id as 'posts_id' FROM $posts, $categories, $user WHERE  $posts.category_id=$categories.id OR  $posts.user_id=$user.name  LIMIT $from, $row ";
             return $this->db->select($sql); // truyền tham số table vào select()
         }
 

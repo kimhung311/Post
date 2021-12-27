@@ -13,27 +13,30 @@
                 <th>DESCRIPTION</th>
                 <th>PICTURE</th>
                 <th>IMAGE</th>
-                <th>CREATED</th>
+                <!-- <th>CREATED</th> -->
             </tr>
         </thead>
         <tbody>
             <?php foreach ($postbyid as $key => $value) : ?>
             <tr>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" readonly>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control mytextarea" readonly>
                         <?php echo $value['content'] ?>
                     </textarea>
                 </td>
                 <td>
-                    <textarea name="" id="" cols="30" rows="10" class="form-control" readonly>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control mytextarea" readonly>
                         <?php echo $value['description'] ?>
                     </textarea>
                 </td>
                 <td>
-                    <img src="<?php echo URL_Post_Detail . $value['picture'] ?> " alt="">
+                    <img src="<?php echo URL_Post_Detail . $value['picture'] ?>"
+                        style="width:200px ;height:150px;border-radius: inherit;" alt="">
                 </td>
-                <td><img src="<?php echo URL_Detail . $value['image_detail'] ?>" alt=""></td>
-                <td><?php echo $value['created_at'] ?></td>
+                <td><img src="<?php echo URL_Detail . $value['image_detail'] ?>"
+                        style="width:200px ;height:150px;border-radius: inherit;" alt="">
+                </td>
+                <!-- <td><?php echo $value['created_at'] ?></td> -->
             </tr>
             <?php endforeach; ?>
 
@@ -41,6 +44,9 @@
     </table>
 </div>
 </div>
-</div> <?php
-        include('View/Admin/Layouts/footer.php');
-        ?>
+</div>
+<script>
+tinymce.init({
+    selector: '.mytextarea'
+});
+</script>

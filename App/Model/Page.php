@@ -14,7 +14,7 @@
 
         public function post($posts)
         {            
-            $sql = "SELECT * FROM $posts ORDER BY created_at DESC";
+            $sql = "SELECT * FROM $posts ORDER BY created_at DESC"; // note 
             return $this->db->select($sql);
         }
 
