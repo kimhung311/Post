@@ -1,59 +1,158 @@
 <?php
-class homepage extends DController
+class Homepage extends DController
 {
-    private $categoryModel;
-    private $postModel;
-    private $userModel;
-
+    private $login_user;
     public $postTable = 'posts';
+    public $user = 'user';
     public $categories = 'categories';
-
+    public $comment = 'comments';
+    public $post_id = 'post_id';
     public function __construct()
     {
+        session_start();
         $data = array();
         parent::__construct(); // parent từ cha nó DController
-        $this->categoryModel =  $this->load->model('CategoryModel');
-        $this->userModel = $this->load->model('UserModel');
-    }
-    public function home()
-    {
-        $homemodel = $this->load->model('homemodel');
-        $data['categories'] = $this->categoryModel->category($this->categories);
-        // $data['posts'] = $this->postModel->post($this->postTable);
-        $this->load->view('Home/Layouts/master',$data);
-        $this->load->view('Home/Home', $data);
+        $this->login_user = $this->load->model('Page');
     }
 
     public function login_user()
     {
-        $this->load->view('Home/Layouts/master');
-        $this->load->view('Home/Login/login_home');
+        Session::check_login_user();
+        if (isset($_SESSION['auth_user']) == true) {
+            $data['user'] = $this->login_user->user($this->user);
+            $data['categories'] = $this->login_user->user($this->categories);
+            $data['posts'] = $this->login_user->user($this->postTable);
+            $this->load->view('Home/Layouts/master-2', $data);
+            $this->load->view('Home/Home', $data);
+        }else{
+            $data['categories'] = $this->login_user->user($this->categories);
+            $data['posts'] = $this->login_user->user($this->postTable);
+            $this->load->view('Home/Layouts/master-2', $data);
+            $this->load->view('Home/Login/login_home', $data);
+        // header("Location:" . BASE_URL . "homepage/login_user");
+        }
     }
 
-    public function check_login(){
+    public function check_login()
+    {
         try {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
 
             $tabl_user = 'user';
-            $loginmodel = $this->load->model('loginmodel');
-            $count = $loginmodel->login($tabl_user, $email, $password);
+            $count = $this->login_user->login_customer($this->user, $email, $password);
+            if ($count == 1) {
+                $result =  $this->login_user->check_login($tabl_user, $email, $password);
 
-            if ($count == 0) {
-                $message['msg'] = "Error email or password please check your email password";
-                header("Location:" . BASE_URL . "login/index");
+                $_SESSION['auth_user'] = [
+                    // 'homepage/login_user' => true,
+                    'email' => $result[0]['email'],
+                    'id' => $result[0]['id'],
+                    'name' => $result[0]['name'],
+                    'avatar' => $result[0]['avatar'],
+                ];
+
+                $_SESSION['alert']['msg'] = 'Login Successfully';
+                $_SESSION['alert']['count'] = 0;
+                echo '<script language="javascript">';
+                echo 'alert("ERROR EMAIL OR PASSWORD")';
+                echo '</script>';
+                header("Location:" . BASE_URL . "homepage");
+                exit();
+
             } else {
-                $result =  $loginmodel->getlogin($tabl_user, $email, $password);
-                Session::init();
-                Session::set('login/login', true);  // kiểm tra người dùng đã đưng nhập chưa
-                Session::set('email', $result[0]['email']);
-                Session::set('id', $result[0]['id']);
-
-                header("Location:" . BASE_URL . "login/dashboard");
+                
+                echo '<script type="text/javascript"';
+                echo 'alert("ERROR EMAIL OR PASSWORD")';
+                echo '</script>';
+                header("Location:" . BASE_URL . "homepage/login_user");
+                exit();
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
         }
+    }
+
+    public function register(){
+        try{
+            $data['user'] = $this->login_user->user($this->user);
+            $data['categories'] = $this->login_user->user($this->categories);
+            $data['posts'] = $this->login_user->user($this->postTable);
+            $this->load->view('Home/Layouts/master-2', $data);
+            $this->load->view('Home/Login/register_home');
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+            exit();
+        }
+    }
+
+  
+    public function add_register()
+    {
+        try {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
+
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
+            $data = array(
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+                'role_id' => 3,
+                'type' => 'admin',
+                'address' => $address,
+                'avatar' => $unique_image,
+                'phone' => $phone
+            );
+
+            $this->userModel =  $this->load->model('User_M');
+            $result = $this->userModel->insertuser($this->user, $data);
+            if ($result == 1) {
+                move_uploaded_file($tmp_image, $path_upload);
+                header("Location:" . BASE_URL . "homepage/login_user");
+                $_SESSION['alert']['msg'] = 'Successful Data Generation';
+                $_SESSION['alert']['count'] = 0;
+            } else {
+                $_SESSION['alert']['error'] = ' Data Generation failed';
+                header("Location:" . BASE_URL . "admin/register");
+            }
+
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function logout_user()
+    {
+        Session::init();
+        session_destroy();
+        // unset($_SESSION['homepage/login_user']);
+        $_SESSION['alert']['msg'] = 'Logout Successfully ';
+        header("Location:" . BASE_URL . "homepage/login_user");
+    }
+
+    public function home()
+    {
+        $data['commenttop'] = $this->login_user->topcomment($this->comment, $this->user);
+        $data['categories'] = $this->login_user->category($this->categories);
+        $data['user'] = $this->login_user->user($this->user);
+        $data['posts'] = $this->login_user->post($this->postTable);
+        $data['post_relate'] = $this->login_user->cate_relate($this->categories, $this->postTable);
+        $data['best_of_the_week'] = $this->login_user->best_of_the_week($this->comment, $this->postTable);
+        $this->load->view('Home/Layouts/master', $data);
+        $this->load->view('Home/Home', $data);
     }
 }

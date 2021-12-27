@@ -1,5 +1,6 @@
-<?php include('App/View/Admin/Layouts/master.php'); ?>
 <div class="main-panel">
+    <?php include('App/View/Message/message.php') ?>
+
 
     <div class="content-wrapper pb-0">
         <div class="page-header flex-wrap">
@@ -849,9 +850,6 @@
             </div>
         </div>
     </div>
-    <?php include('App/View/Admin/Layouts/footer.php'); ?>
 
 </div>
 <!-- main-panel ends -->
-</div>
-<!-- page-body-wrapper ends -->

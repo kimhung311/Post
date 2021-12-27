@@ -1,7 +1,6 @@
 <?php
-session_start();
 
-class post extends DController
+class Post extends DController
 {
     private $categoryModel;
     private $postModel;
@@ -13,31 +12,41 @@ class post extends DController
 
     public function __construct()
     {
+        Session::checkSessionAuth();
+
         $data = array();
         $message = array();
         parent::__construct();
-        $this->categoryModel =  $this->load->model('CategoryModel');
-        $this->userModel = $this->load->model('UserModel');
-        $this->postModel =  $this->load->model('PostModel');
+        $this->categoryModel =  $this->load->model('Category_M');
+        $this->userModel = $this->load->model('User_M');
+        $this->postModel =  $this->load->model('Post_M');
     }
 
     public function index()
     {
-
-        // $postModel = $this->load->model('postModel');
         $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
+        $this->load->view('Admin/Layouts/master', $data);
         $this->load->view('Admin/Posts/index', $data);
+    }
+
+    public function detail($id)
+    {
+        $cond = "id='$id'";
+        $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
+        // $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
+        $this->load->view('Admin/Layouts/master-2', $data);
+        $this->load->view('Admin/Posts/post_detail', $data);
     }
 
     public function add_post()
     {
         try {
+
             $data['posts'] = $this->postModel->list_post($this->postTable);
-
             $data['categories'] = $this->categoryModel->category($this->categories);
-
             $data['user'] = $this->userModel->user($this->user);
-
+            
+            $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Posts/create', $data);
         } catch (PDOException $e) {
             $error = $e->getMessage();
@@ -87,17 +96,15 @@ class post extends DController
 
          
             if ($result == 1) {
-                move_uploaded_file($tmp_image, $path_upload);
-                move_uploaded_file($tmp_detail, $path_uploads);
-                $_SESSION['msg'] = 'Successful Data Generation';
+                move_uploaded_file($tmp_image, $path_uploads);
+                move_uploaded_file($tmp_detail, $path_upload);
+                $_SESSION['alert']['msg'] = 'Successful Data Generation';
             } else {
-                $_SESSION['error'] = ' Data Generation failed';
+                $_SESSION['alert']['error'] = ' Data Generation failed';
             }
             header("Location:" . BASE_URL . "post/index");
         } catch (PDOException $e) {
-            die();
             header("Location:" . BASE_URL . "post/add_post");
-
             $error = $e->getMessage();
             echo 'Error creating' . $error;
             exit();
@@ -106,13 +113,12 @@ class post extends DController
 
     public function editpost($id)
     {
-
         $data['categories'] = $this->categoryModel->category($this->categories);
-        
         $data['user'] = $this->userModel->user($this->user);
 
         $cond = "id='$id'";
         $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
+        $this->load->view('Admin/Layouts/master-2', $data);
         $this->load->view('Admin/Posts/edit', $data);
     }
 
@@ -176,9 +182,9 @@ class post extends DController
             $result = $this->postModel->updatepost($this->postTable, $data, $cond);
 
             if ($result == 1) {
-                $_SESSION['msg'] = 'Edit Successful data ';
+                $_SESSION['alert']['msg'] = 'Edit Successful data ';
             } else {
-                $_SESSION['error'] = 'Edit Whether Fail';
+                $_SESSION['alert']['error'] = 'Edit Whether Fail';
             }
             header("Location:" . BASE_URL . "post/index");
         } catch (PDOException $e) {
@@ -198,9 +204,9 @@ class post extends DController
 
             $result = $this->postModel->deletepost($this->postTable, $cond);
             if ($result == 1) {
-                $_SESSION['msg'] = 'Delete data successfully';
+                $_SESSION['alert']['msg'] = 'Delete data successfully';
             } else {
-                $_SESSION['error'] = 'Delete data failed';
+                $_SESSION['alert']['error'] = 'Delete data failed';
             }
             header("Location:" . BASE_URL . "post/index");
 

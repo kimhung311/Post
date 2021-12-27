@@ -1,7 +1,4 @@
-<?php
-// include('App/Validation/validation.php');
-?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,26 +9,11 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" href="Public/Admin-ate/login/css/style.css">
+    <link rel="stylesheet" href="../Public/Admin-ate/login/css/style.css">
 </head>
 
-<body class="img js-fullheight" style="background-image: url(Public/Admin-ate/login/images/bg.jpg);">
-    <?php if (isset($_SESSION['msg'])) { ?>
-    <div class="toast" data-autohide="false">
-        <div class="toast-header alert alert-success" role="alert">
-            <strong class="mr-auto text-primary">Message</strong>
-            <small class="text-muted"></small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-        </div>
-        <div class="toast-body alert alert-success" role="alert">
-            <?php echo $_SESSION['error']; ?>
-        </div>
-    </div>
-    <?php  } ?>
+<body class="img js-fullheight" style="background-image: url(../Public/Admin-ate/login/images/bg.jpg);">
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -89,6 +71,14 @@
     </section>
 
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../Public/Admin-ate/login/js/jquery.min.js"></script>
+    <script src="../Public/Admin-ate/login/js/popper.js"></script>
+    <script src="../Public/Admin-ate/login/js/bootstrap.min.js"></script>
+    <script src="../Public/Admin-ate/login/js/main.js"></script>
     <script language="javascript">
     function checkEmail() {
 
@@ -102,19 +92,12 @@
         }
     }
     </script>
+
     <script>
     $(document).ready(function() {
         $('.toast').toast('show');
     });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="Public/Admin-ate/login/js/jquery.min.js"></script>
-    <script src="Public/Admin-ate/login/js/popper.js"></script>
-    <script src="Public/Admin-ate/login/js/bootstrap.min.js"></script>
-    <script src="Public/Admin-ate/login/js/main.js"></script>
-
 
 </body>
 

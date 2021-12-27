@@ -27,9 +27,7 @@
     </header>
     <!-- Start footer -->
 
-    <?php
-        // include('View/Home/Layouts/footer.php');
-        ?>
+
     <!-- End Footer -->
 </body>
 <?php include('App/View/Home/Layouts/js.php') ?>

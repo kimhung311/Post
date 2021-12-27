@@ -1,5 +1,3 @@
-<?php include('App/View/Admin/Layouts/master.php');
-?>
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
@@ -18,8 +16,7 @@
                 <th>STT</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role_id</th>
-                <th>Type</th>
+                <th>Permission</th>
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Avatar</th>
@@ -32,8 +29,12 @@
                 <td><?php echo $value['id'] ?></td>
                 <td><?php echo $value['name'] ?></td>
                 <td><?php echo $value['email'] ?></td>
-                <td><?php echo $value['role_id'] ?></td>
-                <td><?php echo $value['type'] ?></td>
+                <td><?php if ($value['role_id'] == 1) {
+                        echo '<a class="btn btn-warning">Admin</a>';
+                    } else if ($value['role_id'] ==  2) {
+                        echo '<a class="btn btn-warning">Editer</a>';
+                    } ?>
+                </td>
                 <td><?php echo $value['address'] ?></td>
                 <td><?php echo $value['phone'] ?></td>
                 <td>
@@ -50,6 +51,48 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+    $offset = 3; // số link trưuóc và sau khi hiện hành
+    $row = 3;  // đọ lớn hiẻn thị limit 1 trang
+    $from = ($page - 1) * $row;
+    $colum = $page - 3;
+    $to = $page + 3;
+    $colum = $page - $offset;
+    if ($colum < 1) $colum = 1;
+    $to = $page + $offset;
+    $Previous = $page - 1;
+    $Next = $page + 1;
+    // if($to > $pagenum) $to
+    ?>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <?php if ($page > 1) { ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>admin/list_admin&page=<?php echo $Previous; ?>">Previous</a>
+            </li>
+            <?php } ?>
+            <?php
+
+            for ($i = $colum; $i < $to; $i++) {
+            ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>admin/list_admin&page=<?php echo $i ?>"><?php echo $i ?></a>
+            </li>
+            <?php } ?>
+            <?php if ($colum >= $page) { ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>admin/list_admin&page=<?php echo $Next; ?>">Next</a>
+            </li>
+            <?php } ?>
+        </ul>
+    </nav>
+
 </div>
 </div>
 </div>

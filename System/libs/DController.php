@@ -8,3 +8,4 @@ class DController
         $this->load = new Load();
     }
 }
+?>

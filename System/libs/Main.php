@@ -2,8 +2,8 @@
 class Main
 {
     public $url;
-    public $controllerName = 'login';
-    public $methobName = 'index';
+    public $controllerName = 'homepage';
+    public $methobName = 'home';
     public $controllerPath = 'App/Controller/Admin/';
     public $controller;
 
@@ -32,13 +32,13 @@ class Main
         if (!isset($this->url[0])) { // nếu người dùng ko truyền url vào thì mặc định nó sẽ chạy   và ngược lại
             include $this->controllerPath . $this->controllerName . '.php';
             $this->controller = new $this->controllerName();
-            $login = new login();   //khởi tạo  đên login
+            $home = new Page();   //khởi tạo  đên login
         } else {
             $this->controllerName = $this->url[0];
             $fileName = $this->controllerPath . $this->controllerName . '.php';
             if (file_exists($fileName)) {
                 include $fileName;
-                if (class_exists($this->controllerName)) { // kiểm tra file và class trong file có tồn tịa hay ko
+                if (class_exists($this->controllerName)) { // kiểm tra file và staclass trong file có tồn tịa hay ko
                     $this->controller = new $this->controllerName();
                 } else {
                 }

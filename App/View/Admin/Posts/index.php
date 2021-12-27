@@ -1,5 +1,3 @@
-<?php include('App/View/Admin/Layouts/master.php');
-?>
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
@@ -9,10 +7,10 @@
                 NEW
             </a>
         </div>
-        <?php include('App/View/Message/message.php')?>
+        <?php include('App/View/Message/message.php') ?>
     </h1>
 
-    <table class="table table-light table-hover">
+    <table class="table table-light table-hover table-responsive">
         <thead class="thead-light">
             <tr>
                 <th>STT</th>
@@ -20,8 +18,7 @@
                 <th>Category_id</th>
                 <th>User_id</th>
                 <th>Title</th>
-                <th>Picture</th>
-                <th>Image_detail</th>
+
                 <th>Action</th>
             </tr>
         </thead>
@@ -29,21 +26,22 @@
             <?php foreach ($posts as $key => $value) : ?>
             <tr>
                 <td><?php echo $value['posts_id'] ?></td>
-                <td><?php echo $value['name'] ?></td>
+                <td>
+                    <textarea name="" id="" cols="30" rows="10" class="form-control"
+                        readonly><?php echo $value['name'] ?></textarea>
+                </td>
                 <td><?php echo $value['category_name'] ?></td>
                 <td><?php echo $value['user_id'] ?></td>
-                <td><?php echo $value['title'] ?></td>
-
                 <td>
-                    <img src="<?php echo URL_IMAGE_POST . $value['picture'] ?>" alt="<?php echo $value['picture'] ?>">
+                    <textarea name="" id="" cols="30" rows="10" class="form-control"
+                        readonly><?php echo $value['title'] ?></textarea>
                 </td>
                 <td>
-                    <img src="<?php echo URL_IMAGE_POST_DETAIL . $value['image_detail'] ?>"
-                        alt="<?php echo $value['image_detail'] ?>">
+                    <a href="<?php echo BASE_URL ?>post/detail/<?php echo $value['posts_id'] ?>"
+                        class="btn btn-primary">Detail</a>
                 </td>
-
                 <td>
-                    <a href="<?php echo BASE_URL ?>post/editpost/<?php echo $value['posts_id'] ?>"
+                    <a href="<?php echo BASE_URL ?>/post/editpost/<?php echo $value['posts_id'] ?>"
                         class="btn btn-primary"
                         onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $value['posts_id'] ?>')">Edit</a>
                     <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['posts_id'] ?>"
@@ -53,6 +51,48 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+    $offset = 3; // số link trưuóc và sau khi hiện hành
+    $row = 3;  // đọ lớn hiẻn thị limit 1 trang
+    $from = ($page - 1) * $row;
+
+    $colum = $page - 3;
+    $to = $page + 3;
+    $colum = $page - $offset;
+    if ($colum < 1) $colum = 1;
+    $to = $page + $offset;
+    $Previous = $page - 1;
+    $Next = $page + 1;
+    // if($to > $pagenum) $to
+    ?>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <?php if ($page > 1) { ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>Post/index&page=<?php echo $Previous; ?>">Previous</a>
+            </li>
+            <?php } ?>
+            <?php
+
+            for ($i = $colum; $i < $to; $i++) {
+            ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>Post/index&page=<?php echo $i ?>"><?php echo $i ?></a>
+            </li>
+            <?php } ?>
+            <?php if ($colum >= $page) { ?>
+            <li class="page-item"><a class="page-link btn btn-outline-warning"
+                    href="<?php echo BASE_URL ?>Post/index&page=<?php echo $Next; ?>">Next</a>
+            </li>
+            <?php } ?>
+        </ul>
+    </nav>
 </div>
 </div>
 </div>

@@ -11,3 +11,4 @@ class DModel
         $this->db = new Database($connect, $user, $pass);
     }
 }
+?>

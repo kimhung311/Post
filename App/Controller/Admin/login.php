@@ -1,28 +1,31 @@
 <?php
-
-class login extends DController
+class Login extends DController 
 {
+    public $userModel;
+
+    public $user = 'user';
+    
     public function __construct()
     {
+        Session::checkSessionAuth();
+        // Session::check_role();
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
-    }
 
-    public function index()
-    {
-        Session::checkSessionAuth();
-        $this->login();
     }
 
     public function login()
     {
         try {
-            Session::checkSessionAuth();
             if (Session::get('login/login') == true) {
                 header("Location:" . BASE_URL . "login/dashboard");
+            } else {
+                echo '<script language="javascript">';
+                echo 'alert("ERROR EMAIL OR PASSWORD")';
+                echo '</script>';
+                $this->load->view('Admin/Auth/login');
             }
-            $this->load->view('Admin/Auth/login');
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
@@ -34,26 +37,31 @@ class login extends DController
         try {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
+            $loginmodel = $this->load->model('Login_M');
+            $count = $loginmodel->login($this->user, $email, $password);
+            if ($count == 1) {
 
-            $tabl_user = 'user';
-            $loginmodel = $this->load->model('loginmodel');
-            $count = $loginmodel->login($tabl_user, $email, $password);
-
-            if ($count == 0) {
-                // var_dump($count);
-               
-                $_SESSION['error'] = 'Error email or password please check your email password';
-
-                header("Location:" . BASE_URL . "login/index");
-            } else {
-                $result =  $loginmodel->getlogin($tabl_user, $email, $password);
+                $result =  $loginmodel->getlogin($this->user, $email, $password);
                 Session::init();
                 Session::set('login/login', true);  // kiểm tra người dùng đã đăng nhập 
                 Session::set('email', $result[0]['email']);
                 Session::set('id', $result[0]['id']);
-                $_SESSION['msg'] = 'Login Successfully';
+                Session::set('name', $result[0]['name']);
+                Session::set('avatar', $result[0]['avatar']);
+                Session::set('role_id', $result[0]['role_id']);
 
+                $_SESSION['alert']['msg'] = 'Login Successfully';
+                $_SESSION['alert']['count'] = 0;
+                echo '<script language="javascript">';
+                echo 'alert("Login  Successfully")';
+                echo '</script>';
                 header("Location:" . BASE_URL . "login/dashboard");
+            } else {
+                echo '<script language="javascript">';
+                echo 'alert("ERROR EMAIL OR PASSWORD")';
+                echo '</script>';
+                exit();
+                // $this->load->view("Admin/Auth/login");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -63,15 +71,122 @@ class login extends DController
 
     public function dashboard()
     {
-        Session::checkSessionAuth();
-        $this->load->view("Admin/List-admin/index");
+        // Session::check_role();
+            if ($_SESSION['role_id'] != 1 & 2) {
+                Session::init();
+                unset($_SESSION['auth_user']);
+                echo '<script language="javascript">';
+                echo 'alert("bạn không đủ quyền")';
+                echo '</script>';
+                $this->load->view('Admin/Auth/login');
+            }else{
+                  echo '<script language="javascript">';
+                echo 'alert("Login  Successfully")';
+                echo '</script>';
+                $this->userModel =  $this->load->model('User_M');
+                $data['user'] = $this->userModel->user($this->user);
+                $this->load->view('Admin/Layouts/master', $data);
+                $this->load->view("Admin/List-admin/index");
+            }
+          
     }
 
+    public function change_password($id)
+    {
+        try {
+            $cond = "id='$id'";
+            $this->userModel =  $this->load->model('User_M');
+            $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+            $this->load->view('Admin/Layouts/master-2', $data);
+            $this->load->view('Admin/Auth/change_password', $data);
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
+
+    public function update_change_password($id)
+    {
+        try {
+
+            $cond = "id='$id'";
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            password_hash($password, PASSWORD_DEFAULT);
+            $role_id = $_POST['role_id'];
+            $type = $_POST['type'];
+            $address = $_POST['address'];
+
+            $avatar = $_FILES['avatar']['name'];
+            $tmp_image = $_FILES['avatar']['tmp_name'];
+            $phone = $_POST['phone'];
+
+            $div = explode('.', $avatar);
+            $file_ext = strtolower(end($div));
+            $unique_image = $div[0] . time() . '.' . $file_ext;
+            $path_upload = "Public/User-image/" . $unique_image;
+
+            if ($avatar) {
+                $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+                // var_dump($data);
+                // die();
+                foreach ($data['userbyid'] as $user) {
+                    if ($user['avatar']) {
+                        $path_unlink = "Public/User-image/";
+                        unlink($path_unlink . $user['avatar']);
+                    }
+                }
+                move_uploaded_file($tmp_image, $path_upload);
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'avatar' => $unique_image,
+                    'phone' => $phone
+                );
+            } else {
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'role_id' => $role_id,
+                    'type' => $type,
+                    'address' => $address,
+                    'phone' => $phone
+                );
+            }
+            $this->userModel = $this->load->model('User_M');
+            $result = $this->userModel->update_user($this->user, $data, $cond);
+            if ($result == 1) {
+                // $_SESSION['alert']['msg'] = 'Edit Successful data ';
+                echo '<script language="javascript">';
+                echo 'alert("Edit Successful data ")';
+                echo '</script>';
+                header("Location:" . BASE_URL . "login/login");
+                unset($_SESSION['login/login']);
+            } else {
+                echo '<script language="javascript">';
+                echo 'alert("Edit Fail data ")';
+                echo '</script>';
+                $_SESSION['alert']['error'] = 'Edit Whether Fail';
+                header("Location:" . BASE_URL . "login/change_password");
+            }
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "Database error: $error_message";
+        }
+    }
     public function logout()
     {
         Session::init();
-        // Session::destroy();
         unset($_SESSION['login/login']);
-        header("Location:" . BASE_URL . "login/index");
+        $_SESSION['alert']['msg'] = 'Logout Successfully ';
+        header("Location:" . BASE_URL . "login/login");
     }
+
+
 }

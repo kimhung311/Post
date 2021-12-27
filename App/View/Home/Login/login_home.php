@@ -4,10 +4,10 @@
             <div class="box box-border">
                 <div class="box-body">
                     <h4>Login</h4>
-                    <form>
+                    <form autocomplete="off" action="<?php echo BASE_URL ?>homepage/check_login" method="POST">
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" name="username" class="form-control">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="fw">Password
@@ -16,7 +16,8 @@
                             <input type="password" name="password" class="form-control">
                         </div>
                         <div class="form-group text-right">
-                            <button class="btn btn-primary btn-block">Login</button>
+                            <button class="btn btn-primary btn-block" type="submit" name="check_login"
+                                id="submit-insert" onclick='Javascript:checkEmail();'>Login</button>
                         </div>
                         <div class="form-group text-center">
                             <span class="text-muted">Don't have an account?</span> <a href="register.html">Create
@@ -33,7 +34,17 @@
         </div>
     </div>
 </section>
-<?php
-include('App/View/Home/Layouts/footer.php');
+<?php include('App/View/Home/Layouts/footer.php'); ?>
+<script language="javascript">
+function checkEmail() {
 
-?>
+    var email = document.getElementById('txtEmail');
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    if (!filter.test(email.value)) {
+        alert('Please provide a valid email address');
+        email.focus;
+        return false;
+    }
+}
+</script>

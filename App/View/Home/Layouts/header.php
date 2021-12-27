@@ -4,7 +4,8 @@
                 <div class="col-md-3 col-sm-12">
                     <div class="brand">
                         <a href="index.html">
-                            <img src="Public/asset/images/logo.png" alt="Magz Logo">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXjNGSRq1MDhl4QrulTLJUINqI8R85ZNazg&usqp=CAU"
+                                alt="Magz Logo">
                         </a>
                     </div>
                 </div>
@@ -18,26 +19,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="help-block">
-                            <div>Popular:</div>
-                            <ul>
-                                <li><a href="#">HTML5</a></li>
-                                <li><a href="#">CSS3</a></li>
-                                <li><a href="#">Bootstrap 3</a></li>
-                                <li><a href="#">jQuery</a></li>
-                                <li><a href="#">AnguarJS</a></li>
-                            </ul>
-                        </div>
                     </form>
                 </div>
                 <div class="col-md-3 col-sm-12 text-right">
                     <ul class="nav-icons">
-                        <li><a href="register.html"><i class="ion-person-add"></i>
+                        <?php
+                        ?>
+                        <?php if (isset($_SESSION['auth_user'])) { ?>
+                        <li>
+                            <a href="register.html"><i class="ion-person-add"></i>
+                                <div><?php echo $_SESSION['auth_user']['name']; ?></div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?php echo BASE_URL ?>homepage/logout_user"><i class="ion-person"></i>
+                                <div>Logout</div>
+                            </a>
+                        </li>
+                        <?php } else { ?>
+                        <!-- chạy lại coi thu -->
+                        <li>
+                            <a href="<?php echo BASE_URL ?>homepage/register"><i class="ion-person-add"></i>
                                 <div>Register</div>
-                            </a></li>
-                        <li><a href="login.html"><i class="ion-person"></i>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?php echo BASE_URL ?>homepage/logout_user"><i class="ion-person"></i>
                                 <div>Login</div>
-                            </a></li>
+                            </a>
+                        </li>
+                        <?php  }  ?>
                     </ul>
                 </div>
             </div>
