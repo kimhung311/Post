@@ -21,6 +21,17 @@ class Database extends PDO
         return  $statement->fetchAll($fetchStyle);
     }
 
+    public function selectRowOnly($sql, $data = array(), $fetchStyle = PDO::FETCH_ASSOC)
+    {
+        $statement = $this->prepare($sql);
+
+        foreach ($data as $key => $value) {
+            $statement->bindParam($key, $value);
+        }
+        $statement->execute();
+        return  $statement->fetch($fetchStyle);
+    }
+
     public function insert($table, $data)
     {
         $keys = implode(",", array_keys($data));  // array_key  là các value được   thêm vào , implode thêm vào 1 ký tụ vào chuỗi
@@ -49,30 +60,52 @@ class Database extends PDO
         return $statement->execute();
     }
 
-    public function delete($table, $cond, $limit = 1 ){
+    public function delete($table, $cond, $limit = 1)
+    {
         $sql = "DELETE FROM $table WHERE $cond LIMIT $limit";
         return $this->exec($sql);
     }
 
-    public function search($table, $name, $value){
+
+    public function deletePostComment($posts, $comments, $postId)
+    {
+        $sql = "DELETE $posts.*,$comments.* FROM $posts INNER JOIN $comments ON $posts.id = $comments.post_id WHERE $posts.id = $postId";
+        // var_dump($sql); 
+        // die();
+          // var_dump($sql); ta hén bị ngày chỗ delete post này á tú  ta dùng câu lệnh này trên sql thì ok nhưng khi   xoá trong ni lại ko dc
+        // die(); à từ nhầm chỗ
+        return $this->exec($sql);
+    }
+
+    public function deleteCategory($user,$posts,$categories, $comments, $cond)
+    {
+        $sql = " DELETE $user.*, $posts.*, $categories.*, $comments.* FROM (($user
+            INNER JOIN $posts ON $user.$cond = $posts.user_id)
+            INNER JOIN $categories ON $user.$cond = $categories.user_id
+            INNER JOIN $comments ON $user.$cond= $comments.user_id) WHERE $user.$cond";
+      
+        return $this->exec($sql);
+    }
+    // DELETE posts.*,comments.* FROM posts INNER JOIN comments ON posts.id = comments.post_id WHERE posts.id= 231;
+    public function search($table, $name, $value)
+    {
         $sql = "SELECT * FROM $table WHERE $name LIKE $value";
         $statement = $this->prepare($sql);
         $statement->execute(array($name, $value));
         return  $statement->fetchAll(PDO::FETCH_ASSOC);
-        
     }
 
-    public function affectedRows($sql, $email, $password){
+    public function affectedRows($sql, $email, $password)
+    {
         $statement = $this->prepare($sql);
         $statement->execute(array($email, $password));
-        return $statement->rowCount(); 
+        return $statement->rowCount();
     }
 
-    public function selectadmin($sql, $email, $password){
+    public function selectAdmin($sql, $email, $password)
+    {
         $statement = $this->prepare($sql);
         $statement->execute(array($email, $password));
         return  $statement->fetchAll(PDO::FETCH_ASSOC);
-
     }
 }
-?>

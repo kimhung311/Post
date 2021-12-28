@@ -6,7 +6,7 @@ class Category_M  extends DModel
         parent::__construct();
     }
 
-    public function category($categories, $user)
+    public function Category($categories, $user)
     {
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
@@ -21,30 +21,30 @@ class Category_M  extends DModel
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
-    public function search($categories, $search, $data)
-    {
-        $sql = "SELECT * FROM $categories WHERE category_name LIKE '%$search%'";
-        return $this->db->select($sql); // truyền tham số table vào select()
-    }
+    // public function Search($categories, $search, $data)
+    // {
+    //     $sql = "SELECT * FROM $categories WHERE category_name LIKE '%$search%'";
+    //     return $this->db->select($sql); // truyền tham số table vào select()
+    // }
 
-    public function insertcategory($categories, $data)
+    public function insertCategory($categories, $data)
     {
         return $this->db->insert($categories, $data);
     }
 
-    public function categorybyid($category, $cond)
+    public function CategoryByid($category, $cond)
     {
         $sql = "SELECT * FROM $category WHERE $cond ";
         return $this->db->select($sql);
     }
 
-    public function updatecategory($categories, $data, $cond)
+    public function updateCategory($categories, $data, $cond)
     {
         return $this->db->update($categories, $data, $cond);
     }
 
-    public function deletecategory($categories, $cond)
+    public function deleteCategory($user, $posts, $categories, $comments, $cond)
     {
-        return $this->db->delete($categories, $cond);
+        return $this->db->delete($user, $posts, $categories, $comments, $cond);
     }
 }

@@ -31,14 +31,7 @@
                 <aside>
                     <h1 class="aside-title">Recent Post</h1>
                     <div class="aside-body">
-                        <?php
-                        $counter = 0;
-                        foreach ($posts as $key => $value) :
-                            $counter++;
-                            if ($counter >= 2) {
-                                break;
-                            }
-                        ?>
+                        <?php foreach ($recentpost as $key => $value) : ?>
                         <article class="article-fw">
                             <div class="inner">
                                 <figure>
@@ -64,16 +57,19 @@
                         </article>
                         <?php endforeach; ?>
 
-                        <!-- <div class="line"></div>    -->
+                        <div class="line"></div>
+                        <h1 class="aside-title">Many Comments</h1>
+
                         <?php
                         $counter = 0;
-                        foreach ($posts as $key => $value) :
+                        foreach ($popular as $key => $value) :
                             $counter++;
                             if ($counter >= 4) {
                                 break;
                             }
                         ?>
                         <article class="article-mini">
+
                             <div class="inner" style="height:75px; margin-top:20px;">
                                 <figure>
                                     <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
@@ -86,7 +82,7 @@
                                     </h1>
 
                                     <div class="detail">
-                                        <div class="category"><a href="category.html">Lifestyle</a></div>
+                                        <!-- <div class="category"><a href="category.html">Lifestyle</a></div> -->
                                         <div class="time"><?php echo $value['created_at'] ?>"</div>
                                     </div>
                                 </div>
@@ -114,39 +110,38 @@
                 </aside>
             </div>
             <div class="col-md-8">
-                <?php foreach ($postbyid as $post) : ?>
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">
-                        <?php echo $post['name']; ?>
-                    </li>
+                    <!-- <li class="active">
+                       
+                    <!-- </li> --> -->
                 </ol>
                 <div class="title">
-                    <p style="font: size 40px;"><?php echo $post['title'] ?></p>
+                    <p style="font: size 40px;"><?php echo $postbyid['title'] ?></p>
                 </div>
                 <article class="article main-article">
                     <header>
                         <ul class="details">
-                            <li><?php echo $post['created_at'] ?></li>
+                            <li><?php echo $postbyid['created_at'] ?></li>
                             <!-- <li><a>Film</a></li>
                             <li>By <a href="#">John Doe</a></li> -->
                         </ul>
                     </header>
                     <div class="main">
-                        <p><?php echo $post['content'] ?>.</p>
+                        <p><?php echo $postbyid['content'] ?>.</p>
                         <div class="featured">
                             <figure>
-                                <img src="<?php echo URL_Post_Detail ?><?php echo $post['picture'] ?>">
-                                <figcaption><?php echo $post['name'] ?></figcaption>
+                                <img src="<?php echo URL_Post_Detail ?><?php echo $postbyid['picture'] ?>">
+
                             </figure>
                         </div>
                         <div class="title">
 
-                            <span><?php echo $post['description'] ?></span>
+                            <span><?php echo $postbyid['description'] ?></span>
                         </div>
                     </div>
                     <footer>
-                        <div class="col-6">
+                        <!-- <div class="col-6">
                             <ul class="tags">
                                 <li><a href="#">Free Themes</a></li>
                                 <li><a href="#">Bootstrap 3</a></li>
@@ -155,7 +150,7 @@
                                 <li><a href="#">CSS3</a></li>
                                 <li><a href="#">Web Design</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                         <div class="col-6">
                             <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                 <div>1220</div>
@@ -164,8 +159,7 @@
                     </footer>
 
                 </article>
-                <?php endforeach; ?>
-                <div class="sharing">
+                <!-- <div class="sharing">
                     <div class="title"><i class="ion-android-share-alt"></i> Sharing is caring</div>
                     <ul class="social">
                         <li>
@@ -198,11 +192,11 @@
                             <div>Shares</div>
                         </li>
                     </ul>
-                </div>
-                <div class="line">
+                </div> -->
+                <!-- <div class="line">
                     <div>Author</div>
-                </div>
-                <div class="author">
+                </div> -->
+                <!-- <div class="author">
                     <figure>
                         <img src="images/img01.jpg">
                     </figure>
@@ -248,7 +242,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="line">
                     <div>You May Also Like</div>
                 </div>

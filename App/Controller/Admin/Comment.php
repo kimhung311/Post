@@ -6,6 +6,8 @@
 
         public $comments = 'comments';
         public $user = 'user';
+        public $posts = 'posts';
+
 
         public function __construct(){
             Session::checkSessionAuth();
@@ -19,7 +21,7 @@
         public function index() {
             try {
                 // Session::checkSessionAuth();
-                $data['comments'] = $this->commentModel->comment($this->comments);
+                $data['comments'] = $this->commentModel->Comment($this->comments, $this->posts, $this->user);
                
                 $this->load->view('Admin/Comments/index', $data);
             } catch (PDOException $e) {
@@ -34,7 +36,7 @@
             try {
                 $cond = "id='$id'";
 
-                $result = $this->commentModel->deletecomment($this->comments, $cond);
+                $result = $this->commentModel->deleteComment($this->comments, $cond);
 
                 if ($result == 1) {
                     $_SESSION['alert']['msg'] = 'Delete data successfully';

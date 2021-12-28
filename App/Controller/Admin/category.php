@@ -18,11 +18,11 @@ class Category extends DController
         $this->userModel = $this->load->model('User_M');
     }
 
-    public function list_category()
+    public function listCategory()
     {
         try {
-            $data['user'] = $this->userModel->user($this->user);
-            $data['categories'] = $this->categoryModel->category($this->categories, $this->user);
+            // $data['user'] = $this->userModel->user($this->user);
+            $data['categories'] = $this->categoryModel->Category($this->categories, $this->user);
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Categories/index', $data);
         } catch (PDOException $e) {
@@ -32,11 +32,11 @@ class Category extends DController
         }
     }
 
-    public function addcategory()
+    public function addCategory()
     {
         try {
             $data['user'] = $this->userModel->user($this->user);
-            $data['categories'] = $this->categoryModel->category($this->categories, $this->user);
+            $data['categories'] = $this->categoryModel->Category($this->categories, $this->user);
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Categories/create', $data);
         } catch (PDOException $e) {
@@ -45,7 +45,7 @@ class Category extends DController
             exit();
         }
     }
-    public function insertcategory()
+    public function insertCategory()
     {
 
         try {
@@ -61,13 +61,13 @@ class Category extends DController
                 'paren_id' => $paren_id,
                 'user_id' => $user_id
             );
-            $result = $this->categoryModel->insertcategory($this->categories, $data);
+            $result = $this->categoryModel->insertCategory($this->categories, $data);
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Successful Data Generation';
             } else {
                 $_SESSION['alert']['error'] = ' Data Generation failed';
             }
-            header("Location:" . BASE_URL . "category/list_category");
+            header("Location:" . BASE_URL . "Category/listCategory");
         } catch (PDOException $e) {
             $error = $e->getMessage();
             echo 'Error creating' . $error;
@@ -90,7 +90,7 @@ class Category extends DController
             } else {
                 $_SESSION['alert']['error'] = ' Data Generation failed';
             }
-            header("Location:" . BASE_URL . "category/list_category");
+            header("Location:" . BASE_URL . "Category/listCategory");
         } catch (PDOException $e) {
             $error = $e->getMessage();
             echo 'Error creating' . $error;
@@ -99,13 +99,13 @@ class Category extends DController
     }
 
 
-    public function editcate($id)
+    public function editCate($id)
     {
 
         try {
             $data['user'] = $this->userModel->user($this->user);
             $cond = "id='$id'";
-            $data['categorybyid'] = $this->categoryModel->categorybyid($this->categories, $cond);
+            $data['categorybyid'] = $this->categoryModel->CategoryByid($this->categories, $cond);
             $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
             $this->load->view('Admin/Layouts/master-2', $data);
             $this->load->view('Admin/Categories/edit', $data);
@@ -116,7 +116,7 @@ class Category extends DController
         }
     }
 
-    public function updatecategory($id)
+    public function updateCategory($id)
     {
         try {
             $cond = "id='$id'";
@@ -131,38 +131,33 @@ class Category extends DController
                 'user_id' =>  $user_id
             );
 
-            $result = $this->categoryModel->updatecategory($this->categories, $data, $cond);
+            $result = $this->categoryModel->updateCategory($this->categories, $data, $cond);
 
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Edit Successful data ';
             } else {
                 $_SESSION['alert']['error'] = 'Edit Whether Fail';
             }
-            header("Location:" . BASE_URL . "category/list_category");
+            header("Location:" . BASE_URL . "Category/listCategory");
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
         }
     }
 
-    public function deletecate($id)
+    public function deleteCate($id)
     {
         try {
             $cond = "id='$id'";
-            $result = $this->categoryModel->deletecategory($this->categories, $cond);
-            if(isset($result)){ 
-                $sql = "DELETE FROM posts WHERE posts.category_id=category.$cond";
-                $result = $sql;
-                return $result;
-                var_dump($result);
-                die();
-            }
-            if ($result == 1) {
-                $_SESSION['alert']['msg'] = 'Delete data successfully';
-            } else {
-                $_SESSION['alert']['error'] = 'Delete data failed';
-            }
-            header("Location:" . BASE_URL . "category/list_category");
+            $result = $this->categoryModel->deleteCategory($this->user, $this->posts, $this->categories, $this->comments, $this->cond);
+      
+                if ($result == 1) {
+                    $_SESSION['alert']['msg'] = 'Delete data successfully';
+                } else {
+                    $_SESSION['alert']['error'] = 'Delete data failed';
+                }
+                header("Location:" . BASE_URL . "Category/listCategory");
+         
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";

@@ -33,13 +33,13 @@
 
                             ?>
                           <li> <a
-                                  href="<?php echo Post_Detail ?>categoryby_id/<?php echo $category['id'] ?>"><?php echo $category['category_name'] ?></a>
+                                  href="<?php echo Post_Detail ?>CategoryBydId/<?php echo $category['id'] ?>"><?php echo $category['category_name'] ?></a>
                           </li>
 
                           <?php endforeach; ?>
                       </ul>
                   </li>
-                  <li><a href="<?php echo Post_Detail ?>list_posts">List
+                  <li><a href="<?php echo Post_Detail ?>listPosts">List
                           Post
                           <i class="ion-ios-arrow-right"></i>
                           <div class="badge">Hot</div>

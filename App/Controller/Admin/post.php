@@ -9,6 +9,8 @@ class Post extends DController
     public $postTable = 'posts';
     public $categories = 'categories';
     public $user = 'user';
+    public $comments = 'comments';
+
 
     public function __construct()
     {
@@ -22,27 +24,27 @@ class Post extends DController
         $this->postModel =  $this->load->model('Post_M');
     }
 
-    public function index()
+    public function Index()
     {
-        $data['posts'] = $this->postModel->post($this->postTable, $this->categories,$this->user);
+        $data['posts'] = $this->postModel->Post($this->postTable, $this->categories, $this->user);
         $this->load->view('Admin/Layouts/master', $data);
         $this->load->view('Admin/Posts/index', $data);
     }
 
-    public function detail($id)
+    public function Detail($id)
     {
         $cond = "id='$id'";
-        $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
+        $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
         // $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
         $this->load->view('Admin/Layouts/master-2', $data);
         $this->load->view('Admin/Posts/post_detail', $data);
     }
 
-    public function add_post()
+    public function addPost()
     {
         try {
-            $data['posts'] = $this->postModel->list_post($this->postTable);
-            $data['categories'] = $this->postModel->list_post($this->categories);
+            $data['posts'] = $this->postModel->listPost($this->postTable);
+            $data['categories'] = $this->postModel->listPost($this->categories);
             // $data['user'] = $this->userModel->user($this->user);
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Posts/create', $data);
@@ -53,7 +55,7 @@ class Post extends DController
         }
     }
 
-    public function insert_post()
+    public function insertPost()
     {
         try {
 
@@ -90,8 +92,8 @@ class Post extends DController
             );
             // var_dump($data);
             // die();
-            $result = $this->postModel->insertpost($this->postTable, $data);
-         
+            $result = $this->postModel->insertPost($this->postTable, $data);
+
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_uploads);
                 move_uploaded_file($tmp_detail, $path_upload);
@@ -108,15 +110,17 @@ class Post extends DController
         }
     }
 
-    public function editpost($id)
+    public function editPost($id)
     {
-        $data['categories'] = $this->categoryModel->category($this->categories);
+        $data['categories'] = $this->categoryModel->Category($this->categories, $this->user);
         $data['user'] = $this->userModel->user($this->user);
-
         $cond = "id='$id'";
-        $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
+        $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
+        // var_dump($data['postbyid']);
+        // die();
         $this->load->view('Admin/Layouts/master-2', $data);
         $this->load->view('Admin/Posts/edit', $data);
+        exit();
     }
 
     public function updatepost($id)
@@ -144,7 +148,9 @@ class Post extends DController
             $path_upload = "Public/image-post-detail/" . $unique_image_detali;
 
             if ($picture || $image_detail) {
-                $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
+                $data['postbyid'] = $this->postModel->PostEditId($this->postTable, $cond);
+                // var_dump($data['postbyid']);
+                // die();
                 foreach ($data['postbyid'] as $key => $value) {
                     if ($value['picture'] || $value['image_detail']) {
                         $path_unlink = "Public/image-post-detail/";
@@ -170,7 +176,7 @@ class Post extends DController
                     'title' => $title,
                     'content' => $content,
                     'description' => $description,
-                  
+
                 );
             }
             $result = $this->postModel->updatepost($this->postTable, $data, $cond);
@@ -190,20 +196,24 @@ class Post extends DController
         }
     }
 
-
-    public function delete_post($id)
+    public function deletePost($id)
     {
         try {
             $cond = "id='$id'";
+            // $post_id = "post_id='$id'";
+            // $data['comments'] = $this->postModel->postbyid($this->comments, $cond);
 
-            $result = $this->postModel->deletepost($this->postTable, $cond);
+            $result = $this->postModel->deletePostComment($this->postTable, $this->comments, $id);
+
+
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';
             } else {
                 $_SESSION['alert']['error'] = 'Delete data failed';
             }
+            // var_dump($result);
+            // die();
             header("Location:" . BASE_URL . "post/index");
-
         } catch (PDOException $e) {
             $error = $e->getMessage();
             echo 'Error creating' . $error;

@@ -16,7 +16,7 @@
                  <div class="nav-profile-text d-flex flex-column pr-3">
                      <span class="font-weight-medium mb-2"></span>
                      <span class="font-weight-normal">
-                         <?php echo $_SESSION['name']?>
+                         <?php echo $_SESSION['name'] ?>
                      </span>
                  </div>
                  <span class="badge badge-danger text-white ml-3 rounded">3</span>
@@ -29,14 +29,14 @@
              </a>
          </li>
          <li class="nav-item">
-             <a class="nav-link" href="<?php echo BASE_URL ?>category/list_category">
+             <a class="nav-link" href="<?php echo BASE_URL ?>Category/listCategory">
                  <i class="mdi mdi-table-large menu-icon"></i>
                  <span class="menu-title">CATEGORIES</span>
                  <i class="menu-arrow"></i>
              </a>
          </li>
          <li class="nav-item">
-             <a class="nav-link" href="<?php echo BASE_URL ?>post/index">
+             <a class="nav-link" href="<?php echo BASE_URL ?>Post/Index">
                  <i class="mdi mdi-table-large menu-icon"></i>
                  <span class="menu-title">POSTS</span>
                  <i class="menu-arrow"></i>
@@ -44,7 +44,7 @@
          </li>
 
          <li class="nav-item">
-             <a class="nav-link" href="<?php echo BASE_URL ?>admin/list_admin">
+             <a class="nav-link" href="<?php echo BASE_URL ?>admin/listAdmin">
                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                  <span class="menu-title">USER-ADMIN</span>
                  <i class="menu-arrow"></i>
@@ -52,7 +52,7 @@
          </li>
 
          <li class="nav-item">
-             <a class="nav-link" href="<?php echo BASE_URL ?>admin/list_customer">
+             <a class="nav-link" href="<?php echo BASE_URL ?>admin/listCustomer">
                  <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                  <span class="menu-title">USER-CUSTOMER</span>
                  <i class="menu-arrow"></i>

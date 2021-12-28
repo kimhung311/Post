@@ -1,8 +1,7 @@
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
-            <a href="<?php echo BASE_URL ?>post/add_post" class="btn btn-info"><i
-                    class=" fa fa-calendar-plus fa-5x"></i>
+            <a href="<?php echo BASE_URL ?>post/AddPost" class="btn btn-info"><i class=" fa fa-calendar-plus fa-5x"></i>
                 ADD
                 NEW
             </a>
@@ -21,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($posts as $key => $value) : ?>
+            <?php foreach ($posts as $key => $value) { ?>
             <tr>
                 <td><?php echo $value['posts_id'] ?></td>
 
@@ -31,18 +30,18 @@
                     <?php echo $value['title'] ?>
                 </td>
                 <td>
-                    <a href="<?php echo BASE_URL ?>post/detail/<?php echo $value['posts_id'] ?>"
+                    <a href="<?php echo BASE_URL ?>Post/Detail/<?php echo $value['posts_id'] ?>"
                         class="btn btn-primary">Detail</a>
                 </td>
                 <td>
-                    <a href="<?php echo BASE_URL ?>/post/editpost/<?php echo $value['posts_id'] ?>"
+                    <a href="<?php echo BASE_URL ?>/Post/editPost/<?php echo $value['posts_id'] ?>"
                         class="btn btn-primary"
                         onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $value['posts_id'] ?>')">Edit</a>
-                    <a href="<?php echo BASE_URL ?>post/delete_post/<?php echo $value['posts_id'] ?>"
+                    <a href="<?php echo BASE_URL ?>post/deletePost/<?php echo $value['posts_id'] ?>"
                         class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this:')">Del</a>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?php }  ?>
         </tbody>
     </table>
 

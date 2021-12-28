@@ -14,7 +14,7 @@ class Admin extends DController
         $this->userModel =  $this->load->model('User_M');
     }
 
-    public function homeadmin()
+    public function homeAdmin()
     {
         $this->load->view('Admin/List-admin/index');
     }
@@ -22,11 +22,11 @@ class Admin extends DController
     {
         $this->load->view('Error/error_404');
     }
-    public function list_admin()
+    public function listAdmin()
     {
         try {
             $this->load->view('Admin/Layouts/master');
-            $data['user'] = $this->userModel->user($this->adminTable);
+            $data['user'] = $this->userModel->User($this->adminTable);
             $this->load->view('Admin/Users/index', $data);
         } catch (PDOException $e) {
             $error = $e->getMessage();
@@ -35,11 +35,11 @@ class Admin extends DController
         }
     }
 
-    public function list_customer()
+    public function listCustomer()
     {
         try {
             $this->load->view('Admin/Layouts/master');
-            $data['user'] = $this->userModel->customer($this->adminTable);
+            $data['user'] = $this->userModel->Customer($this->adminTable);
             $this->load->view('Admin/Users/list_customer', $data);
         } catch (PDOException $e) {
             $error = $e->getMessage();
@@ -48,14 +48,14 @@ class Admin extends DController
         }
     }
 
-    public function register()
+    public function Register()
     {
         $this->load->view('Admin/Layouts/master');
 
         $this->load->view('Admin/Users/create');
     }
 
-    public function add_register()
+    public function AddRegister()
     {
         try {
             $name = $_POST['name'];
@@ -85,7 +85,7 @@ class Admin extends DController
                 'phone' => $phone
             );
 
-            $result = $this->userModel->insertuser($this->adminTable, $data);
+            $result = $this->userModel->insertUser($this->adminTable, $data);
 
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_upload);
@@ -101,12 +101,12 @@ class Admin extends DController
         }
     }
 
-    public  function edit_user($id)
+    public  function editUser($id)
     {
         try {
             $this->load->view('Admin/Layouts/master-2');
             $cond = "id='$id'";
-            $data['userbyid'] = $this->userModel->userbyid($this->adminTable, $cond);
+            $data['userbyid'] = $this->userModel->UserByid($this->adminTable, $cond);
             $this->load->view('Admin/Users/edit', $data);
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -114,7 +114,7 @@ class Admin extends DController
         }
     }
 
-    public function update_user($id)
+    public function updateUser($id)
     {
         try {
             $cond = "id='$id'";
@@ -165,7 +165,7 @@ class Admin extends DController
                 );
             }
 
-            $result = $this->userModel->update_user($this->adminTable, $data, $cond);
+            $result = $this->userModel->updateUser($this->adminTable, $data, $cond);
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Edit Successful data ';
                 header("Location:" . BASE_URL . "admin/list_admin");
@@ -179,11 +179,12 @@ class Admin extends DController
         }
     }
 
-    public function delete_user($id)
+    public function deleteUser($id)
     {
         try {
             $cond = "id='$id'";
-            $result = $this->userModel->deleteuser($this->adminTable, $cond);
+            $result = $this->userModel->deleteUser($this->adminTable, $cond);
+           
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';
                 header("Location:" . BASE_URL . "admin/list_admin");

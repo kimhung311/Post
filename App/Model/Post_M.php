@@ -8,7 +8,7 @@
             parent::__construct();
         }
 
-        public function post($posts, $categories, $user)
+        public function Post($posts, $categories, $user)
         {
             if (isset($_GET['page'])) {
             $page = $_GET['page'];
@@ -18,35 +18,41 @@
             $row = 4;
             $from = ($page - 1) * $row;
 
-            $sql = "SELECT *, $posts.id as 'posts_id' FROM $posts, $categories, $user WHERE  $posts.category_id=$categories.id OR  $posts.user_id=$user.name  LIMIT $from, $row ";
+            $sql = "SELECT *, $posts.id as 'posts_id',  $categories.category_name, $user.name FROM (($posts INNER JOIN $categories ON $posts.category_id = $categories.id) INNER JOIN $user ON $posts.user_id = $user.id)  LIMIT $from, $row ";
+            
             return $this->db->select($sql); // truyền tham số table vào select()
         }
 
-        public function list_post($posts)
+        public function listPost($posts)
         {
             $sql = "SELECT * FROM $posts";
             return $this->db->select($sql); // truyền tham số table vào select()
         }
 
-        public function insertpost($posts, $data)
+        public function insertPost($posts, $data)
         {
             return $this->db->insert($posts, $data);
         }
 
-        public function postbyid($posts, $cond)
+        public function PostById($posts, $cond)
         {
-            $sql = "SELECT * FROM $posts WHERE $cond ";
-            return $this->db->select($sql);
+            $sql = "SELECT * FROM $posts WHERE $cond LIMIT 1";
+            return $this->db->selectRowOnly($sql);
         }
 
-        public function updatepost($table, $data, $cond)
+    public function PostEditId($posts, $cond)
+    {
+        $sql = "SELECT * FROM $posts WHERE $cond LIMIT 1";
+        return $this->db->select($sql);
+    }
+
+        public function updatePost($table, $data, $cond)
         {
             return $this->db->update($table, $data, $cond);
         }
 
-        public function deletepost($table, $cond)
+        public function deletePostComment($posts, $comments , $cond)
         {
-            return $this->db->delete($table, $cond);
+            return $this->db->deletePostComment($posts, $comments,  $cond);
         }
     }
-?>

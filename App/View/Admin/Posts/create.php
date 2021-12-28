@@ -10,7 +10,7 @@
         }
         ?>
 
-      <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>post/insert_post" method="POST"
+      <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>post/insertPost" method="POST"
           role="form" enctype="multipart/form-data" style="width:1200px;margin:auto;">
 
 

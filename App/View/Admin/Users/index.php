@@ -1,7 +1,7 @@
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
-            <a href="<?php echo BASE_URL ?>admin/register" class="btn btn-info"><i
+            <a href="<?php echo BASE_URL ?>Admin/AddRegister" class="btn btn-info"><i
                     class=" fa fa-calendar-plus fa-5x"></i>
                 ADD
                 NEW
@@ -30,10 +30,10 @@
                 <td><?php echo $value['name'] ?></td>
                 <td><?php echo $value['email'] ?></td>
                 <td><?php if ($value['role_id'] == 1) {
-                        echo '<a class="btn btn-warning">Admin</a>';
-                    } else if ($value['role_id'] ==  2) {
-                        echo '<a class="btn btn-warning">Editer</a>';
-                    } ?>
+                            echo '<a class="btn btn-warning">Admin</a>';
+                        } else if ($value['role_id'] ==  2) {
+                            echo '<a class="btn btn-warning">Editer</a>';
+                        } ?>
                 </td>
                 <td><?php echo $value['address'] ?></td>
                 <td><?php echo $value['phone'] ?></td>
