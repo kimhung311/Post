@@ -1,28 +1,33 @@
   <div class="main-panel">
       <div class="form-group">
           <h1 class="text-center">ADD CATEGORY </h1>
-          <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>category/insertcategory"
+          <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>Category/insertCategory"
               method="post" role="form" enctype="multipart/form" style="width:1200px;margin:auto;">
 
               <div class="form-outline col-md-6 mb-5">
                   <label for="validationCustom01">Name</label>
-                  <input type="text" id="validationCustom01" name=" category_name" class="form-control"
-                      placeholder="Enter category name">
+                  <input type="text" id="validationCustom01" name="category_name" class="form-control"
+                      placeholder="Enter category name" required>
+                  <div class="invalid-feedback">Please provide a valid Name.</div>
+
               </div>
 
               <div class="form-outline col-md-6 mb-5">
-                  <label for="inputGroupSelect01">Paren_id</label>
+                  <label for="inputGroupSelect01">Parent directory</label>
                   <select class="custom-select" id="validationCustom01" name="paren_id">
+                      <option selected value="0">Open this select menu</option>
                       <?php foreach ($categories as $key => $value) : ?>
-                      <option value="<?php echo $value['id'] ?>">
+                      <option value=" <?php echo $value['id'] ?>"
+                          <?php $value['id'] == $value['id'] ?   'selected' : 0; ?>>
                           <?php echo $value['category_name'] ?></option>
+
                       <?php endforeach; ?>
                   </select>
               </div>
 
               <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
 
-              <button type="submit" name="addcategory" class="btn btn-primary btn-lg btn-block">Submit</button>
+              <button type="submit" name="insertCategory" class="btn btn-primary btn-lg btn-block">Submit</button>
           </form>
       </div>
   </div>

@@ -47,7 +47,7 @@
                                     <div class="time"><?php echo $post['created_at'] ?></div>
                                 </div>
                                 <h6><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>"><?php echo $post['name'] ?></a>
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                                 </h6>
                                 <h5 style=" display: -webkit-box;
                                         max-width: 100%;

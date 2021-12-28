@@ -10,7 +10,7 @@
             ?>
 
 
-    <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>admin/add_register" method="POST"
+    <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>admin/addRegister" method="POST"
         role="form" enctype="multipart/form-data" style="width:1200px;margin:auto;">
 
         <h1 class="text-center text-danger"> Register Account </h1>

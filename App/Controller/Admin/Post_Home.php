@@ -15,20 +15,25 @@ class Post_Home extends DController
         $data = array();
         parent::__construct(); // parent từ cha nó DController
         $this->post_home = $this->load->model('Page');
+        $this->userModel = $this->load->model('User_M');
+
     }
 
-    public function post_detail($id)
+    public function PostDetail($id)
     {
         try {
 
             $cond = "id='$id'";
-            $data['post_relate'] = $this->post_home->cate_relate($this->categories, $this->postTable);
-            $data['user'] = $this->post_home->user($this->user);
-            $data['categories'] = $this->post_home->category($this->categories);
             $this->postModel =  $this->load->model('Post_M');
-            $data['posts'] = $this->post_home->user($this->postTable);
-            $data['postbyid'] = $this->postModel->postbyid($this->postTable, $cond);
-            $data['commentbyid'] = $this->post_home->commentbyid($this->comment, $this->user, $id);
+            $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
+            $data['commentbyid'] = $this->post_home->CommentById($this->comment, $this->user, $id);
+            
+            $data['user'] = $this->post_home->User($this->user);
+            $data['categories'] = $this->post_home->Category($this->categories);
+            $data['recentpost'] = $this->post_home->RecentPost($this->postTable);
+            $data['posts'] = $this->post_home->User($this->postTable);
+            $data['popular'] = $this->post_home->listPapulator($this->postTable);
+            $this->updateViewTotal($data['postbyid'], $cond);
             $this->load->view('Home/Layouts/master-3', $data);
             $this->load->view('Home/Posts/post_detail', $data);
         } catch (PDOException $e) {
@@ -38,15 +43,15 @@ class Post_Home extends DController
             exit();
         }
     }
-    public function list_posts()
+    public function listPosts()
     {
         try {
 
-            $data['user'] = $this->post_home->user($this->user);
-            $data['categories'] = $this->post_home->category($this->categories);
+            $data['user'] = $this->post_home->User($this->user);
+            $data['categories'] = $this->post_home->Category($this->categories);
             // $this->postModel =  $this->load->model('Post_M');
             // $data['posts'] = $this->post_home->user($this->postTable);
-            $data['list_posts'] = $this->post_home->list_posts($this->postTable);
+            $data['list_posts'] = $this->post_home->listPosts($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Posts/list_post', $data);
         } catch (PDOException $e) {
@@ -57,14 +62,14 @@ class Post_Home extends DController
         }
     }
 
-    public function categoryby_id($id)
+    public function CategoryBydId($id)
     {
         try {
-            $data['user'] = $this->post_home->user($this->user);
-            $data['categories'] = $this->post_home->category($this->categories);
+            $data['user'] = $this->post_home->User($this->user);
+            $data['categories'] = $this->post_home->Category($this->categories);
             $this->postModel =  $this->load->model('Post_M');
-            $data['posts'] = $this->post_home->user($this->postTable);
-            $data['categoryby_id'] = $this->post_home->categorybyid_home($this->categories, $this->postTable, $id);
+            $data['posts'] = $this->post_home->User($this->postTable);
+            $data['categoryby_id'] = $this->post_home->CategoryByIdHome($this->categories, $this->postTable, $id);
             $this->load->view('Home/Layouts/master-3', $data);
             $this->load->view('Home/Posts/list_category', $data);
         } catch (PDOException $e) {
@@ -75,7 +80,7 @@ class Post_Home extends DController
         }
     }
 
-    public function insertcomment()
+    public function insertComment()
     {
         try {
             if (isset($_SESSION['auth_user']) == true) {
@@ -90,7 +95,7 @@ class Post_Home extends DController
                     'comment' => $comment
                 );
 
-                $result = $this->post_home->insertcomment($this->comment,  $data);
+                $result = $this->post_home->insertComment($this->comment,  $data);
 
                 if ($result == 1) {
                     $_SESSION['alert']['msg'] = 'Successful Data Generation';
@@ -119,12 +124,12 @@ class Post_Home extends DController
 
 
 
-    public function change_password($id)
+    public function ChangePassword($id)
     {
         try {
             $cond = "id='$id'";
             $this->userModel =  $this->load->model('User_M');
-            $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+            $data['userbyid'] = $this->userModel->UserById($this->user, $cond);
             $this->load->view('Admin/Layouts/master-2', $data);
             $this->load->view('Admin/Auth/change_password', $data);
         } catch (PDOException $e) {
@@ -133,7 +138,7 @@ class Post_Home extends DController
         }
     }
 
-    public function update_change_password($id)
+    public function updateChangePassword($id)
     {
         try {
 
@@ -157,7 +162,7 @@ class Post_Home extends DController
 
 
             if ($avatar) {
-                $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
+                $data['userbyid'] = $this->userModel->UserBydI($this->user, $cond);
                 foreach ($data['userbyid'] as $user) {
                     if ($user['avatar']) {
                         $path_unlink = "Public/User-image/";
@@ -186,8 +191,7 @@ class Post_Home extends DController
                     'phone' => $phone
                 );
             }
-            $this->userModel = $this->load->model('User_M');
-            $result = $this->userModel->update_user($this->user, $data, $cond);
+            $result = $this->userModel->updateUser($this->user, $data, $cond);
             if ($result == 1) {
                 // $_SESSION['alert']['msg'] = 'Edit Successful data ';
                 echo '<script language="javascript">';
@@ -206,5 +210,17 @@ class Post_Home extends DController
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
         }
+    }
+
+    public function updateViewTotal($post, $cond)
+    {
+        // var_dump($post);
+        // die();
+        $totalVIew = $post['total_view'] + 1;
+        $data = [
+            'total_view' => $totalVIew,
+        ];
+
+      return   $this->postModel->updatePost($this->postTable, $data, $cond);
     }
 }

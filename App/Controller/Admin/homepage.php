@@ -15,34 +15,34 @@ class Homepage extends DController
         $this->login_user = $this->load->model('Page');
     }
 
-    public function login_user()
+    public function loginUser()
     {
         Session::check_login_user();
         if (isset($_SESSION['auth_user']) == true) {
-            $data['user'] = $this->login_user->user($this->user);
-            $data['categories'] = $this->login_user->user($this->categories);
-            $data['posts'] = $this->login_user->user($this->postTable);
+            $data['user'] = $this->login_user->User($this->user);
+            $data['categories'] = $this->login_user->User($this->categories);
+            $data['posts'] = $this->login_user->User($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Home', $data);
         }else{
-            $data['categories'] = $this->login_user->user($this->categories);
-            $data['posts'] = $this->login_user->user($this->postTable);
+            $data['categories'] = $this->login_user->User($this->categories);
+            $data['posts'] = $this->login_user->User($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Login/login_home', $data);
         // header("Location:" . BASE_URL . "homepage/login_user");
         }
     }
 
-    public function check_login()
+    public function checkLogin()
     {
         try {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
 
             $tabl_user = 'user';
-            $count = $this->login_user->login_customer($this->user, $email, $password);
+            $count = $this->login_user->loginCustomer($this->user, $email, $password);
             if ($count == 1) {
-                $result =  $this->login_user->check_login($tabl_user, $email, $password);
+                $result =  $this->login_user->checkLogin($tabl_user, $email, $password);
 
                 $_SESSION['auth_user'] = [
                     // 'homepage/login_user' => true,
@@ -74,11 +74,11 @@ class Homepage extends DController
         }
     }
 
-    public function register(){
+    public function Register(){
         try{
-            $data['user'] = $this->login_user->user($this->user);
-            $data['categories'] = $this->login_user->user($this->categories);
-            $data['posts'] = $this->login_user->user($this->postTable);
+            $data['user'] = $this->login_user->User($this->user);
+            $data['categories'] = $this->login_user->User($this->categories);
+            $data['posts'] = $this->login_user->User($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Login/register_home');
         } catch (PDOException $e) {
@@ -89,7 +89,7 @@ class Homepage extends DController
     }
 
   
-    public function add_register()
+    public function AddRegister()
     {
         try {
             $name = $_POST['name'];
@@ -118,7 +118,7 @@ class Homepage extends DController
             );
 
             $this->userModel =  $this->load->model('User_M');
-            $result = $this->userModel->insertuser($this->user, $data);
+            $result = $this->userModel->insertUser($this->user, $data);
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_upload);
                 header("Location:" . BASE_URL . "homepage/login_user");
@@ -128,14 +128,13 @@ class Homepage extends DController
                 $_SESSION['alert']['error'] = ' Data Generation failed';
                 header("Location:" . BASE_URL . "admin/register");
             }
-
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
         }
     }
 
-    public function logout_user()
+    public function logoutUser()
     {
         Session::init();
         session_destroy();
@@ -146,12 +145,15 @@ class Homepage extends DController
 
     public function home()
     {
-        $data['commenttop'] = $this->login_user->topcomment($this->comment, $this->user);
-        $data['categories'] = $this->login_user->category($this->categories);
-        $data['user'] = $this->login_user->user($this->user);
-        $data['posts'] = $this->login_user->post($this->postTable);
-        $data['post_relate'] = $this->login_user->cate_relate($this->categories, $this->postTable);
-        $data['best_of_the_week'] = $this->login_user->best_of_the_week($this->comment, $this->postTable);
+        $data['categories'] = $this->login_user->Category($this->categories);
+        $data['posts'] = $this->login_user->Post($this->postTable);
+        $data['latestnew'] = $this->login_user->LatestNew($this->postTable, $this->categories);
+        $data['commenttop'] = $this->login_user->Comments($this->comment, $this->user, $this->postTable);
+        $data['popular'] = $this->login_user->listPapulator($this->postTable);
+        $data['user'] = $this->login_user->User($this->user);
+        $data['recomended'] = $this->login_user->ReCommended($this->postTable);
+        $data['trendingtags'] = $this->login_user->TrendingTags($this->postTable, $this->categories);
+        $data['best_of_the_week'] = $this->login_user->Bestoftheweek($this->comment, $this->postTable);
         $this->load->view('Home/Layouts/master', $data);
         $this->load->view('Home/Home', $data);
     }

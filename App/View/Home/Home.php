@@ -34,7 +34,7 @@
                             </figure>
                             <div class="details">
                                 <div class="category"><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
+                                        href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
                                 </div>
                                 <!-- <h1><a
                                         href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
@@ -52,32 +52,37 @@
 
                     <?php
                     $counter = 0;
-                    foreach ($posts as $key => $value) :
+                    foreach ($latestnew as $key => $value) :
                         $counter++;
                         if ($counter >= 5) {
                             break;
                         }
                     ?>
+
                     <div class="col-md-6 col-sm-6 col-xs-12" style="height:470px; margin-bottom:70px;">
 
                         <div class=" row">
+
                             <article class="article col-md-12">
                                 <div class="">
                                     <figure>
-                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                        <a href="<?php echo Post_Detail ?>Post_Detail/<?php echo $value['id'] ?>">
                                             <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                                 height="250px" alt="" alt="Sample Article">
                                         </a>
                                     </figure>
+
                                     <div class="padding">
                                         <div class="detail">
                                             <div class="time"><?php echo $value['created_at']; ?></div>
-                                            <div class="category"><a href="category.html">Healthy</a></div>
+                                            <div class=" category"><a
+                                                    href="category.html"><?php echo $value['category_name']?></a>
+                                            </div>
                                         </div>
                                         <h6>
-                                            <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"
+                                            <a href="<?php echo Post_Detail ?>Post_Detail/<?php echo $value['id'] ?>"
                                                 style="font-size:14px; height:70px">
-                                                <?php echo $value['name']; ?>
+                                                <?php echo $value['title']; ?>
                                             </a>
                                         </h6>
                                         <h4 style=" overflow: hidden; display: -webkit-box; -webkit-box-orient:
@@ -88,8 +93,9 @@
                                             <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                                 <div>1263</div>
                                             </a>
-                                            <a class="btn btn-primary more"
-                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                            <a class="btn btn-primary more" type="submit"
+                                                href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>"
+                                                name="popular">
                                                 <div>More</div>
                                                 <div><i class="ion-ios-arrow-thin-right"></i></div>
                                             </a>
@@ -112,16 +118,11 @@
                         <h1 class="title-col">Trending Tags</h1>
                         <div class="body-col">
                             <ol class="tags-list">
-                                <li><a href="#">HTML5</a></li>
-                                <li><a href="#">CSS3</a></li>
-                                <li><a href="#">JavaScript</a></li>
-                                <li><a href="#">jQuery</a></li>
-                                <li><a href="#">Bootstrap</a></li>
-                                <li><a href="#">Responsive</a></li>
-                                <li><a href="#">AuteIrure</a></li>
-                                <li><a href="#">Voluptate</a></li>
-                                <li><a href="#">Veit</a></li>
-                                <li><a href="#">Reprehenderit</a></li>
+                                <?php foreach ($trendingtags as $value) : ?>
+                                <li><a
+                                        href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['posts_id'] ?>"><?php echo $value['title'] ?></a>
+                                </li>
+                                <?php endforeach; ?>
                             </ol>
                         </div>
                     </div>
@@ -199,7 +200,7 @@
                                     <div class="time"><?php echo $value['created_at'] ?></div>
                                 </div>
                                 <h1><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
+                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
                                 </h1>
                                 <p>
                                     <?php echo $value['title'] ?>
@@ -228,7 +229,7 @@
                         <div class="featured-author">
                             <div class="featured-author-inner">
                                 <div class="featured-author-cover"
-                                    style="background-image: url('<?php echo URL_Layouts_home ?>img15.jpg');">
+                                    style="background-image: url(' <?php echo URL_Layouts_home ?>img15.jpg');">
                                     <div class="badges">
                                         <div class="badge-item"><i class="ion-star"></i> Featured</div>
                                     </div>
@@ -322,13 +323,12 @@
                     </div>
                 </aside>
                 <aside>
-                    <h1 class="aside-title">Popular <a href="#" class="all">See All <i
-                                class="ion-ios-arrow-right"></i></a>
+                    <h1 class="aside-title">Popular <a href="#" class="all"></a>
                     </h1>
                     <div class="aside-body">
                         <?php
                         $counter = 0;
-                        foreach ($posts as $key => $value) :
+                        foreach ($popular as $key => $value) :
                             $counter++;
                             if ($counter >= 7) {
                                 break;
@@ -337,7 +337,7 @@
                         <article class="article-mini">
                             <div class="inner">
                                 <figure>
-                                    <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                    <a href="<?php echo Post_Detail ?>postDetail/<?php echo $value['id'] ?>">
                                         <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                             alt="Sample Article">
                                     </a>
@@ -387,7 +387,7 @@
 
                             <?php
                             $counter = 0;
-                            foreach ($post_relate as $key => $value) :
+                            foreach ($recomended as $key => $value) :
                                 $counter++;
                                 if ($counter >= 2) {
                                     break;
@@ -396,7 +396,7 @@
                             <article class="article-fw">
                                 <div class="inner">
                                     <figure>
-                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                        <a href="<?php echo Post_Detail ?>postDetail/<?php echo $value['id'] ?>">
                                             <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                                 alt="Sample Article">
                                         </a>
@@ -406,14 +406,12 @@
                                             <div class="time"><?php echo $value['created_at'] ?></div>
                                             <div class="category"><a href="category.html">Sport</a></div>
                                         </div>
-                                        <h1><a
-                                                href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
-                                        </h1>
+
                                         <h6 style="overflow: hidden;
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;
                                         -webkit-line-clamp: 3;">
-                                            <?php echo $value['content'] ?>
+                                            <?php echo $value['title'] ?>
                                         </h6>
                                     </div>
                                 </div>
@@ -421,27 +419,7 @@
                             <?php endforeach; ?>
 
                             <div class="line"></div>
-                            <?php foreach ($post_relate as $key => $value) : ?>
-                            <article class="article-mini">
-                                <div class="inner">
-                                    <figure>
-                                        <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
-                                            <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
-                                                alt="Sample Article">
-                                        </a>
-                                    </figure>
-                                    <div class="padding">
-                                        <h1><a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
-                                                <?php echo $value['title'] ?>
-                                            </a></h1>
-                                        <div class="detail">
-                                            <div class="category"><a href="category.html">Lifestyle</a></div>
-                                            <div class="time"><?php echo $value['created_at'] ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <?php endforeach; ?>
+
                         </div>
                         <div class="tab-pane comments" id="comments">
                             <div class="comment-list sm">
@@ -453,11 +431,18 @@
                                                 alt="User Picture">
                                         </figure>
                                         <div class="details">
-                                            <h5 class="name"><?php echo $value['name'] ?></h5>
-                                            <div class="time"><?php echo $value['created_at'] ?></div>
+                                            <p class="name"><?php echo $value['name'] ?></p>
+
+                                            <div>
+                                                <a
+                                                    href="<?php echo Post_Detail ?>postDetail/<?php echo $value['id'] ?>">
+                                                    <?php echo $value['title'] ?>
+                                                </a>
+                                            </div>
                                             <div class="description">
                                                 <?php echo $value['comment'] ?>.
                                             </div>
+                                            <div class="time"><?php echo $value['created_at'] ?></div>
                                         </div>
                                     </div>
                                 </div>

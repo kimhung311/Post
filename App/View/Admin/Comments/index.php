@@ -9,8 +9,8 @@
         <thead class="thead-light">
             <tr>
                 <th>ID</th>
-                <th>User_id</th>
-                <th>Post_id</th>
+                <th>User</th>
+                <th>Post Name</th>
                 <th>Comment</th>
                 <th>image_comment</th>
                 <th>Action</th>
@@ -20,8 +20,8 @@
             <?php foreach ($comments as $commentkey => $comment) : ?>
             <tr>
                 <td><?php echo $comment['id']; ?></td>
-                <td><?php echo $comment['user_id']; ?></td>
-                <td><?php echo $comment['post_id']; ?></td>
+                <td><?php echo $comment['name']; ?></td>
+                <td><?php echo $comment['title']; ?></td>
                 <td><?php echo $comment['comment']; ?></td>
                 <td><?php if (isset($comment['image_comment']) == true) {
                             echo $comment['image_comment'];
@@ -33,7 +33,7 @@
                     <!-- <a href="<?php echo BASE_URL ?>category/editcate/<?php echo $comment['id'] ?>"
                         class="btn btn-primary"
                         onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $comment['id'] ?>')">Edit</a> -->
-                    <a href="<?php echo BASE_URL ?>comment/delete/<?php echo $comment['id'] ?>" class="btn btn-danger"
+                    <a href="<?php echo BASE_URL ?>Comment/delete/<?php echo $comment['id'] ?>" class="btn btn-danger"
                         onclick="return confirm('Are you sure you want to delete?')">Del</a>
                 </td>
             </tr>

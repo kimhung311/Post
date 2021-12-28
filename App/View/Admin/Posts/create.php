@@ -10,18 +10,12 @@
         }
         ?>
 
-      <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>post/insert_post" method="POST"
+      <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>post/insertPost" method="POST"
           role="form" enctype="multipart/form-data" style="width:1200px;margin:auto;">
 
-          <div class="form-outline col-md-6 mb-6">
-              <label for="validationCustom01">Name</label>
-              <input type="text" name="name" id="validationCustom01" class="form-control" placeholder=" Enter Name post"
-                  required>
-              <div class="invalid-feedback">Please provide a valid Name.</div>
 
-          </div>
 
-          <div class="form-outline col-md-6 mb-6 ">
+          <div class="form-outline col-md-6 mb-5">
               <label for="inputGroupSelect02">Categories</label>
               <select class="custom-select" id="inputGroupSelect02" name="category_id" required>
                   <?php foreach ($categories as $key => $value) : ?>
@@ -37,8 +31,7 @@
 
           <div class="form-outline col-md-12 mb-5">
               <label for="inputGroupSelect02">Title</label>
-              <textarea class="form-control mytextarea" type="text" name="title" id="inputGroupSelect02" cols="140"
-                  rows="10" placeholder="Enter your title" required></textarea>
+              <input type="text" type="text" name="title" id="inputGroupSelect02" class="form-control" placeholder="">
               <div class="invalid-feedback">Please provide a valid Title.</div>
           </div>
 
