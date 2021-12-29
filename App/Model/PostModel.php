@@ -1,5 +1,5 @@
 <?php
-    class Post_M  extends DModel
+    class PostModel  extends DModel
     {
         const POST_TABLE = 'posts';
 

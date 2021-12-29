@@ -19,9 +19,9 @@ class Post extends DController
         $data = array();
         $message = array();
         parent::__construct();
-        $this->categoryModel =  $this->load->model('Category_M');
-        $this->userModel = $this->load->model('User_M');
-        $this->postModel =  $this->load->model('Post_M');
+        $this->categoryModel =  $this->load->model('CategoryModel');
+        $this->userModel = $this->load->model('UserModel');
+        $this->postModel =  $this->load->model('PostModel');
     }
 
     public function Index()

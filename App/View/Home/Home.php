@@ -20,17 +20,19 @@
                                 break;
                             } ?>
                         <div class="item">
-                            <a href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>">
+                            <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $post['id'] ?>">
                                 <div class="badge">Tip!</div><?php echo $post['title'] ?>
                             </a>
                         </div>
+
+
                         <?php endforeach; ?>
                     </div>
                 </div>
                 <div class="owl-carousel owl-theme slide" id="featured">
                     <?php
                     $counter = 0;
-                    foreach ($posts as $key => $value) :
+                    foreach ($latestnew as $key => $value) :
                         $counter++;
                         if ($counter >= 5) {
                             break;
@@ -47,9 +49,7 @@
                                 <div class="category"><a
                                         href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
                                 </div>
-                                <!-- <h1><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
-                                </h1> -->
+
                                 <div class="time"><?php echo $value['created_at'] ?></div>
                             </div>
                         </article>
@@ -63,7 +63,7 @@
 
                     <?php
                     $counter = 0;
-                    foreach ($latestnew as $key => $value) :
+                    foreach ($posts as $key => $value) :
                         $counter++;
                         if ($counter >= 5) {
                             break;
@@ -77,7 +77,7 @@
                             <article class="article col-md-12">
                                 <div class="">
                                     <figure>
-                                        <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['posts_id'] ?>">
+                                        <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>">
                                             <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                                 height="250px" alt="" alt="Sample Article">
                                         </a>
@@ -86,12 +86,12 @@
                                     <div class="padding">
                                         <div class="detail">
                                             <div class="time"><?php echo $value['created_at']; ?></div>
-                                            <div class=" category"><a
-                                                    href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['posts_id'] ?>"><?php echo $value['category_name'] ?></a>
-                                            </div>
+                                            <!-- <div class=" category"><a
+                                                    href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>"><?php echo $value['category_name'] ?></a>
+                                            </div> -->
                                         </div>
                                         <h6>
-                                            <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['posts_id'] ?>"
+                                            <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>"
                                                 style="font-size:14px; height:70px">
                                                 <?php echo $value['title']; ?>
                                             </a>
@@ -105,7 +105,7 @@
                                                 <div>1263</div>
                                             </a>
                                             <a class="btn btn-primary more"
-                                                href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['posts_id'] ?>"
+                                                href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id'] ?>"
                                                 name="popular">
                                                 <div>More</div>
                                                 <div><i class="ion-ios-arrow-thin-right"></i></div>
@@ -339,7 +339,7 @@
                     <h1 class="aside-title">OTHER NEWS <a href="#" class="all"></a>
                     </h1>
                     <div class="aside-body">
-                        <?php foreach ($othernew as $key => $value) :?>
+                        <?php foreach ($othernew as $key => $value) : ?>
                         <article class="article-mini">
                             <div class="inner">
                                 <figure>

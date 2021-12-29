@@ -1,6 +1,6 @@
 <?php
 // session_start();
-    class Comment_M  extends DModel
+    class CommentModel  extends DModel
     {
         public function __construct()
         {

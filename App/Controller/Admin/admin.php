@@ -11,7 +11,7 @@ class Admin extends DController
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
-        $this->userModel =  $this->load->model('User_M');
+        $this->userModel =  $this->load->model('UserModel');
     }
 
     public function homeAdmin()
@@ -180,7 +180,7 @@ class Admin extends DController
         try {
             $cond = "id='$id'";
             $result = $this->userModel->deleteUser($this->adminTable, $cond);
-           
+
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';
                 header("Location:" . BASE_URL . "Admin/listAdmin");

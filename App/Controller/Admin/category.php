@@ -8,7 +8,7 @@ class Category extends DController
     public $user = 'user';
     public $post = 'posts';
     public $comments = 'comments';
-    
+
 
     public function __construct()
     {
@@ -16,8 +16,8 @@ class Category extends DController
         $data = array();
         $message = array();
         parent::__construct(); // parent từ cha nó DController
-        $this->categoryModel =  $this->load->model('Category_M');
-        $this->userModel = $this->load->model('User_M');
+        $this->categoryModel =  $this->load->model('CategoryModel');
+        $this->userModel = $this->load->model('UserModel');
     }
 
     public function listCategory()
@@ -25,7 +25,7 @@ class Category extends DController
         try {
             // $data['user'] = $this->userModel->user($this->user);
             $data['categories'] = $this->categoryModel->Category($this->categories, $this->user);
-           
+
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Categories/index', $data);
         } catch (PDOException $e) {
@@ -145,14 +145,13 @@ class Category extends DController
 
         try {
             $cond = "id='$id'";
-            $result = $this->categoryModel->deleteCategory( $this->post, $this->categories, $cond);
-                if ($result == 1) {
-                    $_SESSION['alert']['msg'] = 'Delete data successfully';
-                } else {
-                    $_SESSION['alert']['error'] = 'Delete data failed';
-                }
-                header("Location:" . BASE_URL . "Category/listCategory");
-         
+            $result = $this->categoryModel->deleteCategory($this->post, $this->categories, $cond);
+            if ($result == 1) {
+                $_SESSION['alert']['msg'] = 'Delete data successfully';
+            } else {
+                $_SESSION['alert']['error'] = 'Delete data failed';
+            }
+            header("Location:" . BASE_URL . "Category/listCategory");
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";

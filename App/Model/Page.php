@@ -24,7 +24,7 @@
             $sql = "SELECT * FROM $posts ORDER BY created_at DESC LIMIT $from, $row ";
             return $this->db->select($sql);
         }
-
+        
         public function Post($posts)
         {            
             $sql = "SELECT * FROM $posts ORDER BY created_at DESC"; // Slide Home Page
@@ -37,13 +37,14 @@
        }
 
         public function listPapulator($posts) {   // Popular Home Page lượt xem bài nhiều
-            $sql = "SELECT * FROM $posts WHERE total_view > 40 ORDER BY total_view DESC  ";
+            $sql = "SELECT * FROM $posts WHERE total_view > 40 ORDER BY total_view  DESC  ";
+            
             return $this->db->select($sql);
         }
 
         public function LatestNew($posts, $categories)  // Last New Home Page
         {
-            $sql = "SELECT *, $posts.category_id as 'posts_id', $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id  ORDER BY $posts.created_at  OR $categories.id DESC"; // note 
+            $sql = "SELECT *, $posts.id , $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id  ORDER BY $posts.created_at  OR $categories.id DESC"; // note 
             return $this->db->select($sql);
         }
       

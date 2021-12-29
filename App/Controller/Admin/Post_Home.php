@@ -15,8 +15,7 @@ class Post_Home extends DController
         $data = array();
         parent::__construct(); // parent từ cha nó DController
         $this->post_home = $this->load->model('Page');
-        $this->userModel = $this->load->model('User_M');
-
+        $this->userModel = $this->load->model('UserModel');
     }
 
     public function PostDetail($id)
@@ -24,8 +23,9 @@ class Post_Home extends DController
         try {
 
             $cond = "id='$id'";
-            $this->postModel =  $this->load->model('Post_M');
+            $this->postModel =  $this->load->model('PostModel');
             $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
+
             $data['commentbyid'] = $this->post_home->CommentById($this->comment, $this->user, $id);
             $data['user'] = $this->post_home->User($this->user);
             $data['categories'] = $this->post_home->Category($this->categories);
@@ -43,10 +43,11 @@ class Post_Home extends DController
         }
     }
 
-    public function RecentPostDetail($id){
+    public function RecentPostDetail($id)
+    {
         try {
             $cond = "id='$id'";
-            $this->postModel =  $this->load->model('Post_M');
+            $this->postModel =  $this->load->model('PostModel');
             $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
             $data['commentbyid'] = $this->post_home->CommentById($this->comment, $this->user, $id);
             $data['user'] = $this->post_home->User($this->user);
@@ -64,14 +65,14 @@ class Post_Home extends DController
             exit();
         }
     }
-    
+
     public function listPosts()
     {
         try {
 
             $data['user'] = $this->post_home->User($this->user);
             $data['categories'] = $this->post_home->Category($this->categories);
-            // $this->postModel =  $this->load->model('Post_M');
+            // $this->postModel =  $this->load->model('PostModel');
             // $data['posts'] = $this->post_home->user($this->postTable);
             $data['list_posts'] = $this->post_home->listPosts($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
@@ -89,7 +90,7 @@ class Post_Home extends DController
         try {
             $data['user'] = $this->post_home->User($this->user);
             $data['categories'] = $this->post_home->Category($this->categories);
-            $this->postModel =  $this->load->model('Post_M');
+            $this->postModel =  $this->load->model('PostModel');
             $data['posts'] = $this->post_home->User($this->postTable);
             $data['categoryby_id'] = $this->post_home->CategoryByIdHome($this->categories, $this->postTable, $id);
             $this->load->view('Home/Layouts/master-3', $data);
@@ -116,7 +117,7 @@ class Post_Home extends DController
                     'post_id' => $post_id,
                     'comment' => $comment
                 );
-              
+
 
                 $result = $this->post_home->insertComment($this->comment,  $data);
 
@@ -129,7 +130,7 @@ class Post_Home extends DController
                     $_SESSION['alert']['error'] = ' Data Generation failed';
                 }
             } else {
-            
+
                 echo '<script language="javascript">';
                 echo 'alert("Please  Login")';
                 echo '</script>';
@@ -150,7 +151,7 @@ class Post_Home extends DController
     {
         try {
             $cond = "id='$id'";
-            $this->userModel =  $this->load->model('User_M');
+            $this->userModel =  $this->load->model('UserModel');
             $data['userbyid'] = $this->userModel->UserById($this->user, $cond);
             $this->load->view('Admin/Layouts/master-2', $data);
             $this->load->view('Admin/Auth/changePassword', $data);
@@ -243,6 +244,6 @@ class Post_Home extends DController
             'total_view' => $totalVIew,
         ];
 
-      return   $this->postModel->updatePost($this->postTable, $data, $cond);
+        return   $this->postModel->updatePost($this->postTable, $data, $cond);
     }
 }
