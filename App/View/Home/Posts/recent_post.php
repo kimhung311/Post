@@ -19,8 +19,8 @@
 
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-8">
+        <div class="row col-md-12">
+            <div class="col-md-12">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
                     <!-- <li class="active">
@@ -28,7 +28,9 @@
                     <!-- </li> --> -->
                 </ol>
                 <div class="title">
-                    <p style="font: size 40px;"><?php echo $postbyid['title'] ?></p>
+                    <p style="font: size 40px;">
+                    <h1><?php echo $postbyid['title'] ?></h1>
+                    </p>
                 </div>
                 <article class="article main-article">
                     <header>

@@ -1,10 +1,10 @@
 <?php
-class Login extends DController 
+class Login extends DController
 {
     public $userModel;
 
     public $user = 'user';
-    
+
     public function __construct()
     {
         Session::checkSessionAuth();
@@ -37,7 +37,7 @@ class Login extends DController
         try {
             $email = $_POST['email'];
             $password = md5($_POST['password']);
-            $loginmodel = $this->load->model('Login_M');
+            $loginmodel = $this->load->model('LoginModel');
             $count = $loginmodel->login($this->user, $email, $password);
             if ($count == 1) {
 
@@ -72,30 +72,29 @@ class Login extends DController
     public function dashboard()
     {
         // Session::check_role();
-            if ($_SESSION['role_id'] != 1 & 2) {
-                Session::init();
-                unset($_SESSION['auth_user']);
-                echo '<script language="javascript">';
-                echo 'alert("bạn không đủ quyền")';
-                echo '</script>';
-                $this->load->view('Admin/Auth/login');
-            }else{
-                  echo '<script language="javascript">';
-                echo 'alert("Login  Successfully")';
-                echo '</script>';
-                $this->userModel =  $this->load->model('User_M');
-                $data['user'] = $this->userModel->user($this->user);
-                $this->load->view('Admin/Layouts/master', $data);
-                $this->load->view("Admin/List-admin/index");
-            }
-          
+        if ($_SESSION['role_id'] != 1 & 2) {
+            Session::init();
+            unset($_SESSION['auth_user']);
+            echo '<script language="javascript">';
+            echo 'alert("bạn không đủ quyền")';
+            echo '</script>';
+            $this->load->view('Admin/Auth/login');
+        } else {
+            echo '<script language="javascript">';
+            echo 'alert("Login  Successfully")';
+            echo '</script>';
+            $this->userModel =  $this->load->model('UserModel');
+            $data['user'] = $this->userModel->user($this->user);
+            $this->load->view('Admin/Layouts/master', $data);
+            $this->load->view("Admin/List-admin/index");
+        }
     }
 
     public function change_password($id)
     {
         try {
             $cond = "id='$id'";
-            $this->userModel =  $this->load->model('User_M');
+            $this->userModel =  $this->load->model('UserModel');
             $data['userbyid'] = $this->userModel->userbyid($this->user, $cond);
             $this->load->view('Admin/Layouts/master-2', $data);
             $this->load->view('Admin/Auth/change_password', $data);
@@ -159,7 +158,7 @@ class Login extends DController
                     'phone' => $phone
                 );
             }
-            $this->userModel = $this->load->model('User_M');
+            $this->userModel = $this->load->model('UserModel');
             $result = $this->userModel->update_user($this->user, $data, $cond);
             if ($result == 1) {
                 // $_SESSION['alert']['msg'] = 'Edit Successful data ';
@@ -187,6 +186,4 @@ class Login extends DController
         $_SESSION['alert']['msg'] = 'Logout Successfully ';
         header("Location:" . BASE_URL . "login/index");
     }
-
-
 }

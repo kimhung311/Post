@@ -24,12 +24,12 @@ class Homepage extends DController
             $data['posts'] = $this->login_user->User($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Home', $data);
-        }else{
+        } else {
             $data['categories'] = $this->login_user->User($this->categories);
             $data['posts'] = $this->login_user->User($this->postTable);
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Login/login_home', $data);
-        // header("Location:" . BASE_URL . "homepage/login_user");
+            // header("Location:" . BASE_URL . "homepage/login_user");
         }
     }
 
@@ -59,9 +59,8 @@ class Homepage extends DController
                 echo '</script>';
                 header("Location:" . BASE_URL . "homepage");
                 exit();
-
             } else {
-                
+
                 echo '<script type="text/javascript"';
                 echo 'alert("ERROR EMAIL OR PASSWORD")';
                 echo '</script>';
@@ -74,8 +73,9 @@ class Homepage extends DController
         }
     }
 
-    public function Register(){
-        try{
+    public function Register()
+    {
+        try {
             $data['user'] = $this->login_user->User($this->user);
             $data['categories'] = $this->login_user->User($this->categories);
             $data['posts'] = $this->login_user->User($this->postTable);
@@ -88,7 +88,7 @@ class Homepage extends DController
         }
     }
 
-  
+
     public function AddRegister()
     {
         try {
@@ -117,7 +117,7 @@ class Homepage extends DController
                 'phone' => $phone
             );
 
-            $this->userModel =  $this->load->model('User_M');
+            $this->userModel =  $this->load->model('UserModel');
             $result = $this->userModel->insertUser($this->user, $data);
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_upload);
@@ -147,6 +147,7 @@ class Homepage extends DController
     {
         $data['categories'] = $this->login_user->Category($this->categories);
         $data['posts'] = $this->login_user->Post($this->postTable);
+
         $data['latestnew'] = $this->login_user->LatestNew($this->postTable, $this->categories);
         $data['commenttop'] = $this->login_user->Comments($this->comment, $this->user, $this->postTable);
         $data['hotnew'] = $this->login_user->HotNew($this->postTable);

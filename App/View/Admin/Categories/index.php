@@ -63,7 +63,7 @@
         <ul class="pagination">
             <?php if ($page > 1) { ?>
             <li class="page-item"><a class="page-link btn btn-outline-warning"
-                    href="<?php echo BASE_URL ?>category/list_category&page=<?php echo $Previous; ?>">Previous</a>
+                    href="<?php echo BASE_URL ?>Category/listCategory&page=<?php echo $Previous; ?>">Previous</a>
             </li>
             <?php } ?>
             <?php
@@ -71,12 +71,12 @@
             for ($i = $colum; $i < $to; $i++) {
             ?>
             <li class="page-item "><a class="page-link btn btn-outline-warning"
-                    href="<?php echo BASE_URL ?>category/list_category&page=<?php echo $i ?>"><?php echo $i ?></a>
+                    href="<?php echo BASE_URL ?>Category/listCategory&page=<?php echo $i ?>"><?php echo $i ?></a>
             </li>
             <?php } ?>
             <?php if ($colum >= $page) { ?>
             <li class="page-item"><a class="page-link btn btn-outline-warning"
-                    href="<?php echo BASE_URL ?>category/list_category&page=<?php echo $Next; ?>">Next</a>
+                    href="<?php echo BASE_URL ?>Category/listCategory&page=<?php echo $Next; ?>">Next</a>
             </li>
             <?php } ?>
         </ul>

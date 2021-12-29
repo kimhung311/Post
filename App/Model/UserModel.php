@@ -1,5 +1,5 @@
 <?php
-    class User_M  extends DModel
+    class UserModel  extends DModel
     {
         public function __construct()
         {

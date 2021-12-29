@@ -1,5 +1,5 @@
 <?php
-class Category_M  extends DModel
+class CategoryModel  extends DModel
 {
     public function __construct()
     {

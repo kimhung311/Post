@@ -1,5 +1,5 @@
 <?php
-    class Login_M  extends DModel
+    class LoginModel  extends DModel
     {
 
         public function __construct()
@@ -20,5 +20,3 @@
         }
 
     }
-
-?>

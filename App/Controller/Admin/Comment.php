@@ -15,7 +15,7 @@
             $data = array();
             $message = array();
             parent::__construct(); // parent từ cha nó DController
-            $this->commentModel =  $this->load->model('Comment_M');
+            $this->commentModel =  $this->load->model('CommentModel');
         }
 
         public function index() {
@@ -51,5 +51,3 @@
         }
       
     }
-    
-?>

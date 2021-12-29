@@ -92,7 +92,7 @@
                         <?php endforeach; ?>
                     </div>
                 </aside>
-                <!-- <aside>
+                <aside>
                     <div class="aside-body">
                         <form class="newsletter">
                             <div class="icon">
@@ -108,17 +108,20 @@
                             <p>By subscribing you will receive new articles in your email.</p>
                         </form>
                     </div>
-                </aside> -->
+                </aside>
             </div>
             <div class="col-md-8 float-left">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
                     <!-- <li class="active">
                        
-                    <!-- </li> --> -->
+                    <!-- </li> -->
                 </ol>
+
                 <div class="title">
-                    <p style="font: size 40px;"><?php echo $postbyid['title'] ?></p>
+                    <p style="font: size 40px;">
+                    <h1><?php echo $postbyid['title'] ?></h1>
+                    </p>
                 </div>
                 <article class="article main-article">
                     <header>
@@ -187,15 +190,15 @@
                         <div class="form-group">
                             <input type="hidden" namne="user_id">
                         </div>
-                        <div class="form-group">
+                        <div class=" form-group">
                             <input type="hidden" name="post_id" value="<?php echo $postbyid['id']; ?>">
 
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="message">Response <span class="required"></span></label>
-                            <textarea class="form-control" name="comment"
-                                placeholder="Write your response ..."></textarea>
+                            <textarea class="form-control" name="comment" placeholder="Write your response ..."
+                                required></textarea>
                         </div>
                         <div class="form-group col-md-12">
                             <button class="btn btn-primary" type="submit" name="insertComment">Send Response</button>
