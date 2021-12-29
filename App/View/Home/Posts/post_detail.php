@@ -17,17 +17,18 @@
 <section class="single">
     <?php include('App/View/Message/message.php') ?>
 
+
     <div class="container">
         <div class="row">
             <div class="col-md-4 sidebar" id="sidebar">
-                <aside>
+                <!-- <aside>
                     <div class="aside-body">
                         <figure class="ads">
                             <img src="../../Public/asset/images/ad.png">
                             <figcaption>Advertisement</figcaption>
                         </figure>
                     </div>
-                </aside>
+                </aside> -->
                 <aside>
                     <h1 class="aside-title">Recent Post</h1>
                     <div class="aside-body">
@@ -35,12 +36,12 @@
                         <article class="article-fw">
                             <div class="inner">
                                 <figure>
-                                    <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
+                                    <a href="<?php echo Post_Detail ?>RecentPostDetail/<?php echo $value['id']; ?>">
                                         <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
                                     </a>
                                 </figure>
                                 <div class="details">
-                                    <h1><a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?>
+                                    <h1><a href="<?php echo Post_Detail ?>RecentPostDetail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?>
                                         </a></h1>
                                     <h6 style="overflow: hidden;
                                         display: -webkit-box;
@@ -72,13 +73,13 @@
 
                             <div class="inner" style="height:75px; margin-top:20px;">
                                 <figure>
-                                    <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
+                                    <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id']; ?>">
                                         <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
                                     </a>
                                 </figure>
                                 <div class="padding">
                                     <h1><a
-                                            href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?></a>
+                                            href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?></a>
                                     </h1>
 
                                     <div class="detail">
@@ -91,7 +92,7 @@
                         <?php endforeach; ?>
                     </div>
                 </aside>
-                <aside>
+                <!-- <aside>
                     <div class="aside-body">
                         <form class="newsletter">
                             <div class="icon">
@@ -107,9 +108,9 @@
                             <p>By subscribing you will receive new articles in your email.</p>
                         </form>
                     </div>
-                </aside>
+                </aside> -->
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 float-left">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
                     <!-- <li class="active">
@@ -128,6 +129,9 @@
                         </ul>
                     </header>
                     <div class="main">
+                        <p><img src="<?php echo URL_Detail ?><?php echo $postbyid['image_detail'] ?>" width="700px"
+                                alt="">
+                        </p>
                         <p><?php echo $postbyid['content'] ?>.</p>
                         <div class="featured">
                             <figure>
@@ -141,16 +145,7 @@
                         </div>
                     </div>
                     <footer>
-                        <!-- <div class="col-6">
-                            <ul class="tags">
-                                <li><a href="#">Free Themes</a></li>
-                                <li><a href="#">Bootstrap 3</a></li>
-                                <li><a href="#">Responsive Web Design</a></li>
-                                <li><a href="#">HTML5</a></li>
-                                <li><a href="#">CSS3</a></li>
-                                <li><a href="#">Web Design</a></li>
-                            </ul>
-                        </div> -->
+
                         <div class="col-6">
                             <a href="#" class="love"><i class="ion-android-favorite-outline"></i>
                                 <div>1220</div>
@@ -159,123 +154,7 @@
                     </footer>
 
                 </article>
-                <!-- <div class="sharing">
-                    <div class="title"><i class="ion-android-share-alt"></i> Sharing is caring</div>
-                    <ul class="social">
-                        <li>
-                            <a href="#" class="facebook">
-                                <i class="ion-social-facebook"></i> Facebook
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="twitter">
-                                <i class="ion-social-twitter"></i> Twitter
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="googleplus">
-                                <i class="ion-social-googleplus"></i> Google+
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="linkedin">
-                                <i class="ion-social-linkedin"></i> Linkedin
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="skype">
-                                <i class="ion-ios-email-outline"></i> Email
-                            </a>
-                        </li>
-                        <li class="count">
-                            20
-                            <div>Shares</div>
-                        </li>
-                    </ul>
-                </div> -->
-                <!-- <div class="line">
-                    <div>Author</div>
-                </div> -->
-                <!-- <div class="author">
-                    <figure>
-                        <img src="images/img01.jpg">
-                    </figure>
-                    <div class="details">
-                        <div class="job">Web Developer</div>
-                        <h3 class="name">Eric HUNG</h3>
-                        <p>Nulla sagittis rhoncus nisi, vel gravida ante. Nunc lobortis condimentum elit, quis porta
-                            ipsum rhoncus vitae. Curabitur magna leo, porta vel fringilla gravida, consectetur in
-                            libero. Duis aute irure dolor in reprehenderit
-                            in voluptate velit esse cillum.</p>
-                        <ul class="social trp sm">
-                            <li>
-                                <a href="#" class="facebook">
-                                    <svg>
-                                        <rect />
-                                    </svg>
-                                    <i class="ion-social-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="twitter">
-                                    <svg>
-                                        <rect />
-                                    </svg>
-                                    <i class="ion-social-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="youtube">
-                                    <svg>
-                                        <rect />
-                                    </svg>
-                                    <i class="ion-social-youtube"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="googleplus">
-                                    <svg>
-                                        <rect />
-                                    </svg>
-                                    <i class="ion-social-googleplus"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-                <div class="line">
-                    <div>You May Also Like</div>
-                </div>
-                <div class="row">
 
-                    <?php
-                    $counter = 0;
-                    foreach ($post_relate as $key => $value) :
-                        $counter++;
-                        if ($counter >= 3) {
-                            break;
-                        }
-                    ?>
-                    <article class="article related col-md-6 col-sm-6 col-xs-12">
-                        <div class="inner">
-                            <figure>
-                                <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>">
-                                    <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
-                                </a>
-                            </figure>
-                            <div class="padding">
-                                <h2><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?></a>
-                                </h2></a></h2>
-                                <div class="detail">
-                                    <div class="category"><a href="category.html">Lifestyle</a></div>
-                                    <div class="time"><?php echo $value['created_at'] ?></div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <?php endforeach; ?>
-                </div>
                 <div class="line thin"></div>
                 <div class="comments">
                     <h2 class="title"> Responses <a href="#">Write a Response</a></h2>
@@ -300,7 +179,7 @@
                         </div>
                     </div>
                     <?php endforeach; ?>
-                    <form class="row" " action=" <?php echo Post_Detail ?>insertcomment" method="post" role="form"
+                    <form class="row" " action=" <?php echo Post_Detail ?>insertComment" method="post" role="form"
                         enctype="multipart/form">
                         <div class="col-md-12">
                             <h3 class="title">Leave Your Response</h3>
@@ -308,12 +187,10 @@
                         <div class="form-group">
                             <input type="hidden" namne="user_id">
                         </div>
-                        <?php foreach ($postbyid as $post) : ?>
                         <div class="form-group">
-                            <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
+                            <input type="hidden" name="post_id" value="<?php echo $postbyid['id']; ?>">
 
                         </div>
-                        <?php endforeach; ?>
 
                         <div class="form-group col-md-12">
                             <label for="message">Response <span class="required"></span></label>
@@ -321,7 +198,7 @@
                                 placeholder="Write your response ..."></textarea>
                         </div>
                         <div class="form-group col-md-12">
-                            <button class="btn btn-primary" type="submit" name="insertcomment">Send Response</button>
+                            <button class="btn btn-primary" type="submit" name="insertComment">Send Response</button>
                         </div>
                     </form>
                 </div>

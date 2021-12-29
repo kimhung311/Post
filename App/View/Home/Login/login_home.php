@@ -4,7 +4,7 @@
             <div class="box box-border">
                 <div class="box-body">
                     <h4>Login</h4>
-                    <form autocomplete="off" action="<?php echo BASE_URL ?>homepage/check_login" method="POST">
+                    <form autocomplete="off" action="<?php echo BASE_URL ?>homepage/checkLogin" method="POST">
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" class="form-control">
@@ -16,8 +16,8 @@
                             <input type="password" name="password" class="form-control">
                         </div>
                         <div class="form-group text-right">
-                            <button class="btn btn-primary btn-block" type="submit" name="check_login"
-                                id="submit-insert" onclick='Javascript:checkEmail();'>Login</button>
+                            <button class="btn btn-primary btn-block" type="submit" name="checkLogin" id="submit-insert"
+                                onclick='Javascript:checkEmail();'>Login</button>
                         </div>
                         <div class="form-group text-center">
                             <span class="text-muted">Don't have an account?</span> <a href="register.html">Create

@@ -15,6 +15,7 @@
         <thead class="thead-light">
             <tr>
                 <th>CONTENT</th>
+                <th>Hot NEW</th>
                 <th>DESCRIPTION</th>
                 <th>PICTURE</th>
                 <th>IMAGE</th>
@@ -28,6 +29,9 @@
                     <textarea name="" id="" cols="30" rows="10" class="form-control mytextarea" readonly>
                         <?php echo $postbyid['content'] ?>
                     </textarea>
+                </td>
+                <td>
+                    <?php echo $postbyid['hot_new']?>
                 </td>
                 <td>
                     <textarea name="" id="" cols="30" rows="10" class="form-control mytextarea" readonly>

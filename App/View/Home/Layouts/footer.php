@@ -18,7 +18,7 @@
                   </div>
               </div>
               <div class="col-md-3 col-sm-6 col-xs-12">
-                  <div class="block">
+                  <!-- <div class="block">
                       <h1 class="block-title">Popular Tags
                           <div class="right"><a href="#">See All <i class="ion-ios-arrow-thin-right"></i></a></div>
                       </h1>
@@ -34,7 +34,7 @@
                           </ul>
                       </div>
                   </div>
-                  <div class="line"></div>
+                  <div class="line"></div> -->
                   <div class="block">
                       <h1 class="block-title">Newsletter</h1>
                       <div class="block-body">
@@ -71,15 +71,18 @@
                                       </a>
                                   </figure>
                                   <div class="padding">
-                                      <h1><a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
-                                              <?php echo $value['name'] ?>
-                                          </a></h1>
+                                      <h1>
+                                          <a href="<?php echo Post_Detail ?>post_detail/<?php echo $value['id'] ?>">
+                                              <?php echo $value['title'] ?>
+                                          </a>
+                                      </h1>
+                                      <p><?php echo $value['created_at'] ?></p>
                                   </div>
                               </div>
                           </article>
                           <?php endforeach; ?>
 
-                          <a href="<?php echo Post_Detail ?>list_posts" class="btn btn-magz white btn-block">See All <i
+                          <a href="<?php echo Post_Detail ?>listPosts" class="btn btn-magz white btn-block">See All <i
                                   class="ion-ios-arrow-thin-right"></i></a>
                       </div>
                   </div>

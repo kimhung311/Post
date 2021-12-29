@@ -8,23 +8,11 @@
 
         public function Category($categories)
         {
-            $sql = "SELECT * FROM $categories  ";
+            $sql = "SELECT * FROM $categories  LIMIT 5";
             return $this->db->select($sql); // truyền tham số table vào select()
         }
-
-        public function Post($posts)
-        {            
-            $sql = "SELECT * FROM $posts ORDER BY created_at DESC"; // note 
-            return $this->db->select($sql);
-        }
-
-          public function LatestNew($posts, $categories)
-        {            
-            $sql = "SELECT *, $posts.id as 'posts_id', $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id  ORDER BY posts.created_at DESC"; // note 
-            return $this->db->select($sql);
-        }
-
-        public function listPosts($posts)
+        
+        public function listPosts($posts)  // List Menu Post
         {
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
@@ -37,15 +25,39 @@
             return $this->db->select($sql);
         }
 
-        public function listPapulator($posts) {
-            $sql = "SELECT * FROM $posts WHERE total_view > 10 ORDER BY total_view DESC  ";
+        public function Post($posts)
+        {            
+            $sql = "SELECT * FROM $posts ORDER BY created_at DESC"; // Slide Home Page
             return $this->db->select($sql);
         }
+
+       public function OtherPost($post, $categories){ //  tin kkhác home page
+           $sql = "SELECT *, $post.id, $categories.id FROM $post INNER JOIN $categories ON $post.category_id = $categories.id WHERE $categories.category_name= 'OTHER NEW' ORDER BY $categories.created_at DESC LIMIT 4";
+          return $this->db->select($sql);
+       }
+
+        public function listPapulator($posts) {   // Popular Home Page lượt xem bài nhiều
+            $sql = "SELECT * FROM $posts WHERE total_view > 40 ORDER BY total_view DESC  ";
+            return $this->db->select($sql);
+        }
+
+        public function LatestNew($posts, $categories)  // Last New Home Page
+        {
+            $sql = "SELECT *, $posts.category_id as 'posts_id', $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id  ORDER BY $posts.created_at  OR $categories.id DESC"; // note 
+            return $this->db->select($sql);
+        }
+      
         
-        public function TrendingTags($posts, $categories){
-            $sql = "SELECT *, $posts.id as 'posts_id', $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id WHERE $posts.total_view > 10 ORDER BY total_view DESC LIMIT 10 ";
+        public function TrendingTags($posts, $categories){ //Trending tags  xu hướng người đọc hay xem
+            $sql = "SELECT *, $posts.id as 'posts_id', $categories.id FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id WHERE $posts.total_view > 10 ORDER BY total_view DESC LIMIT 5 ";
              return $this->db->select($sql);
-            
+        }
+        
+        public function HotNew($postTable){ //  hiện thì bài viết có số lượt xem và comment nhiều nhất
+            // $sql = "SELECT *, $postTable.id, $comment.id FROM $postTable INNER JOIN $comment ON $postTable.id = $comment.post_id ORDER BY $postTable.total_view LIMIT 5";
+            $sql = "SELECT * FROM $postTable WHERE $postTable.hot_new = 'hot'  ORDER BY created_at DESC LIMIT 5 ";
+            return $this->db->select($sql);
+
         }
         
         public function RecentPost($postTable){
@@ -60,13 +72,13 @@
             return $this->db->select($sql);
         }
 
-        public function CommentById($comment, $user,$postId)
+        public function CommentById($comment, $user,$postId)   // comment post detail
         {
             $sql = "SELECT * FROM $comment WHERE  $comment.post_id = $postId";
             // $sql = "SELECT *,$comment.id FROM $user, $comment WHERE  $comment.user_id=$user.id OR  ORDER BY $comment.created_at DESC"; 
             return $this->db->select($sql);
         }
-        public function Comments($comment, $user, $posts)
+        public function Comments($comment, $user, $posts) // created comment home page
         {
             $sql = "SELECT *, $comment.id , $user.name, $posts.id FROM (($comment INNER JOIN $user ON $comment.user_id = $user.id) INNER JOIN $posts ON $comment.post_id = $posts.id) LIMIT 6";
             return $this->db->select($sql); // truyền tham số table vào select()
@@ -77,7 +89,7 @@
             return $this->db->insert($comment,  $data);
         }
 
-        public function  CategoryByIdHome($categories, $postTable, $id)
+        public function  CategoryByIdHome($categories, $postTable, $id) // list of categories
         {
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
@@ -90,18 +102,13 @@
             return $this->db->select($sql);
         }
 
-        public function  ReCommended($postTable)
+        public function  ReCommended($comment, $post) /// lược xem nhiều nhất 
         {
-            $sql = "SELECT * FROM $postTable WHERE total_view = (SELECT MAX(total_view) FROM $postTable) LIMIT 1";
+            $sql = "SELECT *, $comment.id , posts.id FROM $comment  INNER JOIN $post ON $comment.post_id = $post.id WHERE $comment.comment = (SELECT MAX(comment) FROM $comment) LIMIT 1";
+            // $sql = "SELECT * FROM $comment WHERE comment = (SELECT MAX(comment) FROM $comment) LIMIT 1";
             return $this->db->select($sql);
         }
-
-        public function  Bestoftheweek($comment, $postTable)
-        {
-            $sql = "SELECT * FROM $comment, $postTable WHERE $comment.post_id = $postTable.id  ORDER BY $postTable.id, $comment.created_at DESC ";
-            return $this->db->select($sql);
-        }
-
+        
         public function User($user)
         {
             $sql = "SELECT * FROM $user";
@@ -122,10 +129,4 @@
 
         }
 
-
-        // public function search($table, $name, $value)
-        // {
-        //     $sql = "SELECT * FROM $table WHERE $name LIKE $value ";
-        //     return $this->db->search($table, $name, $value);
-        // }
     }

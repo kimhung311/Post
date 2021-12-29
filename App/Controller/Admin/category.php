@@ -7,6 +7,8 @@ class Category extends DController
     public $categories = 'categories';
     public $user = 'user';
     public $post = 'posts';
+    public $comments = 'comments';
+    
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class Category extends DController
         try {
             // $data['user'] = $this->userModel->user($this->user);
             $data['categories'] = $this->categoryModel->Category($this->categories, $this->user);
+           
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Categories/index', $data);
         } catch (PDOException $e) {
@@ -50,15 +53,9 @@ class Category extends DController
 
         try {
             $category_name = $_POST['category_name'];
-            $paren_id = $_POST['paren_id'];
-            if (isset($paren_id) == null) {
-                $paren_id = $_POST['paren_id']  = 0;
-            }
             $user_id = $_POST['user_id'];
-
             $data = array(
                 'category_name' => $category_name,
-                'paren_id' => $paren_id,
                 'user_id' => $user_id
             );
             $result = $this->categoryModel->insertCategory($this->categories, $data);
@@ -122,12 +119,10 @@ class Category extends DController
             $cond = "id='$id'";
 
             $category_name = $_POST['category_name'];
-            $paren_id = $_POST['paren_id'];
             $user_id = $_POST['user_id'];
 
             $data = array(
                 'category_name' => $category_name,
-                'paren_id' => $paren_id,
                 'user_id' =>  $user_id
             );
 
@@ -147,10 +142,10 @@ class Category extends DController
 
     public function deleteCate($id)
     {
+
         try {
             $cond = "id='$id'";
-            $result = $this->categoryModel->deleteCategory($this->user, $this->posts, $this->categories, $this->comments, $this->cond);
-      
+            $result = $this->categoryModel->deleteCategory( $this->post, $this->categories, $cond);
                 if ($result == 1) {
                     $_SESSION['alert']['msg'] = 'Delete data successfully';
                 } else {

@@ -25,9 +25,9 @@ class Session
     public static function checkSessionAuth()
     {
         self::init();
-        if (!self::get('login/login') && $_SERVER['REQUEST_URI'] != '/Post/login/login') {
+        if (!self::get('login/index') && $_SERVER['REQUEST_URI'] != '/Post/login/index') {
            
-            header("Location:" . BASE_URL . "login/login");
+            header("Location:" . BASE_URL . "login/index");
             return false;
         }
         return true;
@@ -36,7 +36,7 @@ class Session
     public static function check_role() {
         if(isset($_SESSION['role_id' == 3]) == true) {
             session_destroy();
-            header("Location:" . BASE_URL . "login/login");
+            header("Location:" . BASE_URL . "login/index");
         }
     }
 

@@ -15,10 +15,10 @@ class Login extends DController
 
     }
 
-    public function login()
+    public function index()
     {
         try {
-            if (Session::get('login/login') == true) {
+            if (Session::get('login/index') == true) {
                 header("Location:" . BASE_URL . "login/dashboard");
             } else {
                 echo '<script language="javascript">';
@@ -43,7 +43,7 @@ class Login extends DController
 
                 $result =  $loginmodel->getlogin($this->user, $email, $password);
                 Session::init();
-                Session::set('login/login', true);  // kiểm tra người dùng đã đăng nhập 
+                Session::set('login/index', true);  // kiểm tra người dùng đã đăng nhập 
                 Session::set('email', $result[0]['email']);
                 Session::set('id', $result[0]['id']);
                 Session::set('name', $result[0]['name']);
@@ -166,8 +166,8 @@ class Login extends DController
                 echo '<script language="javascript">';
                 echo 'alert("Edit Successful data ")';
                 echo '</script>';
-                header("Location:" . BASE_URL . "login/login");
-                unset($_SESSION['login/login']);
+                header("Location:" . BASE_URL . "login/index");
+                unset($_SESSION['login/index']);
             } else {
                 echo '<script language="javascript">';
                 echo 'alert("Edit Fail data ")';
@@ -183,9 +183,9 @@ class Login extends DController
     public function logout()
     {
         Session::init();
-        unset($_SESSION['login/login']);
+        unset($_SESSION['login/index']);
         $_SESSION['alert']['msg'] = 'Logout Successfully ';
-        header("Location:" . BASE_URL . "login/login");
+        header("Location:" . BASE_URL . "login/index");
     }
 
 

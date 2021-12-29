@@ -51,7 +51,7 @@ class Main
         if (isset($this->url[2])) {
             $this->methobName = $this->url[1];
             if (method_exists($this->controller, $this->methobName)) { // kiểm tra sự tổn tại của 1 hàm 
-                $this->controller->{$this->methobName}($this->url[2]);
+                $this->controller->{$this->methobName}($this->url[2]); //method_exists - Kiểm tra xem phương thức lớp có tồn tại không
             } else { //nếu ko tồn tại hàm
                 header("Location:" . BASE_URL . "admin/notfound");
             }
@@ -63,7 +63,8 @@ class Main
                 } else {
                     header("Location:" . BASE_URL . "admin/notfound");
                 }
-            } else { //nếu ko tồn tại hàm
+            } 
+            else { //nếu ko tồn tại hàm
                 if (method_exists($this->controller, $this->methobName)) {
                     $this->controller->{$this->methobName}();
                 } else {

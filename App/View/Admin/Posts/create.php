@@ -42,10 +42,22 @@
               <div class="invalid-feedback">Please provide a valid Content.</div>
           </div>
 
+
+          <div class="form-outline col-md-6 mb-3">
+              <label for="validationCustom05">Hot NEW</label>
+              <div class="input-group">
+                  <select class="custom-select" id="validationCustom03" name="hot_new" required>
+                      <option selected value="no"></option>
+                      <option value="hot">HOT</option>
+                      <option value="no">NO</option>
+                  </select>
+                  <div class="invalid-feedback">Please provide a valid Delegation of Powers.</div>
+              </div>
+          </div>
+
           <div class="form-outline col-md-12 mb-5">
               <label for="inputGroupSelect02">Description</label>
-              <!-- <textarea class="form-control mytextarea" type="text" name="description" id="inputGroupSelect02"
-                  cols="140" rows="10" placeholder="Enter your description" required></textarea> -->
+
               <input type="text" name="description" id="inputGroupSelect" class="form-control mytextarea" type="text"
                   name="description">
               <div class="invalid-feedback">Please provide a valid description.</div>

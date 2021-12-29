@@ -37,6 +37,17 @@
             <div class="invalid-feedback">Please provide a valid Content.</div>
         </div>
 
+        <div class="form-group col-md-6 ">
+            <label for="inputGroupSelect01">HOT NEW</label>
+            <select class="custom-select" id="inputGroupSelect01" name="paren_id" required>
+                <option value="<?php echo $postbyid['hot_new'] ?>" <?php foreach ($postbyid as $key => $value) : ?>
+                    <?php $postbyid['hot_new'] == $postbyid['hot_new'] ?   'selected' : 'no' ?>>
+                    <?php echo $postbyid['hot_new'] ?></option>
+                <?php endforeach; ?>
+
+            </select>
+        </div>
+
         <div class="form-outline col-md-12 mb-5">
             <label for="inputGroupSelect02">Description</label>
             <textarea class="form-control mytextarea" type="text" name="description" id="inputGroupSelect02" cols="140"

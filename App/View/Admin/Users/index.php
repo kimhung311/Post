@@ -1,7 +1,7 @@
 <div class="main-panel">
     <h1 class="text-center">List of Posts
         <div class="row">
-            <a href="<?php echo BASE_URL ?>Admin/AddRegister" class="btn btn-info"><i
+            <a href="<?php echo BASE_URL ?>Admin/Register" class="btn btn-info"><i
                     class=" fa fa-calendar-plus fa-5x"></i>
                 ADD
                 NEW
@@ -42,9 +42,9 @@
                         alt="<?php echo $value['avatar'] ?>">
                 </td>
                 <td>
-                    <a href="<?php echo BASE_URL ?>admin/edit_user/<?php echo $value['id'] ?>" class="btn btn-primary"
+                    <a href="<?php echo BASE_URL ?>admin/editUser/<?php echo $value['id'] ?>" class="btn btn-primary"
                         onclick="return confirm('<?php echo 'Do you want to edit numeric information: ' . ' ' . $value['id'] ?>')">Edit</a>
-                    <a href="<?php echo BASE_URL ?>admin/delete_user/<?php echo $value['id'] ?>" class="btn btn-danger"
+                    <a href="<?php echo BASE_URL ?>admin/deleteUser/<?php echo $value['id'] ?>" class="btn btn-danger"
                         onclick="return confirm('<?php echo 'Are you sure you want to delete this: ' . ' ' . $key ?>')">Del</a>
                 </td>
             </tr>
@@ -74,7 +74,7 @@
         <ul class="pagination">
             <?php if ($page > 1) { ?>
             <li class="page-item"><a class="page-link btn btn-outline-warning"
-                    href="<?php echo BASE_URL ?>admin/list_admin&page=<?php echo $Previous; ?>">Previous</a>
+                    href="<?php echo BASE_URL ?>Admin/listAdmin&page=<?php echo $Previous; ?>">Previous</a>
             </li>
             <?php } ?>
             <?php
@@ -82,12 +82,12 @@
             for ($i = $colum; $i < $to; $i++) {
             ?>
             <li class="page-item"><a class="page-link btn btn-outline-warning"
-                    href="<?php echo BASE_URL ?>admin/list_admin&page=<?php echo $i ?>"><?php echo $i ?></a>
+                    href="<?php echo BASE_URL ?>Admin/listAdmin&page=<?php echo $i ?>"><?php echo $i ?></a>
             </li>
             <?php } ?>
             <?php if ($colum >= $page) { ?>
             <li class="page-item"><a class="page-link btn btn-outline-warning"
-                    href="<?php echo BASE_URL ?>admin/list_admin&page=<?php echo $Next; ?>">Next</a>
+                    href="<?php echo BASE_URL ?>Admin/listAdmin&page=<?php echo $Next; ?>">Next</a>
             </li>
             <?php } ?>
         </ul>

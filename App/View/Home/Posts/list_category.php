@@ -35,7 +35,7 @@
                     <article class="col-md-6 col-sm-6 col-xs-12 article-list">
                         <div class="inner">
                             <figure>
-                                <a href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>">
+                                <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $post['id'] ?>">
                                     <img src="<?php echo URL_Post_Detail ?><?php echo $post['picture'] ?>" alt="">
                                 </a>
                             </figure>
@@ -47,7 +47,7 @@
                                     <div class="time"><?php echo $post['created_at'] ?></div>
                                 </div>
                                 <h1><a
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
+                                        href="<?php echo Post_Detail ?>PostDetail/<?php echo $post['id'] ?>"><?php echo $post['title'] ?></a>
                                 </h1>
                                 <h6 style="overflow: hidden;
                                         display: -webkit-box;
@@ -60,7 +60,7 @@
                                         <div>237</div>
                                     </a>
                                     <a class="btn btn-primary more"
-                                        href="<?php echo Post_Detail ?>post_detail/<?php echo $post['id'] ?>">
+                                        href="<?php echo Post_Detail ?>PostDetail/<?php echo $post['id'] ?>">
                                         <div>More</div>
                                         <div><i class="ion-ios-arrow-thin-right"></i></div>
                                     </a>

@@ -27,7 +27,6 @@ class Post_Home extends DController
             $this->postModel =  $this->load->model('Post_M');
             $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
             $data['commentbyid'] = $this->post_home->CommentById($this->comment, $this->user, $id);
-            
             $data['user'] = $this->post_home->User($this->user);
             $data['categories'] = $this->post_home->Category($this->categories);
             $data['recentpost'] = $this->post_home->RecentPost($this->postTable);
@@ -37,12 +36,35 @@ class Post_Home extends DController
             $this->load->view('Home/Layouts/master-3', $data);
             $this->load->view('Home/Posts/post_detail', $data);
         } catch (PDOException $e) {
-            header("Location:" . BASE_URL . "post/add_post");
+            header("Location:" . BASE_URL . "admin/notfound");
             $error = $e->getMessage();
             echo 'Error creating' . $error;
             exit();
         }
     }
+
+    public function RecentPostDetail($id){
+        try {
+            $cond = "id='$id'";
+            $this->postModel =  $this->load->model('Post_M');
+            $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
+            $data['commentbyid'] = $this->post_home->CommentById($this->comment, $this->user, $id);
+            $data['user'] = $this->post_home->User($this->user);
+            $data['categories'] = $this->post_home->Category($this->categories);
+            $data['recentpost'] = $this->post_home->RecentPost($this->postTable);
+            $data['posts'] = $this->post_home->User($this->postTable);
+            $data['popular'] = $this->post_home->listPapulator($this->postTable);
+            $this->updateViewTotal($data['postbyid'], $cond);
+            $this->load->view('Home/Layouts/master-3', $data);
+            $this->load->view('Home/Posts/recent_post', $data);
+        } catch (PDOException $e) {
+            header("Location:" . BASE_URL . "admin/notfound");
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+    
     public function listPosts()
     {
         try {
@@ -55,7 +77,7 @@ class Post_Home extends DController
             $this->load->view('Home/Layouts/master-2', $data);
             $this->load->view('Home/Posts/list_post', $data);
         } catch (PDOException $e) {
-            header("Location:" . BASE_URL . "post/add_post");
+            header("Location:" . BASE_URL . "admin/notfound");
             $error = $e->getMessage();
             echo 'Error creating' . $error;
             exit();
@@ -73,7 +95,7 @@ class Post_Home extends DController
             $this->load->view('Home/Layouts/master-3', $data);
             $this->load->view('Home/Posts/list_category', $data);
         } catch (PDOException $e) {
-            header("Location:" . BASE_URL . "post/add_post");
+            header("Location:" . BASE_URL . "admin/notfound");
             $error = $e->getMessage();
             echo 'Error creating' . $error;
             exit();
@@ -94,6 +116,7 @@ class Post_Home extends DController
                     'post_id' => $post_id,
                     'comment' => $comment
                 );
+              
 
                 $result = $this->post_home->insertComment($this->comment,  $data);
 
@@ -106,15 +129,14 @@ class Post_Home extends DController
                     $_SESSION['alert']['error'] = ' Data Generation failed';
                 }
             } else {
-                // var_dump('sai');
-                // die();
+            
                 echo '<script language="javascript">';
                 echo 'alert("Please  Login")';
                 echo '</script>';
-                header("Location:" . BASE_URL . "homepage/login_user");
+                header("Location:" . BASE_URL . "homepage/loginUser");
             }
         } catch (PDOException $e) {
-            header("Location:" . BASE_URL . "post/add_post");
+            header("Location:" . BASE_URL . "admin/notfound");
             $error = $e->getMessage();
             echo 'Error creating' . $error;
             exit();
@@ -131,7 +153,7 @@ class Post_Home extends DController
             $this->userModel =  $this->load->model('User_M');
             $data['userbyid'] = $this->userModel->UserById($this->user, $cond);
             $this->load->view('Admin/Layouts/master-2', $data);
-            $this->load->view('Admin/Auth/change_password', $data);
+            $this->load->view('Admin/Auth/changePassword', $data);
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
             echo "Database error: $error_message";
@@ -197,14 +219,14 @@ class Post_Home extends DController
                 echo '<script language="javascript">';
                 echo 'alert("Edit Successful data ")';
                 echo '</script>';
-                header("Location:" . BASE_URL . "login/login");
-                unset($_SESSION['login/login']);
+                header("Location:" . BASE_URL . "login/index");
+                unset($_SESSION['login/index']);
             } else {
                 echo '<script language="javascript">';
                 echo 'alert("Edit Fail data ")';
                 echo '</script>';
                 $_SESSION['alert']['error'] = 'Edit Whether Fail';
-                header("Location:" . BASE_URL . "login/change_password");
+                header("Location:" . BASE_URL . "login/changePassword");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();

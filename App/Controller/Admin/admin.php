@@ -58,7 +58,6 @@ class Admin extends DController
     public function AddRegister()
     {
         try {
-            $name = $_POST['name'];
             $email = $_POST['email'];
             $password = md5($_POST['password']);
             $role_id = $_POST['role_id'];
@@ -75,7 +74,6 @@ class Admin extends DController
             $path_upload = "Public/User-image/" . $unique_image;
 
             $data = array(
-                'name' => $name,
                 'email' => $email,
                 'password' => $password,
                 'role_id' => $role_id,
@@ -89,11 +87,11 @@ class Admin extends DController
 
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_upload);
-                header("Location:" . BASE_URL . "admin/list_admin");
+                header("Location:" . BASE_URL . "Admin/listAdmin");
                 $_SESSION['alert']['msg'] = 'Successful Data Generation';
             } else {
                 $_SESSION['alert']['error'] = ' Data Generation failed';
-                header("Location:" . BASE_URL . "admin/register");
+                header("Location:" . BASE_URL . "Admin/Register");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -105,6 +103,7 @@ class Admin extends DController
     {
         try {
             $this->load->view('Admin/Layouts/master-2');
+            $data['user'] = $this->userModel->Customer($this->adminTable);
             $cond = "id='$id'";
             $data['userbyid'] = $this->userModel->UserByid($this->adminTable, $cond);
             $this->load->view('Admin/Users/edit', $data);
@@ -118,7 +117,6 @@ class Admin extends DController
     {
         try {
             $cond = "id='$id'";
-            $name = $_POST['name'];
             $email = $_POST['email'];
             $password = md5($_POST['password']);
             $role_id = $_POST['role_id'];
@@ -144,7 +142,6 @@ class Admin extends DController
                 }
                 move_uploaded_file($tmp_image, $path_upload);
                 $data = array(
-                    'name' => $name,
                     'email' => $email,
                     'password' => $password,
                     'role_id' => $role_id,
@@ -155,7 +152,6 @@ class Admin extends DController
                 );
             } else {
                 $data = array(
-                    'name' => $name,
                     'email' => $email,
                     'password' => $password,
                     'role_id' => $role_id,
@@ -168,10 +164,10 @@ class Admin extends DController
             $result = $this->userModel->updateUser($this->adminTable, $data, $cond);
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Edit Successful data ';
-                header("Location:" . BASE_URL . "admin/list_admin");
+                header("Location:" . BASE_URL . "Admin/listAdmin");
             } else {
                 $_SESSION['alert']['error'] = 'Edit Whether Fail';
-                header("Location:" . BASE_URL . "admin/register");
+                header("Location:" . BASE_URL . "Admin/Register");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
@@ -187,10 +183,10 @@ class Admin extends DController
            
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';
-                header("Location:" . BASE_URL . "admin/list_admin");
+                header("Location:" . BASE_URL . "Admin/listAdmin");
             } else {
                 $_SESSION['alert']['error'] = 'Delete data failed';
-                header("Location:" . BASE_URL . "admin/list_admin");
+                header("Location:" . BASE_URL . "Admin/listAdmin");
             }
         } catch (PDOException $e) {
             $error_message = $e->getMessage();
