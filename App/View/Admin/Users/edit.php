@@ -14,7 +14,7 @@
     foreach ($userbyid as $user) : ?>
 
     <form class="row g-3 needs-validation" novalidate
-        action="<?php echo BASE_URL ?>admin/update_user/<?php echo $user['id'] ?>" method="POST" role="form"
+        action="<?php echo BASE_URL ?>Admin/updateUser/<?php echo $user['id'] ?>" method="POST" role="form"
         enctype="multipart/form-data" style="width:1200px;margin:auto;">
         <div class="form-group">
             <h1 class="text-center"> Register Account
@@ -44,10 +44,29 @@
                 <label for="validationCustom03">Delegation of Powers</label>
                 <div class="input-group">
                     <select class="custom-select" id="validationCustom03" name="role_id">
-                        <option selected>Choose Right</option>
+                        <?php $counter = 0;
+                            foreach ($user as $key => $value) :
+                                $counter++;
+                                if ($counter >= 2) {
+                                    break;
+                                } ?>
+                        <option selected value="<?php echo $user['role_id'] ?>"
+                            <?php $user['role_id'] == $user['role_id'] ?   'selected' : ''; ?>>
+                            <?php
+                                    if ($user['role_id'] == 1) {
+                                        echo 'Admin';
+                                    } else if ($user['role_id'] == 2) {
+                                        echo 'Editer';
+                                    } else {
+                                        echo 'User';
+                                    }
+                                    ?>
+                        </option>
+                        <?php endforeach; ?>
                         <option value="1">Admin</option>
                         <option value="2">Editor</option>
                         <option value="3">User</option>
+
                     </select>
                 </div>
             </div>
@@ -56,7 +75,18 @@
                 <label for="validationCustom03">Account</label>
                 <div class="input-group">
                     <select class="custom-select" id="validationCustom03" name="type">
-                        <option selected>Choose Right</option>
+                        <?php
+                            $counter = 0;
+                            foreach ($user as $key => $value) :
+                                $counter++;
+                                if ($counter >= 2) {
+                                    break;
+                                }
+                            ?>
+                        <option selected value="<?php echo $user['type'] ?>"
+                            <?php $user['type'] == $user['type'] ?   'selected' : ''; ?>>
+                            <?php echo $user['type'] ?></option>
+                        <?php endforeach; ?>
                         <option value="admin">Admin</option>
                         <option value="user">User</option>
                     </select>
@@ -84,7 +114,7 @@
                 <input type="number" name="phone" id="validationCustom03" value="<?php echo $user['phone'] ?>"
                     class="form-control" placeholder="Enter phone post">
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" name="update_user">Block level
+            <button type="submit" class="btn btn-primary btn-lg btn-block" name="updateUser">Block level
                 button</button>
         </div>
     </form>

@@ -16,7 +16,7 @@ class Category_M  extends DModel
         $row = 10;
         $from = ($page - 1) * $row;
 
-        $sql = "SELECT *, $categories.id  FROM $categories, $user WHERE $categories.user_id=$user.id LIMIT $from, $row  ";
+        $sql = "SELECT *, $categories.id FROM $categories, $user WHERE $categories.user_id=$user.id LIMIT $from, $row  ";
 
         return $this->db->select($sql); // truyền tham số table vào select()
     }
@@ -43,8 +43,8 @@ class Category_M  extends DModel
         return $this->db->update($categories, $data, $cond);
     }
 
-    public function deleteCategory($user, $posts, $categories, $comments, $cond)
+    public function deleteCategory($posts, $categories, $cond)
     {
-        return $this->db->delete($user, $posts, $categories, $comments, $cond);
+        return $this->db->deleteCategory($posts, $categories, $cond);
     }
 }

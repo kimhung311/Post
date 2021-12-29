@@ -77,7 +77,7 @@ class Database extends PDO
         return $this->exec($sql);
     }
 
-    public function deleteCategory($user,$posts,$categories, $comments, $cond)
+    public function deleteUser($user,$posts,$categories, $comments, $cond)
     {
         $sql = " DELETE $user.*, $posts.*, $categories.*, $comments.* FROM (($user
             INNER JOIN $posts ON $user.$cond = $posts.user_id)
@@ -86,7 +86,15 @@ class Database extends PDO
       
         return $this->exec($sql);
     }
-    // DELETE posts.*,comments.* FROM posts INNER JOIN comments ON posts.id = comments.post_id WHERE posts.id= 231;
+
+    public function deleteCategory($posts, $categories, $cond)
+    {
+        $sql = " DELETE   $categories.*, $posts.* FROM $categories
+                LEFT JOIN $posts ON $categories.id = $posts.category_id 
+                WHERE $categories.$cond;";
+
+        return $this->exec($sql);
+    }
     public function search($table, $name, $value)
     {
         $sql = "SELECT * FROM $table WHERE $name LIKE $value";

@@ -15,7 +15,7 @@
             } else {
                 $page = 1;
             }
-            $row = 4;
+            $row = 5;
             $from = ($page - 1) * $row;
 
             $sql = "SELECT *, $posts.id as 'posts_id',  $categories.category_name, $user.name FROM (($posts INNER JOIN $categories ON $posts.category_id = $categories.id) INNER JOIN $user ON $posts.user_id = $user.id)  LIMIT $from, $row ";

@@ -63,6 +63,7 @@ class Post extends DController
             $user_id = $_POST['user_id'];
             $title = $_POST['title'];
             $content = $_POST['content'];
+            $hot_new = $_POST['hot_new'];
             $description = $_POST['description'];
 
             $picture = $_FILES['picture']['name'];
@@ -86,6 +87,7 @@ class Post extends DController
                 'user_id' => $user_id,
                 'title' => $title,
                 'content' => $content,
+                'hot_new' => $hot_new,
                 'description' => $description,
                 'picture' => $unique_image,
                 'image_detail' => $unique_image_detali
@@ -101,7 +103,7 @@ class Post extends DController
             } else {
                 $_SESSION['alert']['error'] = ' Data Generation failed';
             }
-            header("Location:" . BASE_URL . "post/index");
+            header("Location:" . BASE_URL . "Post/Index");
         } catch (PDOException $e) {
             header("Location:" . BASE_URL . "post/add_post");
             $error = $e->getMessage();
@@ -131,6 +133,7 @@ class Post extends DController
             $user_id = $_POST['user_id'];
             $title = $_POST['title'];
             $content = $_POST['content'];
+            $hot_new = $_POST['hot_new'];
             $description = $_POST['description'];
 
             $picture = $_FILES['picture']['name'];
@@ -165,6 +168,7 @@ class Post extends DController
                     'user_id' => $user_id,
                     'title' => $title,
                     'content' => $content,
+                    'hot_new' => $hot_new,
                     'description' => $description,
                     'picture' => $unique_image,
                     'image_detail' => $unique_image_detali
@@ -175,8 +179,8 @@ class Post extends DController
                     'user_id' => $user_id,
                     'title' => $title,
                     'content' => $content,
+                    'hot_new' => $hot_new,
                     'description' => $description,
-
                 );
             }
             $result = $this->postModel->updatepost($this->postTable, $data, $cond);
@@ -200,12 +204,7 @@ class Post extends DController
     {
         try {
             $cond = "id='$id'";
-            // $post_id = "post_id='$id'";
-            // $data['comments'] = $this->postModel->postbyid($this->comments, $cond);
-
             $result = $this->postModel->deletePostComment($this->postTable, $this->comments, $id);
-
-
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';
             } else {

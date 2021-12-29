@@ -1,26 +1,21 @@
 <div class="main-panel ">
 
     <?php
-            if (!empty($_GET['msg'])) {
-                $msg = unserialize(urldecode($_GET['msg']));
-                foreach ($msg as $key => $value) {
-                    echo '<span class="btn btn-warning">' . $value . '</span>';
-                }
-            }
-            ?>
+    if (!empty($_GET['msg'])) {
+        $msg = unserialize(urldecode($_GET['msg']));
+        foreach ($msg as $key => $value) {
+            echo '<span class="btn btn-warning">' . $value . '</span>';
+        }
+    }
+    ?>
 
 
-    <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>admin/addRegister" method="POST"
+    <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>Admin/AddRegister" method="POST"
         role="form" enctype="multipart/form-data" style="width:1200px;margin:auto;">
 
         <h1 class="text-center text-danger"> Register Account </h1>
         <div class="form-row">
-            <div class="form-outline col-md-4 mb-3">
-                <label for="validationCustom01">Name</label>
-                <input id="validationCustom01" type="type" name="name" id="name" class="form-control"
-                    placeholder="Enter address post" required>
-                <div class="invalid-feedback">Please provide a valid Name.</div>
-            </div>
+
 
             <div class="form-outline col-md-4 mb-3">
                 <label for="validationCustom02">Email address</label>
@@ -40,7 +35,7 @@
                 <label for="">Account</label>
                 <div class="input-group">
                     <select class="custom-select" id="validationCustom04" name="type" required>
-                        <option selected>Choose Right</option>
+                        <option selected value="admin">Choose Right</option>
                         <option value="admin">Admin</option>
                         <option value="user">User</option>
                     </select>
@@ -52,7 +47,7 @@
                 <label for="validationCustom05">Delegation of Powers</label>
                 <div class="input-group">
                     <select class="custom-select" id="validationCustom03" name="role_id" required>
-                        <option selected>Choose Right</option>
+                        <option selected value="2">Choose Right</option>
                         <option value="1">Admin</option>
                         <option value="2">Editor</option>
                         <option value="3">User</option>
@@ -84,7 +79,7 @@
                 <div class="invalid-feedback">Please provide a valid Phone.</div>
 
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" name="add_register">Block level
+            <button type="submit" class="btn btn-primary btn-lg btn-block" name="AddRegister">Block level
                 button</button>
         </div>
     </form>

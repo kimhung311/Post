@@ -65,7 +65,7 @@ class Homepage extends DController
                 echo '<script type="text/javascript"';
                 echo 'alert("ERROR EMAIL OR PASSWORD")';
                 echo '</script>';
-                header("Location:" . BASE_URL . "homepage/login_user");
+                header("Location:" . BASE_URL . "homepage/loginUser");
                 exit();
             }
         } catch (PDOException $e) {
@@ -121,7 +121,7 @@ class Homepage extends DController
             $result = $this->userModel->insertUser($this->user, $data);
             if ($result == 1) {
                 move_uploaded_file($tmp_image, $path_upload);
-                header("Location:" . BASE_URL . "homepage/login_user");
+                header("Location:" . BASE_URL . "homepage/loginUser");
                 $_SESSION['alert']['msg'] = 'Successful Data Generation';
                 $_SESSION['alert']['count'] = 0;
             } else {
@@ -140,7 +140,7 @@ class Homepage extends DController
         session_destroy();
         // unset($_SESSION['homepage/login_user']);
         $_SESSION['alert']['msg'] = 'Logout Successfully ';
-        header("Location:" . BASE_URL . "homepage/login_user");
+        header("Location:" . BASE_URL . "homepage/loginUser");
     }
 
     public function home()
@@ -149,11 +149,12 @@ class Homepage extends DController
         $data['posts'] = $this->login_user->Post($this->postTable);
         $data['latestnew'] = $this->login_user->LatestNew($this->postTable, $this->categories);
         $data['commenttop'] = $this->login_user->Comments($this->comment, $this->user, $this->postTable);
+        $data['hotnew'] = $this->login_user->HotNew($this->postTable);
         $data['popular'] = $this->login_user->listPapulator($this->postTable);
         $data['user'] = $this->login_user->User($this->user);
-        $data['recomended'] = $this->login_user->ReCommended($this->postTable);
+        $data['recomended'] = $this->login_user->ReCommended($this->comment, $this->postTable);
         $data['trendingtags'] = $this->login_user->TrendingTags($this->postTable, $this->categories);
-        $data['best_of_the_week'] = $this->login_user->Bestoftheweek($this->comment, $this->postTable);
+        $data['othernew'] = $this->login_user->OtherPost($this->postTable, $this->categories);
         $this->load->view('Home/Layouts/master', $data);
         $this->load->view('Home/Home', $data);
     }

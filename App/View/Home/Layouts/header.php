@@ -33,7 +33,7 @@
                         </li>
 
                         <li>
-                            <a href="<?php echo BASE_URL ?>homepage/logout_user"><i class="ion-person"></i>
+                            <a href="<?php echo BASE_URL ?>homepage/logoutUser"><i class="ion-person"></i>
                                 <div>Logout</div>
                             </a>
                         </li>
@@ -46,7 +46,7 @@
                         </li>
 
                         <li>
-                            <a href="<?php echo BASE_URL ?>homepage/logout_user"><i class="ion-person"></i>
+                            <a href="<?php echo BASE_URL ?>homepage/loginUser"><i class="ion-person"></i>
                                 <div>Login</div>
                             </a>
                         </li>

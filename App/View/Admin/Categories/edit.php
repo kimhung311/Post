@@ -18,19 +18,6 @@
                    class="form-control " id="" placeholder="Input field" required>
            </div>
 
-           <div class="form-group col-md-6 ">
-               <label for="inputGroupSelect01">Parent directory</label>
-               <select class="custom-select" id="inputGroupSelect01" name="paren_id" required>
-                   <?php foreach ($categorybyid as $key => $value) : ?>
-                   <option value="<?php echo $value['id'] ?>"
-                       <?php $value['id'] == $category['id'] ?   'selected' : ''; ?>>
-                       <?php echo $value['category_name'] ?></option>
-                   <option value="0"></option>
-
-                   <?php endforeach; ?>
-               </select>
-           </div>
-
            <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
 
            <button type="submit" name="updateCategory" class="btn btn-primary">SAVE</button>

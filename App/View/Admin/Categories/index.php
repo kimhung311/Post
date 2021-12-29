@@ -19,7 +19,6 @@
             <tr>
                 <th>ID</th>
                 <th>Categories</th>
-                <th>Parent directory</th>
                 <th>User_Id</th>
                 <th>Action</th>
             </tr>
@@ -29,7 +28,6 @@
             <tr>
                 <td><?php echo $category['id']; ?></td>
                 <td><?php echo $category['category_name']; ?></td>
-                <td><?php echo $category['paren_id']; ?></td>
                 <td><?php echo $category['name']; ?></td>
                 <td>
                     <a href="<?php echo BASE_URL ?>category/editCate/<?php echo $category['id'] ?>"

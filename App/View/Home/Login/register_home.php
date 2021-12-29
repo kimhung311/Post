@@ -6,7 +6,7 @@
             <div class="box box-border">
                 <div class="box-body">
                     <h4>Register</h4>
-                    <form name="myForm" action="<?php echo BASE_URL ?>homepage/add_register"
+                    <form name="myForm" action="<?php echo BASE_URL ?>homepage/AddRegister"
                         enctype="multipart/form-data" onsubmit="return validateform()" method="POST">
                         <div class="form-group">
                             <label>Name</label>
@@ -40,8 +40,7 @@
                                 title="Nhập số điện thoại từ 10 đến 11 số" class="form-control" required>
                         </div>
                         <div class="form-group text-right">
-                            <button class="btn btn-primary btn-block" name="add_register"
-                                type="submit">Register</button>
+                            <button class="btn btn-primary btn-block" name="AddRegister" type="submit">Register</button>
                         </div>
                         <div class="form-group text-center">
                             <span class="text-muted">Already have an account?</span> <a href="login.html">Login</a>

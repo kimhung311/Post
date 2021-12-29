@@ -100,7 +100,7 @@
                     <ul class="pagination">
                         <?php if ($page > 1) { ?>
                         <li class="prev"><a class="page-link btn btn-outline-warning"
-                                href="<?php echo Post_Detail ?>list_posts&page=<?php echo $Previous; ?>">Prev</a>
+                                href="<?php echo Post_Detail ?>listPosts&page=<?php echo $Previous; ?>">Prev</a>
                         </li>
                         <?php } ?>
                         <?php
@@ -108,12 +108,12 @@
                         for ($i = $colum; $i < $to; $i++) {
                         ?>
                         <li class="page-item "><a class="page-link btn btn-outline-warning"
-                                href="<?php echo Post_Detail ?>list_posts&page=<?php echo $i ?>"><?php echo $i ?></a>
+                                href="<?php echo Post_Detail ?>listPosts&page=<?php echo $i ?>"><?php echo $i ?></a>
                         </li>
                         <?php } ?>
                         <?php if ($colum >= $page) { ?>
                         <li class="next"><a class=" btn btn-outline-warning"
-                                href="<?php echo Post_Detail ?>list_posts&page=<?php echo $Next; ?>">Next</a>
+                                href="<?php echo Post_Detail ?>listPosts&page=<?php echo $Next; ?>">Next</a>
                         </li>
                         <?php } ?>
                     </ul>
