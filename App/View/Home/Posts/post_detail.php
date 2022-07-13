@@ -36,12 +36,12 @@
                         <article class="article-fw">
                             <div class="inner">
                                 <figure>
-                                    <a href="<?php echo Post_Detail ?>RecentPostDetail/<?php echo $value['id']; ?>">
+                                    <a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id']; ?>">
                                         <img src="<?php echo URL_Post_Detail ?><?php echo $value['picture'] ?>">
                                     </a>
                                 </figure>
                                 <div class="details">
-                                    <h1><a href="<?php echo Post_Detail ?>RecentPostDetail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?>
+                                    <h1><a href="<?php echo Post_Detail ?>PostDetail/<?php echo $value['id']; ?>"><?php echo $value['title'] ?>
                                         </a></h1>
                                     <h6 style="overflow: hidden;
                                         display: -webkit-box;
@@ -127,8 +127,15 @@
                     <header>
                         <ul class="details">
                             <li><?php echo $postbyid['created_at'] ?></li>
-                            <!-- <li><a>Film</a></li>
-                            <li>By <a href="#">John Doe</a></li> -->
+
+                            <?php foreach ($user as $key => $value) { ?>
+                            <?php if ($postbyid['author_id'] == $value['id']) { ?>
+                            <li><a>AUTHOR:</a></li>
+                            <li>By <a href="<?php echo Post_Detail ?>Author_Profile/<?php echo $value['id'] ?>">
+                                    <?php echo $value['name'] ?>
+                                </a></li>
+                            <?php }
+                            } ?>
                         </ul>
                     </header>
                     <div class="main">
@@ -147,6 +154,7 @@
                             <span><?php echo $postbyid['description'] ?></span>
                         </div>
                     </div>
+
                     <footer>
 
                         <div class="col-6">

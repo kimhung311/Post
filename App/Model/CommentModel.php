@@ -24,4 +24,8 @@
         {
             return $this->db->delete($posts, $cond);
         }
+
+        public function spamcomment(){
+            
+        }
     }

@@ -8,81 +8,112 @@
         }
     }
     ?>
+    <div class="col-md-10 mx-auto mt-5 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Form Add Account Admin-Editer</h4>
+                <p class="card-description"></p>
+                <form class="forms-sample needs-validation" novalidate action="<?php echo BASE_URL ?>Admin/AddRegister"
+                    method="POST" role="form" enctype="multipart/form-data">
 
 
-    <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>Admin/AddRegister" method="POST"
-        role="form" enctype="multipart/form-data" style="width:1200px;margin:auto;">
+                    <div class=" form-group row">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-6">
+                            <input type="name" name="name" class="form-control"
+                                id="exampleInputUsername2 validationCustom02" placeholder="Name" required />
+                            <div class="invalid-feedback">Please provide a valid Name</div>.
+                        </div>
+                    </div>
 
-        <h1 class="text-center text-danger"> Register Account </h1>
-        <div class="form-row">
+                    <div class=" form-group row">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="email" name="email" class="form-control"
+                                id="exampleInputUsername2 validationCustom02" placeholder="Email" required />
+                            <div class="invalid-feedback">Please provide a valid Email</div>.
+                        </div>
+                    </div>
+
+                    <div class=" form-group row">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" name="password" class="form-control"
+                                id="exampleInputUsername2 validationCustom02" placeholder="Password" required />
+                            <div class="invalid-feedback">Please provide a valid Password</div>.
+                        </div>
+                    </div>
+
+                    <div class=" form-group row ">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Account</label>
+                        <div class="input-group col-sm-6">
+                            <select class="custom-select" id="validationCustom04 " name="type" required>
+                                <option selected value="admin">Choose Right</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+                            <div class="invalid-feedback">Please provide a valid Account.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="validationCustom05 validationCustom02" class="col-sm-3 col-form-label">Delegation of
+                            Powers</label>
+                        <div class="input-group col-sm-6">
+                            <select class="custom-select" id="validationCustom03" name="role_id" required>
+                                <option selected value="2">Choose Right</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Editor</option>
+                                <option value="3">User</option>
+                            </select>
+                            <div class="invalid-feedback">Please provide a valid Delegation of Powers.</div>
+                        </div>
+                    </div>
+
+                    <div class=" form-group row">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Address</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="address" class="form-control"
+                                id="exampleInputUsername2 validationCustom02" placeholder="Address" required />
+                            <div class="invalid-feedback">Please provide a valid Address</div>.
+                        </div>
+                    </div>
+
+                    <div class=" form-group row">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Avatar</label>
+                        <div class="col-sm-6">
+                            <input type="file" name="avatar" class="form-control"
+                                id="exampleInputUsername2 validationCustom02" placeholder="Avatar" required />
+                            <div class="invalid-feedback">Please provide a valid Avatar</div>.
+                        </div>
+                    </div>
 
 
-            <div class="form-outline col-md-4 mb-3">
-                <label for="validationCustom02">Email address</label>
-                <input type="email" name="email" id="validationCustom02" class="form-control" placeholder="Enter email"
-                    required>
-                <div class="invalid-feedback">Please provide a valid Email.</div>
+                    <div class=" form-group row">
+                        <label for="exampleInputUsername2 validationCustom02"
+                            class="col-sm-3 col-form-label">Phone</label>
+                        <div class="col-sm-6">
+                            <input type="tel" name="phone" class="form-control"
+                                id="exampleInputUsername2 validationCustom02" placeholder=" Phone" required />
+                            <div class="invalid-feedback">Please provide a valid Phone</div>.
+                        </div>
+                    </div>
+
+
+
+                    <button type="submit" name="AddRegister" class="btn btn-primary mr-2"> Submit </button>
+                    <button class="btn btn-light">Cancel</button>
+                </form>
             </div>
-
-            <div class="form-outline col-md-4 mb-3">
-                <label for="validationCustom03">Password</label>
-                <input id="validationCustom03" type="password" name="password" id="title" class="form-control"
-                    placeholder="Enter Title password" required>
-                <div class="invalid-feedback">Please provide a valid Password</div>.
-            </div>
-
-            <div class="form-outline col-md-6 mb-3">
-                <label for="">Account</label>
-                <div class="input-group">
-                    <select class="custom-select" id="validationCustom04" name="type" required>
-                        <option selected value="admin">Choose Right</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
-                    <div class="invalid-feedback">Please provide a valid Account.</div>
-                </div>
-            </div>
-
-            <div class="form-outline col-md-6 mb-3">
-                <label for="validationCustom05">Delegation of Powers</label>
-                <div class="input-group">
-                    <select class="custom-select" id="validationCustom03" name="role_id" required>
-                        <option selected value="2">Choose Right</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Editor</option>
-                        <option value="3">User</option>
-                    </select>
-                    <div class="invalid-feedback">Please provide a valid Delegation of Powers.</div>
-                </div>
-            </div>
-
-            <div class="form-outline col-md-12">
-                <label for="validationCustom06">Address</label>
-                <input id="validationCustom06" type="type" name="address" id="address" class="form-control"
-                    placeholder="Enter address post" required>
-                <div class="invalid-feedback">Please provide a valid Address.</div>
-
-            </div>
-
-            <div class="form-outline col-md-4 mb-3">
-                <label for="validationCustom07">Avatar</label>
-                <input id="validationCustom07" type="file" name="avatar" id="avatar" class="form-control"
-                    placeholder="Enter avatar " required>
-                <div class="invalid-feedback">Please provide a valid Avatar.</div>
-
-            </div>
-
-            <div class="form-outline col-md-4 mb-3">
-                <label for="validationCustom08">Phone</label>
-                <input id="validationCustom08" type="number" name="phone" id="phone" class="form-control"
-                    placeholder="Enter phone post" required>
-                <div class="invalid-feedback">Please provide a valid Phone.</div>
-
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" name="AddRegister">Block level
-                button</button>
         </div>
-    </form>
+    </div>
+
 </div>
 </div>
 </div>

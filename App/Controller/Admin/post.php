@@ -34,7 +34,9 @@ class Post extends DController
     public function Detail($id)
     {
         $cond = "id='$id'";
-        $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
+        
+        $data['postviewbyid'] = $this->postModel->PostViewById($this->postTable, $this->categories, $this->user, $cond);
+        $data['user'] = $this->userModel->user($this->user);
         // $data['posts'] = $this->postModel->post($this->postTable, $this->categories);
         $this->load->view('Admin/Layouts/master-2', $data);
         $this->load->view('Admin/Posts/post_detail', $data);
@@ -45,7 +47,7 @@ class Post extends DController
         try {
             $data['posts'] = $this->postModel->listPost($this->postTable);
             $data['categories'] = $this->postModel->listPost($this->categories);
-            // $data['user'] = $this->userModel->user($this->user);
+            $data['user'] = $this->userModel->user($this->user);
             $this->load->view('Admin/Layouts/master', $data);
             $this->load->view('Admin/Posts/create', $data);
         } catch (PDOException $e) {
@@ -61,6 +63,7 @@ class Post extends DController
 
             $category_id = $_POST['category_id'];
             $user_id = $_POST['user_id'];
+            $author_id = $_POST['author_id'];
             $title = $_POST['title'];
             $content = $_POST['content'];
             $hot_new = $_POST['hot_new'];
@@ -85,6 +88,7 @@ class Post extends DController
             $data = array(
                 'category_id' => $category_id,
                 'user_id' => $user_id,
+                'author_id' => $author_id,
                 'title' => $title,
                 'content' => $content,
                 'hot_new' => $hot_new,
@@ -114,9 +118,12 @@ class Post extends DController
 
     public function editPost($id)
     {
+        $cond = "id='$id'";
+        // $data['posts'] = $this->postModel->listPost($this->postTable);
+        $data['categorybyid'] = $this->categoryModel->CategoryByid($this->categories, $cond);
+
         $data['categories'] = $this->categoryModel->Category($this->categories, $this->user);
         $data['user'] = $this->userModel->user($this->user);
-        $cond = "id='$id'";
         $data['postbyid'] = $this->postModel->PostById($this->postTable, $cond);
         // var_dump($data['postbyid']);
         // die();
@@ -131,6 +138,7 @@ class Post extends DController
             $cond = "id='$id'";
             $category_id = $_POST['category_id'];
             $user_id = $_POST['user_id'];
+            $author_id = $_POST['author_id'];
             $title = $_POST['title'];
             $content = $_POST['content'];
             $hot_new = $_POST['hot_new'];
@@ -166,6 +174,7 @@ class Post extends DController
                 $data = array(
                     'category_id' => $category_id,
                     'user_id' => $user_id,
+                    'author_id' => $author_id,
                     'title' => $title,
                     'content' => $content,
                     'hot_new' => $hot_new,
@@ -177,6 +186,7 @@ class Post extends DController
                 $data = array(
                     'category_id' => $category_id,
                     'user_id' => $user_id,
+                    'author_id' => $author_id,
                     'title' => $title,
                     'content' => $content,
                     'hot_new' => $hot_new,
@@ -203,8 +213,10 @@ class Post extends DController
     public function deletePost($id)
     {
         try {
-            $cond = "id='$id'";
+            // $cond = "id='$id'";
             $result = $this->postModel->deletePostComment($this->postTable, $this->comments, $id);
+            // var_dump($result);
+            // die();
             if ($result == 1) {
                 $_SESSION['alert']['msg'] = 'Delete data successfully';
             } else {

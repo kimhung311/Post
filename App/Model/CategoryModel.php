@@ -21,11 +21,13 @@ class CategoryModel  extends DModel
         return $this->db->select($sql); // truyền tham số table vào select()
     }
 
-    // public function Search($categories, $search, $data)
-    // {
-    //     $sql = "SELECT * FROM $categories WHERE category_name LIKE '%$search%'";
-    //     return $this->db->select($sql); // truyền tham số table vào select()
-    // }
+    public function Search($categories, $search)
+    {
+        $sql = "SELECT * FROM $categories WHERE title LIKE '%$search%' OR content LIKE '%$search%'";
+        var_dump($sql);
+        die();
+        return $this->db->select($sql); // truyền tham số table vào select()
+    }
 
     public function insertCategory($categories, $data)
     {

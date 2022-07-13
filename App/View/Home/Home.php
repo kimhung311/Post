@@ -343,14 +343,14 @@
                         <article class="article-mini">
                             <div class="inner">
                                 <figure>
-                                    <a href="<?php echo Post_Detail ?>postDetail/<?php echo $value['id'] ?>">
+                                    <a href="<?php echo Post_Detail ?>postDetail/<?php echo $value['post_id'] ?>">
                                         <img src="<?php echo URL_Post_Home ?><?php echo $value['picture'] ?>"
                                             alt="Sample Article">
                                     </a>
                                 </figure>
                                 <div class="padding">
                                     <h1><a
-                                            href="<?php echo Post_Detail ?>postDetail/<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                                            href="<?php echo Post_Detail ?>postDetail/<?php echo $value['post_id'] ?>"><?php echo $value['title'] ?></a>
                                     </h1>
                                 </div>
                             </div>

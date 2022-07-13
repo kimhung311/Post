@@ -7,6 +7,7 @@ define('URL_IMAGE_POST_DETAIL', '../Public/image-post-detail/');
 define('URL_Detail', '../../Public/image-post-detail/');
 define('URL_USER', '../Public/User-image/');
 define('URL_USER_Home','Public/User-image/');
+define('URL_USER_profile', '../../Public/User-image/');
 define('URL_admin_index', '../Public/Admin-ate/assets/images/');
 define('URL_Layouts_master', 'Admin/View/master');
 define('URL_Layouts_home', 'Public/asset/images/news/');

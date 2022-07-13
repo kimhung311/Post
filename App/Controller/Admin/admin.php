@@ -58,6 +58,7 @@ class Admin extends DController
     public function AddRegister()
     {
         try {
+            $name = $_POST['name'];
             $email = $_POST['email'];
             $password = md5($_POST['password']);
             $role_id = $_POST['role_id'];
@@ -74,6 +75,7 @@ class Admin extends DController
             $path_upload = "Public/User-image/" . $unique_image;
 
             $data = array(
+                'name' => $name,
                 'email' => $email,
                 'password' => $password,
                 'role_id' => $role_id,
@@ -117,6 +119,8 @@ class Admin extends DController
     {
         try {
             $cond = "id='$id'";
+            $name = $_POST['name'];
+           
             $email = $_POST['email'];
             $password = md5($_POST['password']);
             $role_id = $_POST['role_id'];
@@ -142,6 +146,7 @@ class Admin extends DController
                 }
                 move_uploaded_file($tmp_image, $path_upload);
                 $data = array(
+                    'name' => $name,
                     'email' => $email,
                     'password' => $password,
                     'role_id' => $role_id,
@@ -149,9 +154,12 @@ class Admin extends DController
                     'address' => $address,
                     'avatar' => $unique_image,
                     'phone' => $phone
+                    
                 );
+              
             } else {
                 $data = array(
+                    'name' => $name,
                     'email' => $email,
                     'password' => $password,
                     'role_id' => $role_id,
@@ -159,6 +167,8 @@ class Admin extends DController
                     'address' => $address,
                     'phone' => $phone
                 );
+                var_dump($data);
+                die();
             }
 
             $result = $this->userModel->updateUser($this->adminTable, $data, $cond);

@@ -40,11 +40,19 @@
             return $this->db->selectRowOnly($sql);
         }
 
-    public function PostEditId($posts, $cond)
-    {
-        $sql = "SELECT * FROM $posts WHERE $cond LIMIT 1";
-        return $this->db->select($sql);
-    }
+        public function PostEditId($posts, $cond)
+        {
+            $sql = "SELECT * FROM $posts WHERE $cond LIMIT 1";
+            return $this->db->select($sql);
+        }
+
+        public function PostViewById($posts, $categories, $user, $cond){
+            $sql = "SELECT *, $posts.id as 'post_id', $categories.id, $user.id  , $user.name as 'user_name' 
+            FROM (($posts INNER JOIN $categories ON $posts.category_id = $categories.id)
+            INNER JOIN $user ON $posts.user_id = $user.id ) WHERE $posts.$cond";
+            return $this->db->selectRowOnly($sql);
+            
+        }
 
         public function updatePost($table, $data, $cond)
         {
@@ -55,4 +63,5 @@
         {
             return $this->db->deletePostComment($posts, $comments,  $cond);
         }
+
     }

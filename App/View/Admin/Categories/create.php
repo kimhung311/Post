@@ -1,23 +1,29 @@
   <div class="main-panel">
-      <div class="form-group">
-          <h1 class="text-center">ADD CATEGORY </h1>
-          <form class="row g-3 needs-validation" novalidate action="<?php echo BASE_URL ?>Category/insertCategory"
-              method="post" role="form" enctype="multipart/form" style="width:1200px;margin:auto;">
+      <div class="col-md-10 mx-auto mt-5 grid-margin stretch-card">
+          <div class="card">
+              <div class="card-body">
+                  <h4 class="card-title"> Form Add Categories</h4>
+                  <p class="card-description"></p>
+                  <form class="forms-sample needs-validation" novalidate role="form"
+                      action="<?php echo BASE_URL ?>Category/insertCategory" method="post">
+                      <div class="form-group form-outline row">
+                          <label for="exampleInputUsername2 validationCustom02" class="col-sm-3 col-form-label">Category
+                              Name</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" name="category_name"
+                                  id="exampleInputUsername2 validationCustom02" placeholder="Username" required />
+                              <div class="invalid-feedback">Please provide a valid Category Name.</div>
+                          </div>
 
-              <div class="form-outline col-md-6 mb-5">
-                  <label for="validationCustom01">Name</label>
-                  <input type="text" id="validationCustom01" name="category_name" class="form-control"
-                      placeholder="Enter category name" required>
-                  <div class="invalid-feedback">Please provide a valid Name.</div>
+                      </div>
+                      <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
 
+                      <button type="submit" name="insertCategory" class="btn btn-success btn-rounded btn-fw"> Submit
+                      </button>
+                      <button class="btn btn-light">Cancel</button>
+                  </form>
               </div>
-
-
-
-              <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
-
-              <button type="submit" name="insertCategory" class="btn btn-primary btn-lg btn-block">Submit</button>
-          </form>
+          </div>
       </div>
   </div>
   </div>

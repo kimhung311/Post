@@ -13,7 +13,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="http://github.com/nauvalazhar/Magz" />
     <meta property="og:image" content="https://raw.githubusercontent.com/nauvalazhar/Magz/master/images/preview.png" />
-    <title>Magz &mdash; Responsive HTML5 &amp; CSS3 Magazine Template</title>
+    <title>POST COURIER</title>
     <?php include('App/View/Home/Layouts/css-2.php') ?>
 </head>
 

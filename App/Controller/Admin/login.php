@@ -72,11 +72,11 @@ class Login extends DController
     public function dashboard()
     {
         // Session::check_role();
-        if ($_SESSION['role_id'] != 1 & 2) {
+        if ($_SESSION['role_id'] == 3) {
             Session::init();
             unset($_SESSION['auth_user']);
             echo '<script language="javascript">';
-            echo 'alert("bạn không đủ quyền")';
+            echo 'alert("You are not authorized to log into the system")';
             echo '</script>';
             $this->load->view('Admin/Auth/login');
         } else {
@@ -104,7 +104,7 @@ class Login extends DController
         }
     }
 
-    public function update_change_password($id)
+    public function UpdateChangePassword($id)
     {
         try {
 
@@ -159,7 +159,7 @@ class Login extends DController
                 );
             }
             $this->userModel = $this->load->model('UserModel');
-            $result = $this->userModel->update_user($this->user, $data, $cond);
+            $result = $this->userModel->updateUser($this->user, $data, $cond);
             if ($result == 1) {
                 // $_SESSION['alert']['msg'] = 'Edit Successful data ';
                 echo '<script language="javascript">';

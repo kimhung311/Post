@@ -55,6 +55,6 @@
         {
             return $this->db->delete($table, $cond);
         }
-
+        
     }
 ?>

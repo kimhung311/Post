@@ -72,28 +72,6 @@ class Category extends DController
         }
     }
 
-    public function search($search)
-    {
-        try {
-
-            $search = $_GET['search'];
-            $data =  [
-                'search' => $search
-            ];
-
-            $result = $this->categoryModel->search($this->categories, $search, $data);
-            if ($result == 1) {
-                $_SESSION['alert']['msg'] = 'Successful Data Generation';
-            } else {
-                $_SESSION['alert']['error'] = ' Data Generation failed';
-            }
-            header("Location:" . BASE_URL . "Category/listCategory");
-        } catch (PDOException $e) {
-            $error = $e->getMessage();
-            echo 'Error creating' . $error;
-            exit();
-        }
-    }
 
 
     public function editCate($id)

@@ -9,7 +9,9 @@
          <li class="nav-item nav-profile">
              <a href="#" class="nav-link">
                  <div class="nav-profile-image">
-                     <img src="<?php echo URL_USER . $_SESSION['avatar'] ?>" alt="profile" />
+                     <!-- <img src="<?php echo URL_USER . $_SESSION['avatar'] ?>" alt="profile" /> -->
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
+                         alt="">
                      <span class="login-status online"></span>
                      <!--change to offline or busy as needed-->
                  </div>
@@ -23,7 +25,7 @@
              </a>
          </li>
          <li class="nav-item">
-             <a class="nav-link" href="index.html">
+             <a class="nav-link" href="<?php echo BASE_URL ?>login/dashboard">
                  <i class="mdi mdi-home menu-icon"></i>
                  <span class="menu-title">Dashboard</span>
              </a>

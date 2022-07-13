@@ -1,5 +1,4 @@
 <div class="main-panel">
-    <?php include('App/View/Message/message.php') ?>
 
 
     <div class="content-wrapper pb-0">

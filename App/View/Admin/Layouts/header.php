@@ -23,7 +23,7 @@
                     <i class="mdi mdi-menu"></i>
                 </button>
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                             data-toggle="dropdown">
                             <i class="mdi mdi-bell-outline"></i>
@@ -65,8 +65,8 @@
                             <div class="dropdown-divider"></div>
                             <p class="p-3 mb-0">View all activities</p>
                         </div>
-                    </li>
-                    <li class="nav-item dropdown d-none d-sm-flex">
+                    </li> -->
+                    <!-- <li class="nav-item dropdown d-none d-sm-flex">
                         <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
                             data-toggle="dropdown">
                             <i class="mdi mdi-email-outline"></i>
@@ -98,8 +98,8 @@
                             </a>
                             <h6 class="p-3 mb-0">See all activity</h6>
                         </div>
-                    </li>
-                    <li class="nav-item nav-search border-0 ml-1 ml-md-3 ml-lg-5 d-none d-md-flex">
+                    </li> -->
+                    <!-- <li class="nav-item nav-search border-0 ml-1 ml-md-3 ml-lg-5 d-none d-md-flex">
                         <form class="nav-link form-inline mt-2 mt-md-0">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" />
@@ -110,10 +110,10 @@
                                 </div>
                             </div>
                         </form>
-                    </li>
+                    </li> -->
                 </ul>
                 <ul class="navbar-nav navbar-nav-right ml-lg-auto">
-                    <li class="nav-item dropdown d-none d-xl-flex border-0">
+                    <!-- <li class="nav-item dropdown d-none d-xl-flex border-0">
                         <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
                             <i class="mdi mdi-earth"></i> English </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
@@ -122,11 +122,13 @@
                             <a class="dropdown-item" href="#"> Latin </a>
                             <a class="dropdown-item" href="#"> Japanese </a>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item nav-profile dropdown border-0">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
-                            <img class="nav-profile-img mr-2" alt=""
-                                src="<?php echo URL_USER . $_SESSION['avatar'] ?>" />
+                            <!-- <img class="nav-profile-img mr-2" alt=""
+                                src="<?php echo URL_USER . $_SESSION['avatar'] ?>" /> -->
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
+                                class="nav-profile-img mr-2" alt="">
                             <span class="profile-name"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">

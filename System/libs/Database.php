@@ -69,11 +69,10 @@ class Database extends PDO
 
     public function deletePostComment($posts, $comments, $postId)
     {
-        $sql = "DELETE $posts.*,$comments.* FROM $posts INNER JOIN $comments ON $posts.id = $comments.post_id WHERE $posts.id = $postId";
+        $sql = "DELETE $posts.*,$comments.* FROM $posts LEFT JOIN $comments ON $posts.id = $comments.post_id WHERE $posts.id = $postId";
         // var_dump($sql); 
         // die();
-          // var_dump($sql); ta hén bị ngày chỗ delete post này á tú  ta dùng câu lệnh này trên sql thì ok nhưng khi   xoá trong ni lại ko dc
-        // die(); à từ nhầm chỗ
+        
         return $this->exec($sql);
     }
 
@@ -91,7 +90,7 @@ class Database extends PDO
     {
         $sql = " DELETE   $categories.*, $posts.* FROM $categories
                 LEFT JOIN $posts ON $categories.id = $posts.category_id 
-                WHERE $categories.$cond;";
+                WHERE $categories.$cond";
 
         return $this->exec($sql);
     }

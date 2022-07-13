@@ -43,6 +43,23 @@ class Post_Home extends DController
         }
     }
 
+    public function Author_Profile($id)
+    {
+
+        try {
+            $cond = "id='$id'";
+            // $data['userbyid'] = $this->userModel->UserByid($this->user, $cond);
+            $data['userbyid'] = $this->post_home->AuthorInfo($this->user, $this->postTable, $cond);
+          
+            $this->load->view('Home/Posts/author_info', $data);
+        } catch (PDOException $e) {
+            header("Location:" . BASE_URL . "admin/notfound");
+            $error = $e->getMessage();
+            echo 'Error creating' . $error;
+            exit();
+        }
+    }
+
     public function RecentPostDetail($id)
     {
         try {

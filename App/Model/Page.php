@@ -32,7 +32,8 @@
         }
 
        public function OtherPost($post, $categories){ //  tin kkhác home page
-           $sql = "SELECT *, $post.id, $categories.id FROM $post INNER JOIN $categories ON $post.category_id = $categories.id WHERE $categories.category_name= 'OTHER NEW' ORDER BY $categories.created_at DESC LIMIT 4";
+           $sql = "SELECT *, $post.id as 'post_id', $categories.id FROM $post INNER JOIN $categories ON $post.category_id = $categories.id  GROUP BY $post.created_at ASC LIMIT 4";
+        //   $sql = "SELECT * FROM $post  ORDER BY created_at ASC, title DESC LIMIT 3  ";
           return $this->db->select($sql);
        }
 
@@ -44,25 +45,26 @@
 
         public function LatestNew($posts, $categories)  // Last New Home Page
         {
-            $sql = "SELECT *, $posts.id , $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id  ORDER BY $posts.created_at  OR $categories.id DESC"; // note 
+            $sql = "SELECT *, $posts.id , $categories.category_name FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id  GROUP BY  $posts.category_id DESC"; // note  $posts.created_at  OR
             return $this->db->select($sql);
         }
       
         
         public function TrendingTags($posts, $categories){ //Trending tags  xu hướng người đọc hay xem
-            $sql = "SELECT *, $posts.id as 'posts_id', $categories.id FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id WHERE $posts.total_view > 10 ORDER BY total_view DESC LIMIT 5 ";
+            $sql = " SELECT *, $posts.id, $categories.id FROM $posts INNER JOIN $categories ON $posts.category_id = $categories.id WHERE $posts.total_view >20 GROUP BY $categories.category_name; LIMIT 5 ";
              return $this->db->select($sql);
+           
         }
         
         public function HotNew($postTable){ //  hiện thì bài viết có số lượt xem và comment nhiều nhất
             // $sql = "SELECT *, $postTable.id, $comment.id FROM $postTable INNER JOIN $comment ON $postTable.id = $comment.post_id ORDER BY $postTable.total_view LIMIT 5";
-            $sql = "SELECT * FROM $postTable WHERE $postTable.hot_new = 'hot'  ORDER BY created_at DESC LIMIT 5 ";
+            $sql = "SELECT * FROM $postTable WHERE $postTable.hot_new = '1'  ORDER BY created_at DESC LIMIT 5 ";
             return $this->db->select($sql);
 
         }
         
         public function RecentPost($postTable){
-            $sql = "SELECT * FROM $postTable ORDER BY created_at DESC LIMIT 1";
+            $sql = "SELECT * FROM $postTable  ORDER BY RAND() LIMIT 1";
            
             return $this->db->select($sql);
         }
@@ -127,6 +129,14 @@
         {
             $sql = " SELECT * FROM $tabl_user WHERE email =? AND password =? ";
             return $this->db->selectadmin($sql, $email, $password); // truyền tham số table vào select()
+
+        }
+
+        public function AuthorInfo($user, $posts, $cond){
+           $sql = " SELECT *,  COUNT($user.id) as 'total_post' , $posts.id  FROM $user
+                    INNER JOIN $posts ON $user.id = $posts.author_id
+                    WHERE  $user.$cond";
+            return $this->db->select($sql);
 
         }
 
